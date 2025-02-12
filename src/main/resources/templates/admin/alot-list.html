@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>Add Member</title>
+<th:block th:replace="admin/fragments :: css"></th:block>
+<th:block th:replace="admin/fragments :: scripts"></th:block>
+</head>
+<body>
+	<th:block th:insert="admin/admin-dashboard :: header"></th:block>
+	<th:block th:insert="admin/admin-dashboard :: logo"></th:block>
+	<th:block th:insert="admin/admin-dashboard :: sidebar"></th:block>
+	<div class="br-mainpanel">
+		<div class="br-pagetitle pt-2 ">
+			<i class="icon ion-ios-person-outline"></i>
+			<div>
+				<h4>Add Expense</h4>
+				<p class="mg-b-0">Add all expenses here</p>
+			</div>
+
+		</div>
+		<!-- d-flex -->
+		<div class="br-pagebody mt-1">
+
+			<div class="br-section-wrapper pd-20">
+				<div class="mt-0 my-1 mx-0 d-flex justify-content-end">
+					<a th:href="@{/admin/recovery}" class="btn btn-primary indigo mt-0">Go
+						Back</a>
+				</div>
+				<form
+					th:action="@{/admin/alot/recovery/{id}(id=${recovery.recoveryId})}"
+					method="post" data-parsley-validate>
+					<div class="form-layout form-layout-1">
+						<div class="row mg-b-25">
+							<div class="col-lg-4">
+								<div class="form-group mg-b-10-force">
+									<label class="form-control-label">FOS Employee<span
+										class="tx-danger">*</span></label> <select
+										class="form-control select2" name="employeeId">
+
+										<option value=""
+											th:selected="${recovery.employee == null or recovery.employee.employeeId == null}">
+											Choose one</option>
+										<option th:each="type : ${fos}" th:value="${type.employeeId}"
+											th:text="${type.employeeId + ' - ' + type.employeeName}"
+											th:selected="${recovery.employee != null and type.employeeId == recovery.employee.employeeId}">
+										</option>
+
+									</select>
+								</div>
+							</div>
+							<input class="form-control" type="hidden" name="createdBy"
+								th:value="${session.id}">
+						</div>
+
+						<!-- row -->
+						<div class="form-layout-footer">
+							<button class="btn btn-info" type="submit">Allot</button>
+						</div>
+						<!-- form-layout-footer -->
+					</div>
+
+					<!-- form-layout -->
+				</form>
+			</div>
+			<div th:if="${errorMessage}">
+				<script th:inline="javascript">
+					document.addEventListener("DOMContentLoaded", function() {
+						$.SweetAlert.showError(/*[[${errorMessage}]]*/);
+					});
+				</script>
+			</div>
+			<div th:if="${error}">
+				<script th:inline="javascript">
+					document.addEventListener("DOMContentLoaded", function() {
+						$.SweetAlert.showError(/*[[${error}]]*/);
+					});
+				</script>
+			</div>
+		</div>
+		<th:block th:insert="admin/admin-dashboard :: footer"></th:block>
+	</div>
+
+</body>
+</html>

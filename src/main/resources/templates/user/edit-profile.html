@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Details</title>
+    <th:block th:replace="admin/fragments :: css"></th:block>
+    <th:block th:replace="admin/fragments :: scripts"></th:block>
+</head>
+<body>
+  
+    <th:block th:insert="admin/admin-dashboard :: logo"></th:block>
+    <th:block th:insert="user/dashboard :: sidebar"></th:block>
+ <div class="br-header" >
+        <div class="br-header-left">
+            <div class="navicon-left hidden-md-down"><a id="btnLeftMenu" href="#"><i
+                        class="icon ion-navicon-round"></i></a></div>
+            <div class="navicon-left hidden-lg-up"><a id="btnLeftMenuMobile" href="#"><i
+                        class="icon ion-navicon-round"></i></a></div>
+                   <div class="br-pagetitle pt-0 justify-content-space-around">
+           
+            <h2>Edit Details</h2>
+            
+            
+            
+        </div>
+
+        </div>
+          <th:block th:insert="user/dashboard :: header"></th:block>
+        </div>
+    <div class="br-mainpanel">
+    <div class="mt-10px my-2 mg-l-40 d-flex justify-content-end">
+			                      <a th:href="@{/dashboard/user-profile}"
+									class="btn btn-primary indigo mx-5" >Go Back</a>
+		</div>
+       
+        <div class="br-pagebody mt-0">
+            <div class="br-section-wrapper pd-20">
+				<form th:action="@{/admin/edit/{id}(id=${employee.id})}" method="post" >
+					<div class="form-layout form-layout-1">
+						<div class="row mg-b-10">
+			
+	
+							<div class="col-lg-3">
+								<div class="form-group">
+									<label class="form-control-label">Name: <span
+										class="tx-danger">*</span></label> <input class="form-control"
+										type="text" name="employeeName"
+										th:value="${employee.employeeName}" placeholder="Enter Name">
+								</div>
+							</div>
+							<!-- col-4 -->
+							<div class="col-lg-3">
+								<div class="form-group">
+									<label class="form-control-label">Email<span
+										class="tx-danger">*</span></label> <input class="form-control"
+										type="email" name="email" th:value="${employee.email}"
+										placeholder="Enter email">
+								</div>
+							</div>
+							<div class="col-lg-3">
+								<div class="form-group mg-b-10-force">
+									<label class="form-control-label">Contact Number <span
+										class="tx-danger">*</span></label> <input class="form-control"
+										type="text" name="contactNumber"
+										th:value="${employee.contactNumber}"
+										placeholder="Enter address">
+								</div>
+							</div>
+							<!-- col-8 -->
+							
+							
+							<!-- col-4 -->
+				
+							<div class="col-lg-3">
+								<div class="form-group">
+									<label class="form-control-label">Bank Name<span
+										class="tx-danger">*</span></label> <input class="form-control"
+										type="text" name="bankName" th:value="${employee.bankName}"
+										placeholder="Enter account name">
+								</div>
+							</div>
+							<div class="col-lg-3">
+								<div class="form-group">
+									<label class="form-control-label">IFSC<span
+										class="tx-danger">*</span></label> <input class="form-control"
+										type="text" name="ifscCode" th:value="${employee.ifscCode}"
+										placeholder="Enter IFSC Code">
+								</div>
+							</div>
+							<div class="col-lg-3">
+								<div class="form-group">
+									<label class="form-control-label">Account Number<span
+										class="tx-danger">*</span></label> <input class="form-control"
+										type="text" name="accountNumber"
+										th:value="${employee.accountNumber}"
+										placeholder="Enter account number">
+								</div>
+							</div>
+							</div>
+							
+						<!-- row -->
+						<div class="form-layout-footer">
+							<button class="btn btn-info" type="submit">Update Details</button>
+						</div>
+						<!-- form-layout-footer -->
+					</div>
+					
+					<!-- form-layout -->
+					
+				</form>
+			</div>
+		</div>
+		<th:block th:insert="user/dashboard :: footer"></th:block>
+	</div>
+	
+</body>
+</html>

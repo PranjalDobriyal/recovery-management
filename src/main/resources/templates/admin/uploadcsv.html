@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>Add Member</title>
+<th:block th:replace="admin/fragments :: css"></th:block>
+<th:block th:replace="admin/fragments :: scripts"></th:block>
+</head>
+<body>
+	<th:block th:insert="admin/admin-dashboard :: header"></th:block>
+	<th:block th:insert="admin/admin-dashboard :: logo"></th:block>
+	<th:block th:insert="admin/admin-dashboard :: sidebar"></th:block>
+	<div class="br-mainpanel">
+		<div class="br-pagetitle pt-2 ">
+			<i class="icon ion-ios-person-outline"></i>
+			<div>
+				<h4>Add Expense</h4>
+				<p class="mg-b-0">Add all expenses here</p>
+			</div>
+
+		</div>
+		<!-- d-flex -->
+		<div class="br-pagebody mt-1">
+
+			<div class="br-section-wrapper pd-20">
+				<div class="mt-0 my-1 mx-0 d-flex justify-content-end">
+					<a th:href="@{/admin/recovery}" class="btn btn-primary indigo mt-0">Go
+						Back</a>
+				</div>
+				 <form th:action="@{/admin/add-csv}" method="post" enctype="multipart/form-data">
+        <div class="mb-3 col-4">
+            <label for="file" class="form-label">Select CSV File</label>
+            <input type="file" class="form-control" id="file" name="file" accept=".csv" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+				
+			</div>
+			<div th:if="${errorMessage}">
+				<script th:inline="javascript">
+					document.addEventListener("DOMContentLoaded", function() {
+						$.SweetAlert.showError(/*[[${errorMessage}]]*/);
+					});
+				</script>
+			</div>
+			<div th:if="${error}">
+				<script th:inline="javascript">
+					document.addEventListener("DOMContentLoaded", function() {
+						$.SweetAlert.showError(/*[[${error}]]*/);
+					});
+				</script>
+			</div>
+		</div>
+		<th:block th:insert="admin/admin-dashboard :: footer"></th:block>
+	</div>
+
+</body>
+</html>
+

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>Add Member</title>
+<th:block th:replace="admin/fragments :: css"></th:block>
+<th:block th:replace="admin/fragments :: scripts"></th:block>
+</head>
+<body>
+	<th:block th:insert="admin/admin-dashboard :: header"></th:block>
+	<th:block th:insert="admin/admin-dashboard :: logo"></th:block>
+	<th:block th:insert="admin/admin-dashboard :: sidebar"></th:block>
+	<div class="br-mainpanel">
+		<div class="br-pagetitle pt-2 ">
+			<i class="icon ion-ios-person-outline"></i>
+			<div>
+				<h4>Add Expense</h4>
+				<p class="mg-b-0">Add all expenses here</p>
+			</div>
+
+		</div>
+		<!-- d-flex -->
+		<div class="br-pagebody mt-1">
+
+			<div class="br-section-wrapper pd-20">
+				<div class="mt-0 my-1 mx-0 d-flex justify-content-end">
+					<a th:href="@{/admin/funds}" class="btn btn-primary indigo mt-0">Go
+						Back</a>
+				</div>
+				<form th:action="@{/admin/add-fund}" method="post"
+					th:object="${fund}" data-parsley-validate>
+					<div class="form-layout form-layout-1">
+						<div class="row mg-b-25">
+							<!-- <div class="col-lg-4">
+								<div class="form-group mg-b-10-force">
+									<label class="form-control-label">Status<span
+										class="tx-danger">*</span></label> 
+										<select class="form-control select2" th:field="*{status}">
+										<option value=""
+											th:selected="${employee.status== null}">Choose
+											one</option>
+										<option value="ACTIVE"
+											th:selected="${employee.status == 'APPROVED'}">APPROVED</option>
+										<option value="INACTIVE"
+											th:selected="${employee.status == 'REJECTED'}">REJECTED</option>
+									</select>
+								</div>
+							</div>  -->
+							<div class="col-lg-4">
+								<div class="form-group mg-b-10-force">
+									<label class="form-control-label">Employee<span
+										class="tx-danger">*</span></label> <select
+										class="form-control select2" name="employeeId">
+										<option value="" th:selected="${fund.employee == null}">Choose
+											one</option>
+										<option th:each="type : ${allEmployees}"
+											th:if="${type.role == 'USER'}" th:value="${type.employeeId}"
+											th:text="${type.employeeId + '-' + type.employeeName}"
+											th:selected="${fund.employee != null and fund.employee.employeeId == type.employeeId}">
+										</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="col-lg-4">
+								<div class="form-group mg-b-10-force">
+									<label class="form-control-label">Fund Type<span
+										class="tx-danger">*</span></label> <select
+										class="form-control select2" name="fundType"
+										th:field="*{fundType}">
+
+										<option value="" th:selected="${fund.fundType == null}">Choose
+											one</option>
+										<option th:each="type : ${fundTypes}" th:value="${type}"
+											th:text="${type}" th:selected="${type == fund.fundType}"></option>
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="form-group">
+									<label class="form-control-label">Enter Fund Amount<span
+										class="tx-danger">*</span></label> <input class="form-control"
+										type="number" name="fundAmount" th:field="*{fundAmount}"
+										placeholder="Enter fundAmount " required>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="form-group mg-b-10-force">
+									<label class="form-control-label">Payment Type<span
+										class="tx-danger">*</span></label> <select
+										class="form-control select2" name="paymentType" th:field="*{paymentType}">
+										
+										<option value=""
+											th:selected="${fund.paymentType == null}">Choose
+											one</option>
+										<option th:each="type : ${paymentTypes}" th:value="${type}"
+											th:text="${type}"
+											th:selected="${type == fund.paymentType}"></option>
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="form-group">
+									<label class="form-control-label">Fund Purpose<span
+										class="tx-danger">*</span></label> <input class="form-control"
+										type="text" name="fundPurpose" th:field="*{fundPurpose}"
+										
+										placeholder="Enter Purpose">
+								</div>
+							 </div>
+							
+							<div class="col-lg-4">
+								<div class="form-group">
+									<label class="form-control-label">Approval Date<span
+										class="tx-danger">*</span></label> <input class="form-control"
+										type="date" name="approvalDate" th:field="*{approvalDate}"
+										
+										placeholder="Enter Approval Date">
+								</div>
+							</div>
+							 </div>
+							
+						<!--	<div class="col-lg-12">
+								<div class="form-group">
+									<label class="form-control-label">Description<span
+										class="tx-danger">*</span></label> <textarea class="form-control" type="text"
+										 name="description" th:field="*{description}"
+										
+										placeholder="Enter descritpion"></textarea>
+								</div>
+							</div>
+							<input class="form-control"
+										type="hidden" name="createdBy" th:value="${session.id}">
+							</div> -->
+
+							<!-- row -->
+							<div class="form-layout-footer">
+							<button class="btn btn-info" type="submit">Add Fund</button>
+						</div>
+						<!-- form-layout-footer -->
+					</div>
+						<!-- form-layout -->
+				</form>
+				</div>
+			
+			</div>
+			<div th:if="${success}">
+				<script th:inline="javascript">
+					document.addEventListener("DOMContentLoaded", function() {
+						$.SweetAlert.showError(/*[[${errorMessage}]]*/);
+					});
+				</script>
+			</div>
+			<div th:if="${error}">
+				<script th:inline="javascript">
+					document.addEventListener("DOMContentLoaded", function() {
+						$.SweetAlert.showError(/*[[${error}]]*/);
+					});
+				</script>
+			</div>
+		
+		<th:block th:insert="admin/admin-dashboard :: footer"></th:block>
+	
+</div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Category</title>
+    <th:block th:replace="admin/fragments :: css"></th:block>
+    <th:block th:replace="admin/fragments :: scripts"></th:block>
+</head>
+<body>
+  
+    <th:block th:insert="admin/admin-dashboard :: logo"></th:block>
+    <th:block th:insert="admin/admin-dashboard :: sidebar"></th:block>
+ <div class="br-header" >
+        <div class="br-header-left">
+            <div class="navicon-left hidden-md-down"><a id="btnLeftMenu" href="#"><i
+                        class="icon ion-navicon-round"></i></a></div>
+            <div class="navicon-left hidden-lg-up"><a id="btnLeftMenuMobile" href="#"><i
+                        class="icon ion-navicon-round"></i></a></div>
+                   <div class="br-pagetitle pt-0 justify-content-space-around">
+           
+                            <div class="signin-logo tx-center tx-28 tx-bold tx-inverse"><span class="tx-normal"></span> Edit <span class="tx-info">Category</span> <span class="tx-normal"></span></div>
+            
+            
+            
+        </div>
+
+        </div>
+          <th:block th:insert="admin/admin-dashboard :: header"></th:block>
+        </div>
+    <div class="br-mainpanel">
+    <div class="mt-10px my-2 mg-l-40 d-flex justify-content-end">
+			                      <a th:href="@{/admin/category}"
+									class="btn btn-primary indigo mx-5 mt-2 " >Go Back</a>
+		</div>
+       
+        <div class="br-pagebody mt-0">
+            <div class="br-section-wrapper pd-20">
+			
+				<form th:action="@{/admin/edit-category/{id}(id=${category.id})}" method="post">
+					<div class="form-layout form-layout-1">
+						<div class="row mg-b-25">
+							<div class="col-lg-4">
+								<div class="form-group">
+									<label class="form-control-label"> Category Type <span
+										class="tx-danger">*</span></label> <input class="form-control"
+										type="text" name="name"
+										th:value="${category.name}" placeholder="Enter Category Type">
+								</div>
+							</div>
+							<input class="form-control"
+										type="hidden" name="editedBy"
+										th:value="${session.id}" >
+							<!-- col-4 -->
+							
+						
+							<!-- col-8 -->
+							
+								</div>
+						<!-- row -->
+						<div class="form-layout-footer">
+							<button class="btn btn-info" type="submit">Update Details</button>
+						</div>
+						<!-- form-layout-footer -->
+					</div>
+
+				</form>
+			</div>
+		</div>
+		<th:block th:insert="admin/admin-dashboard :: footer"></th:block>
+	</div>
+	
+</body>
+</html>

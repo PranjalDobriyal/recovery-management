@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Details</title>
+    <th:block th:replace="admin/fragments :: css"></th:block>
+    <th:block th:replace="admin/fragments :: scripts"></th:block>
+</head>
+<body>
+  
+    <th:block th:insert="admin/admin-dashboard :: logo"></th:block>
+    <th:block th:insert="admin/admin-dashboard :: sidebar"></th:block>
+ <div class="br-header" >
+        <div class="br-header-left">
+            <div class="navicon-left hidden-md-down"><a id="btnLeftMenu" href="#"><i
+                        class="icon ion-navicon-round"></i></a></div>
+            <div class="navicon-left hidden-lg-up"><a id="btnLeftMenuMobile" href="#"><i
+                        class="icon ion-navicon-round"></i></a></div>
+                   <div class="br-pagetitle pt-0 justify-content-space-around">
+           
+            <h2>Edit Details</h2>
+            
+            
+            
+        </div>
+
+        </div>
+          <th:block th:insert="admin/admin-dashboard :: header"></th:block>
+        </div>
+    <div class="br-mainpanel">
+    <div class="mt-10px my-2 mg-l-40 d-flex justify-content-end">
+			                      <a th:href="@{/admin/users}"
+									class="btn btn-primary indigo mx-5" >Go Back</a>
+		</div>
+       
+        <div class="br-pagebody mt-0">
+            <div class="br-section-wrapper pd-20">
+				<form th:action="@{/admin/edit/{id}(id=${employee.id})}" method="post" enctype="multipart/form-data">
+					<div class="form-layout form-layout-1">
+						<div class="row mg-b-10">
+							<div class="col-lg-3">
+								<div class="form-group mg-b-10-force">
+									<label class="form-control-label">Status<span
+										class="tx-danger">*</span></label> 
+										<select class="form-control select2" name="status">
+										<option value=""
+											th:selected="${employee.status== null}">Choose
+											one</option>
+										<option value="ACTIVE"
+											th:selected="${employee.status == 'ACTIVE'}">ACTIVE</option>
+										<option value="INACTIVE"
+											th:selected="${employee.status == 'INACTIVE'}">INACTIVE</option>
+									</select>
+								</div>
+							</div>
+	
+							<div class="col-lg-3">
+								<div class="form-group">
+									<label class="form-control-label">Name: <span
+										class="tx-danger">*</span></label> <input class="form-control"
+										type="text" name="employeeName"
+										th:value="${employee.employeeName}" placeholder="Enter Name">
+								</div>
+							</div>
+							<!-- col-4 -->
+							<div class="col-lg-3">
+								<div class="form-group">
+									<label class="form-control-label">Email<span
+										class="tx-danger">*</span></label> <input class="form-control"
+										type="email" name="email" th:value="${employee.email}"
+										placeholder="Enter email">
+								</div>
+							</div>
+							<div class="col-lg-3">
+								<div class="form-group mg-b-10-force">
+									<label class="form-control-label">Contact Number <span
+										class="tx-danger">*</span></label> <input class="form-control"
+										type="text" name="contactNumber"
+										th:value="${employee.contactNumber}"
+										placeholder="Enter address">
+								</div>
+							</div>
+							<!-- col-8 -->
+							
+							<div class="col-lg-3">
+								<div class="form-group">
+									<label class="form-control-label">PAN Card<span
+										class="tx-danger">*</span></label> 
+										<input class="form-control" type="file" name="panCardFile" accept=".jpg,.jpeg,.png,.pdf" >
+								</div>
+							</div>
+							<!-- col-4 -->
+							<div class="col-lg-3">
+								<div class="form-group">
+									<label class="form-control-label">Adhaar Card<span
+										class="tx-danger">*</span></label> <input class="form-control"
+										type="file" name="adhaarCardFile" 
+										accept=".jpg,.jpeg,.png,.pdf" >
+								</div>
+							</div>
+							<!-- col-4 -->
+				
+							<div class="col-lg-3">
+								<div class="form-group">
+									<label class="form-control-label">Bank Name<span
+										class="tx-danger">*</span></label> <input class="form-control"
+										type="text" name="bankName" th:value="${employee.bankName}"
+										placeholder="Enter account name">
+								</div>
+							</div>
+							<div class="col-lg-3">
+								<div class="form-group">
+									<label class="form-control-label">IFSC<span
+										class="tx-danger">*</span></label> <input class="form-control"
+										type="text" name="ifscCode" th:value="${employee.ifscCode}"
+										placeholder="Enter IFSC Code">
+								</div>
+							</div>
+							<div class="col-lg-3">
+								<div class="form-group">
+									<label class="form-control-label">Account Number<span
+										class="tx-danger">*</span></label> <input class="form-control"
+										type="text" name="accountNumber"
+										th:value="${employee.accountNumber}"
+										placeholder="Enter account number">
+								</div>
+							</div>
+							<div class="col-lg-3">
+								<div class="form-group mg-b-10-force">
+									<label class="form-control-label">Employee Type <span
+										class="tx-danger">*</span></label> <select
+										class="form-control select2" name="employeeType"
+										id="employeeType" onchange="toggleFosTypeField()">
+										<option value=""
+											th:selected="${employee.employeeType == null}">Choose
+											one</option>
+										<option th:each="type : ${employeeTypes}" th:value="${type}"
+											th:text="${type}"
+											th:selected="${type == employee.employeeType}"></option>
+									</select>
+								</div>
+							</div>
+
+							<div class="col-lg-3" id="fosTypeField"
+								th:style="${employee.employeeType == 'FOS' ? 'display:block;' : 'display:none;'}">
+								<div class="form-group mg-b-10-force">
+									<label class="form-control-label">FOS Type<span
+										class="tx-danger">*</span></label> <select
+										class="form-control select2" name="fosType">
+
+										<option value="" th:selected="${employee.fosType == null}">Choose One</option>
+
+										<option th:each="type : ${fosTypes}" th:value="${type}"
+											th:text="${type}" th:selected="${type == employee.fosType}"></option>
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-3" id="fosTypeField2"
+								th:style="${employee.employeeType == 'FOS' ? 'display:block;' : 'display:none;'}">
+								<div class="form-group mg-b-10-force">
+									<label class="form-control-label">FOS Payment Type<span
+										class="tx-danger">*</span></label> <select
+										class="form-control select2 commissionfield" name="paymentType"
+										onchange="toggleCommisionField()">
+										<!-- Default empty option -->
+										<option  value="" th:selected="${employee.paymentType == null}">Choose
+											one</option>
+
+										<option th:each="type : ${paymentTypes}" th:value="${type}"
+											th:text="${type}"
+											th:selected="${type == employee.paymentType}"></option>
+									</select>
+								</div>
+							</div>
+							<!-- col-4 -->
+							<!-- FOS Type field, initially hidden -->
+							<div class="col-lg-3">
+								<div class="form-group">
+									<label class="form-control-label">Salary<span
+										class="tx-danger">*</span></label> <input class="form-control"
+										type="number" name="salary" th:value="${employee.salary}"
+										placeholder="Enter salary">
+								</div>
+							</div>
+							<div class="col-lg-3">
+								<div class="form-group mg-b-10-force">
+									<label class="form-control-label">Has Incentive <span
+										class="tx-danger">*</span></label> <select
+										class="form-control select2" name="hasIncentive"
+										id="hasIncentivefield" onchange="toggleIncentiveField()">
+										<option value=""
+											th:selected="${employee.hasIncentive == null}">Choose
+											one</option>
+										<option value="true"
+											th:selected="${employee.hasIncentive == true}">Yes</option>
+										<option value="false"
+											th:selected="${employee.hasIncentive == false}">No</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-3" id="incentiveAmountdiv"
+								th:style="${employee.hasIncentive == true ? 'display:block;' : 'display:none;'}">
+
+								<div class="form-group">
+									<label class="form-control-label">Incentive Amount<span
+										class="tx-danger">*</span></label> <input class="form-control"
+										type="number" name="incentiveAmount"
+										th:value="${employee.incentiveAmount}"
+										placeholder="Enter Amount">
+								</div>
+							</div>
+							<div class="col-lg-3">
+								<div class="form-group">
+									<label class="form-control-label">Total Sales<span
+										class="tx-danger">*</span></label> <input class="form-control"
+										type="number" name="totalSales"
+										th:value="${employee.totalSales}"
+										placeholder="Enter total sales">
+								</div>
+							</div>
+							<div class="col-lg-3" id="commissionfielddiv"
+								th:style="${employee.paymentType == 'Commission' ? 'display:block;' : 'display:none;'}">
+								<div class="form-group">
+									<label class="form-control-label">Commission Percentage<span
+										class="tx-danger">*</span></label> <input class="form-control"
+										type="number" name="commissionPercentage"
+										th:value="${employee.commissionPercentage}"
+										placeholder="Enter Commission Percentage">
+								</div>
+							</div>
+
+
+						</div>
+						<!-- row -->
+						<div class="form-layout-footer">
+							<button class="btn btn-info" type="submit">Update Details</button>
+						</div>
+						<!-- form-layout-footer -->
+					</div>
+					
+					<!-- form-layout -->
+					<script>
+						// Function to toggle visibility of FOS Type field based on Employee Type selection
+						function toggleFosTypeField() {
+							var employeeType = document
+									.getElementById('employeeType').value;
+							var fosTypeField = document
+									.getElementById('fosTypeField');
+							var fosTypeField2 = document
+									.getElementById('fosTypeField2');
+
+							// Show the FOS Type field if Employee Type is 'FOS', otherwise hide it
+							if (employeeType === 'FOS') {
+								fosTypeField.style.display = 'block';
+								fosTypeField2.style.display = 'block';
+							}
+
+							else {
+								fosTypeField.style.display = 'none';
+								fosTypeField2.style.display = 'none';
+								salesField.style.display = 'none';
+							}
+						}
+						function toggleIncentiveField() {
+							var hasIncentivefield = document
+									.getElementById('hasIncentivefield').value;
+							var incentiveAmountdiv = document
+									.getElementById('incentiveAmountdiv');
+
+							// Show the FOS Type field if Employee Type is 'FOS', otherwise hide it
+							if (hasIncentivefield === 'true') {
+								incentiveAmountdiv.style.display = 'block';
+
+							} else {
+								incentiveAmountdiv.style.display = 'none';
+
+							}
+						}
+						function toggleCommisionField() {
+							var commissionfield = document.querySelector('.commissionfield').value;
+
+							var commissionfielddiv = document
+									.getElementById('commissionfielddiv');
+							if (commissionfield === 'Commission') {
+								commissionfielddiv.style.display = 'block';
+							} else {
+								commissionfielddiv.style.display = 'none';
+							}
+
+						}
+						document.addEventListener('DOMContentLoaded',
+								function() {
+									toggleFosTypeField();
+									toggleIncentiveField();
+									toggleCommisionField();
+									
+								});
+					</script>
+				</form>
+			</div>
+		</div>
+		<th:block th:insert="admin/admin-dashboard :: footer"></th:block>
+	</div>
+	
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>User Credentials</title>
+<th:block th:replace="admin/fragments :: css"></th:block>
+<th:block th:replace="admin/fragments :: scripts"></th:block>
+</head>
+<body>
+
+	<th:block th:insert="admin/admin-dashboard :: logo"></th:block>
+	<th:block th:insert="admin/admin-dashboard :: sidebar"></th:block>
+	<div class="br-header">
+		<div class="br-header-left">
+			<div class="navicon-left hidden-md-down">
+				<a id="btnLeftMenu" href="#"><i class="icon ion-navicon-round"></i></a>
+			</div>
+			<div class="navicon-left hidden-lg-up">
+				<a id="btnLeftMenuMobile" href="#"><i
+					class="icon ion-navicon-round"></i></a>
+			</div>
+			<div class="br-pagetitle pt-0 justify-content-space-around">
+
+				<h2>User Credentials</h2>
+
+
+
+			</div>
+
+		</div>
+		<th:block th:insert="admin/admin-dashboard :: header"></th:block>
+	</div>
+	<div class="br-mainpanel">
+      <div class="br-pagetitle pt-2">
+       
+      </div><!-- d-flex -->
+		<div class="br-pagebody mt-1">
+			<div class="br-section-wrapper d-flex justify-content-center">
+      <div class="login-wrapper  wd-300 wd-xs-400 pd-25 pd-xs-40 d-flex flex-column  rounded shadow-base">
+        <div class="signin-logo tx-center tx-28 tx-bold tx-inverse"><span class="tx-normal"></span> Employee <span class="tx-info">Credentials</span> <span class="tx-normal"></span></div>
+        <label for="username" class="form-label">Employee Id:</label>
+        <input type="text" class="form-control" id="employeeId"  th:value="${id}" readonly>
+    
+ 
+        <label for="password" class="form-label">Password:</label>
+        <input type="text" class="form-control" id="password" th:value="${password}" readonly>
+        <div class="d-flex flex-row justify-content-center">
+        <button class="btn btn-warning  mt-1 wd-100 " onclick="copyUsername()">Copy ID</button>
+          <a class="btn btn-primary mg-l-50 mt-1 wd-100" th:href="@{/admin/users}">Back</a>
+        </div>
+        
+  
+    </div>
+    
+</div>
+</div>
+</div>
+<div th:if="${message}">
+                              <script th:inline="javascript">
+                              document.addEventListener("DOMContentLoaded", function () {
+                               $.SweetAlert.showSuccess(/*[[${message}]]*/);
+                               });
+                              </script>
+                              </div> 
+
+<script>
+    function copyUsername() {
+        const username = document.getElementById('employeeId').value;
+        navigator.clipboard.writeText(username).then(() => {
+                 $.SweetAlert.showSuccess("Copied");
+            });
+    }
+</script>
+    <script th:src="@{/lib/bootstrap/js/bootstrap.bundle.min.js}"></script>               
+      <script th:src="@{/lib/jquery/jquery.min.js}"></script>  
+     <script th:src="@{/js/jquery.sweet-alert.custom.js}"></script>                    
+
+</body>
+</html>

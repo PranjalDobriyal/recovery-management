@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Category</title>
+    <th:block th:replace="admin/fragments :: css"></th:block>
+    <th:block th:replace="admin/fragments :: scripts"></th:block>
+</head>
+<body>
+  
+    <th:block th:insert="admin/admin-dashboard :: logo"></th:block>
+    <th:block th:insert="admin/admin-dashboard :: sidebar"></th:block>
+ <div class="br-header" >
+        <div class="br-header-left">
+            <div class="navicon-left hidden-md-down"><a id="btnLeftMenu" href="#"><i
+                        class="icon ion-navicon-round"></i></a></div>
+            <div class="navicon-left hidden-lg-up"><a id="btnLeftMenuMobile" href="#"><i
+                        class="icon ion-navicon-round"></i></a></div>
+                   <div class="br-pagetitle pt-0 justify-content-space-around">
+           
+                            <div class="signin-logo tx-center tx-28 tx-bold tx-inverse"><span class="tx-normal"></span> All <span class="tx-info">Category</span> <span class="tx-normal"></span></div>
+            
+            
+            
+        </div>
+
+        </div>
+          <th:block th:insert="admin/admin-dashboard :: header"></th:block>
+        </div>
+    <div class="br-mainpanel">
+
+         <div class="mt-10 my-2 mx-5 d-flex justify-content-end">
+                  <a th:href="@{/admin/add-category}" class="btn btn-teal  mt-2">Add Category</a>
+                </div>
+        <div class="br-pagebody mt-0">
+            <div class="br-section-wrapper pd-20">
+               
+
+                <div class="table-wrapper">
+                    <table id="datatable1" class="table display responsive nowrap">
+                        <thead>
+                            <tr>
+                                <th class="wd-10p">#</th>
+                                <th class="wd-15p">Category Name</th>
+                                 <th class="wd-15p">Comment</th>
+                                <th class="wd-20p">Created By</th>
+                                <th class="wd-20p">Edited By</th>
+                                <th class="wd-15p">Dated</th>
+                                <th class="wd-25p">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="cat,itr : ${category}" >
+                                <td th:text="${itr.index+1}"></td>
+                                <td th:text="${cat.name}"></td>
+                                 <td th:text="${cat.comment}"></td>
+                                <td th:text="${cat.createdBy}"></td>
+                                 <td th:text="${cat.editedBy}"></td>
+                             <td th:text="${#temporals.format(cat.date, 'dd-MM-yyyy')}"></td>
+
+
+                                <td class="d-flex ">
+                                    <a th:href="@{/admin/edit-category/{id}(id=${cat.id})}"
+                                       class="btn btn-primary btn-icon ht-28 wd-30 pd-3 mx-1">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    
+                                    	<form
+										th:action="@{/admin/delete-category/{id}(id=${cat.id})}"
+										method="post" th:id="'deleteForm-' + ${cat.id}">
+										<input type="hidden" name="_method" value="delete">
+										<button type="button" class="btn btn-danger delete-btn btn-sm"
+											th:attr="data-id=${cat.id}">
+											<i class="fas fa-trash"></i>
+										</button>
+									</form>
+</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    </div>
+                    </div>
+                    <th:block th:insert="admin/admin-dashboard :: footer"></th:block>
+                    </div>
+		 <div th:if="${success}">
+                              <script th:inline="javascript">
+                              document.addEventListener("DOMContentLoaded", function () {
+                               $.SweetAlert.showSuccess(/*[[${success}]]*/);
+                               });
+                              </script>
+                              </div> 
+                               <div th:if="${error}">
+                              <script th:inline="javascript">
+                              document.addEventListener("DOMContentLoaded", function () {
+                               $.SweetAlert.showError(/*[[${error}]]*/);
+                               });
+                              </script>
+                              </div>
+ 
+		
+	<script>
+	document.addEventListener("DOMContentLoaded", function () {
+	    document.querySelectorAll(".delete-btn").forEach(button => {
+	        button.addEventListener("click", function (event) {
+	            event.preventDefault();
+	            let categoryId = this.getAttribute("data-id"); // Get employee ID from button
+
+	            Swal.fire({
+	                title: "Are you sure?",
+	                text: "You won't be able to revert this!",
+	                icon: "warning",
+	                showCancelButton: true,
+	                confirmButtonColor: "#3085d6",
+	                cancelButtonColor: "#d33",
+	                confirmButtonText: "Yes, delete it!"
+	            }).then((result) => {
+	                if (result.isConfirmed) {
+	                    document.getElementById("deleteForm-" + categoryId).submit(); // ✅ Submit correct form
+	                }
+	            });
+	        });
+	    });
+	});
+
+</script>
+	<script>
+		$(function() {
+			'use strict';
+
+			$('#datatable1').DataTable({
+				responsive : false,
+				language : {
+					searchPlaceholder : 'Search...',
+					sSearch : '',
+					lengthMenu : false,
+				}
+			});
+
+			$('#datatable2').DataTable({
+				bLengthChange : false,
+				searching : false,
+				responsive : true
+			});
+
+			// Select2
+			$('.dataTables_length select').select2({
+				minimumResultsForSearch : Infinity
+			});
+		});
+	</script>
+	
+ 
+
+    <!-- Employee Details Modal -->
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Oops, something lost</title>
+    <th:block th:replace="admin/fragments :: css"></th:block>
+    <th:block th:replace="admin/fragments :: scripts"></th:block>
+</head>
+
+<body>
+<th:block th:insert="admin/admin-dashboard :: header"></th:block>
+    <th:block th:insert="admin/admin-dashboard :: logo"></th:block>
+    <th:block th:insert="admin/admin-dashboard :: sidebar"></th:block>
+
+   
+            <div class="main mt-5">
+                <div class="d-flex flex-column align-items-center"><img style="width:500px;" src="/images/404.png">
+                    <h1>Oops, looks like the page is lost.</h1>
+                    <p style="font-size:22px;" class="sub-header text-block-narrow">This is not a fault, just an accident that was not intentional.</p>
+                </div>
+        </div>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Employee Documents</title>
+</head>
+<body>
+
+<h2>Employee Documents</h2>
+
+<p><strong>Employee Name:</strong> <span th:text="${employee.employeeName}"></span></p>
+
+<!-- PAN Card -->
+<p><strong>PAN Card:</strong> 
+    <a th:if="${employee.panCard != null}" 
+       th:href="@{'/admin/' + ${employee.employeeId} + '/documents/download/pan'}" 
+       target="_blank">
+        View / Download PAN Card
+    </a>
+</p>
+
+<!-- Aadhaar Card -->
+<p><strong>Aadhaar Card:</strong> 
+    <a th:if="${employee.adhaarCard != null}" 
+       th:href="@{'/admin/' + ${employee.employeeId} + '/documents/download/adhaar'}" 
+       target="_blank">
+        View / Download Aadhaar Card
+    </a>
+</p>
+
+<p><a href="/admin/users">Back to Employee List</a></p>
+
+</body>
+</html>

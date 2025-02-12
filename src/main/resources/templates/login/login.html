@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login</title>
+ <script th:src="@{/lib/jquery/jquery.min.js}"></script>
+    <!-- vendor css -->
+    <link th:href="@{/lib/%40fortawesome/fontawesome-free/css/all.min.css}" rel="stylesheet">
+    <link th:href="@{/lib/ionicons/css/ionicons.min.css}" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.15.10/dist/sweetalert2.min.css"rel="stylesheet">
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.15.10/dist/sweetalert2.all.min.js"></script>
+
+    <!-- Bracket CSS -->
+    <link th:href="@{/css/bracket.css}" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="d-flex align-items-center justify-content-center ht-100v">
+	      <video id="headVideo" class="pos-absolute a-0 wd-100p ht-100p object-fit-cover" autoplay muted loop>
+	        <source src="/images/login.mp4" type="video/mp4">
+	      </video>
+      <div class="overlay-body bg-black-7 d-flex align-items-center justify-content-center">
+        <div class="login-wrapper wd-300 wd-xs-350 pd-25 pd-xs-40 rounded bg-black-6">
+          <div class="signin-logo tx-center tx-28 tx-bold tx-white"><span class="tx-normal"></span>AONE <span class="tx-info">RECOVERY</span> <span class="tx-normal"></span></div>
+          <div class="tx-white-5 tx-center mg-b-60">Aone Recovery Management System</div>
+ <form th:action="@{/login}" method="post" class="mt-4">
+          <div class="form-group"> 
+            <input type="text" class="form-control fc-outline-dark" name="employeeId" placeholder="Enter your employee ID">
+            </div>
+           <div class="form-group">
+            <input type="password" class="form-control fc-outline-dark" name="password" placeholder="Enter your password">
+            <a th:href="@{/forgot-password}" class="tx-info tx-12 d-block mg-t-10">Forgot password?</a>
+          </div>
+          <button type="submit" class="btn btn-info btn-block">Sign In</button>
+          </form>
+          <div class="mg-t-60 tx-center" style="color: white">Not yet a user? <a th:href="@{/register}" class="tx-info">Register</a></div>
+         
+        </div>
+      </div>
+                   <div th:if="${error}">
+                              <script th:inline="javascript">
+                              document.addEventListener("DOMContentLoaded", function () {
+                               $.SweetAlert.showError(/*[[${error}]]*/);
+                               });
+                              </script>
+                              </div>
+                               <div th:if="${errorMessage}">
+                              <script th:inline="javascript">
+                              document.addEventListener("DOMContentLoaded", function () {
+                               $.SweetAlert.showError(/*[[${errorMessage}]]*/);
+                               });
+                              </script>
+                              </div> 
+                              <div th:if="${successMessage}">
+                              <script th:inline="javascript">
+                              document.addEventListener("DOMContentLoaded", function () {
+                               $.SweetAlert.showSuccess(/*[[${successMessage}]]*/);
+                               });
+                              </script>
+                              </div> 
+    </div><!-- d-flex -->
+
+    <script>
+      $(function(){
+        'use strict'; 
+        var video = document.getElementById('headVideo');
+        video.addEventListener('canplay', function() {
+          video.play();
+        });
+
+      });
+    </script>
+      <script th:src="@{/js/jquery.sweet-alert.custom.js}"></script>
+    <script th:src="@{/lib/jquery-ui/ui/widgets/datepicker.js}"></script>
+    <script th:src="@{/lib/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+  </body>
+
+</html>
