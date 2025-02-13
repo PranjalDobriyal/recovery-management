@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.nio.file.*;
 
 @RestController
-@RequestMapping("/admin/files")
+@RequestMapping("/files")
 public class FileController {
 
     private final Path UPLOADS_DIR = Paths.get("uploads/documents").toAbsolutePath().normalize();

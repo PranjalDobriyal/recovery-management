@@ -26,7 +26,7 @@ public class Expense {
 	private String recipient;
 	
 	@Column
-	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private LocalDate expenseDate;
 	
 	@Column

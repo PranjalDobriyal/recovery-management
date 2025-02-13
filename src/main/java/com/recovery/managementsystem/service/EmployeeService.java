@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 @Service
 public class EmployeeService {
 
@@ -170,5 +172,17 @@ public class EmployeeService {
 
 		return employeeRepository.findByFOS();
 
+	}
+
+	public List<Employee> getAllUsersExceptAdmin() {
+		return employeeRepository.findAllExcept();
+	}
+
+	public String registerNewUser(Employee employee) {
+		String employeeID = generateReferralCode();
+		employee.setEmployeeId(employeeID);
+		employee.setPassword(passwordEncoder.encode(employee.getPassword()));
+		employeeRepository.save(employee);
+		return employeeID;
 	}
 }

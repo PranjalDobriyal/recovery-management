@@ -44,8 +44,8 @@
 			<div class="br-section-wrapper pd-20">
 
 				<div class="table-wrapper">
-					<table id="datatable1"
-						class="display table responsive table-bordered nowrap">
+				<table id="datatable1" class="display table table-bordered wrap responsive">
+
 						<thead>
 							<tr>
 								<th class="wd-15p">Employee Id</th>
@@ -328,8 +328,8 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('modal-city').textContent = city;
 
             // Update Aadhaar & Pan Card Preview Buttons
-            document.getElementById('modal-pan-btn').setAttribute('data-doc-url', '/admin/files/' + panCard);
-            document.getElementById('modal-adhaar-btn').setAttribute('data-doc-url', '/admin/files/' + adhaarCard);
+            document.getElementById('modal-pan-btn').setAttribute('data-doc-url', '/files/' + panCard);
+            document.getElementById('modal-adhaar-btn').setAttribute('data-doc-url', '/files/' + adhaarCard);
 
             // Show the modal
             modal.show();
@@ -355,7 +355,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			'use strict';
 
 			$('#datatable1').DataTable({
-				responsive : false,
+				responsive : true,
 				language : {
 					searchPlaceholder : 'Search...',
 					sSearch : '',

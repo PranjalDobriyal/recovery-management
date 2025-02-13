@@ -1,8 +1,9 @@
 package com.recovery.managementsystem.model;
 
+import javax.persistence.*;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,74 +24,35 @@ public class FundManage {
 	@Column
 	private BigDecimal fundAmount;
 	
-	@Enumerated(EnumType.STRING)
-	private FundType fundType;
-	 
+	@Column
+	private String paymentMode;
 	
+	@Column
+	private String amountType; //credit or debit
 	
 	@Column
 	private String fundPurpose;
 	
-	
-
 	@Column
-	private String approvedBy;
+	private String category; 
+	
+	@Column
+	private String givenBy;
 	
 	@Column
 	private String status;
 	
-	
-	private LocalDate requested;
+
 	
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-	private LocalDate approvalDate;
-	
 	private LocalDate entryDate=LocalDate.now();
 
 	private LocalDateTime createdAt=LocalDateTime.now();
-	
-	private LocalDateTime updatedAt;
-	
-	private String paymentType;
-	
-	private String remarks;
-	
-	private BigDecimal debitAmount;
-	
-	private BigDecimal creditAmount;
-	
-	
-	private BigDecimal balance; 
-	
-	public enum FundType {
-		Bonus, Advance, Miscellaneous;
-    }
-	public FundManage() {
-	
-	}
 
-	public FundManage(Integer fundId, Employee employee, BigDecimal fundAmount, FundType fundType, String fundPurpose,
-			String approvedBy, String status, LocalDate requested, LocalDate approvalDate, LocalDate entryDate,
-			LocalDateTime createdAt, LocalDateTime updatedAt, String paymentType, String remarks,
-			BigDecimal debitAmount, BigDecimal creditAmount, BigDecimal balance) {
-		this.fundId = fundId;
-		this.employee = employee;
-		this.fundAmount = fundAmount;
-		this.fundType = fundType;
-		this.fundPurpose = fundPurpose;
-		this.approvedBy = approvedBy;
-		this.status = status;
-		this.requested = requested;
-		this.approvalDate = approvalDate;
-		this.entryDate = entryDate;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
-		this.paymentType = paymentType;
-		this.remarks = remarks;
-		this.debitAmount = debitAmount;
-		this.creditAmount = creditAmount;
-		this.balance = balance;
-	}
+	
+	private BigDecimal prevBalance=BigDecimal.ZERO;
+	
+	private BigDecimal newBalance=BigDecimal.ZERO;
 
 	public Integer getFundId() {
 		return fundId;
@@ -116,7 +78,13 @@ public class FundManage {
 		this.fundAmount = fundAmount;
 	}
 
+	public String getAmountType() {
+		return amountType;
+	}
 
+	public void setAmountType(String amountType) {
+		this.amountType = amountType;
+	}
 
 	public String getFundPurpose() {
 		return fundPurpose;
@@ -126,12 +94,12 @@ public class FundManage {
 		this.fundPurpose = fundPurpose;
 	}
 
-	public String getApprovedBy() {
-		return approvedBy;
+	public String getGivenBy() {
+		return givenBy;
 	}
 
-	public void setApprovedBy(String approvedBy) {
-		this.approvedBy = approvedBy;
+	public void setGivenBy(String givenBy) {
+		this.givenBy = givenBy;
 	}
 
 	public String getStatus() {
@@ -140,22 +108,6 @@ public class FundManage {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public LocalDate getRequested() {
-		return requested;
-	}
-
-	public void setRequested(LocalDate requested) {
-		this.requested = requested;
-	}
-
-	public LocalDate getApprovalDate() {
-		return approvalDate;
-	}
-
-	public void setApprovalDate(LocalDate approvalDate) {
-		this.approvalDate = approvalDate;
 	}
 
 	public LocalDate getEntryDate() {
@@ -174,70 +126,43 @@ public class FundManage {
 		this.createdAt = createdAt;
 	}
 
-	public LocalDateTime getUpdatedAt() {
-		return updatedAt;
+
+
+
+
+	public String getCategory() {
+		return category;
 	}
 
-	public void setUpdatedAt(LocalDateTime updatedAt) {
-		this.updatedAt = updatedAt;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
-	public String getPaymentType() {
-		return paymentType;
+	public String getPaymentMode() {
+		return paymentMode;
 	}
 
-	public void setPaymentType(String paymentType) {
-		this.paymentType = paymentType;
+	public void setPaymentMode(String paymentMode) {
+		this.paymentMode = paymentMode;
 	}
 
-	public String getRemarks() {
-		return remarks;
+	public BigDecimal getPrevBalance() {
+		return prevBalance;
 	}
 
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
+	public void setPrevBalance(BigDecimal prevBalance) {
+		this.prevBalance = prevBalance;
 	}
 
-	public BigDecimal getDebitAmount() {
-		return debitAmount;
+	public BigDecimal getNewBalance() {
+		return newBalance;
 	}
 
-	public void setDebitAmmount(BigDecimal debitAmount) {
-		this.debitAmount = debitAmount;
+	public void setNewBalance(BigDecimal newBalance) {
+		this.newBalance = newBalance;
 	}
-
-	public BigDecimal getCreditAmount() {
-		return creditAmount;
-	}
-
-	public void setCreditAmount(BigDecimal creditAmount) {
-		this.creditAmount = creditAmount;
-	}
-
-	public BigDecimal getBalance() {
-		return balance;
-	}
-
-	public void setBalance(BigDecimal balance) {
-		this.balance = balance;
-	}
-
-	public FundType getFundType() {
-		return fundType;
-	}
-
-	public void setFundType(FundType fundType) {
-		this.fundType = fundType;
-	}
-
-	public void setDebitAmount(BigDecimal debitAmount) {
-		this.debitAmount = debitAmount;
-	}
-	
-	
-	
-	
-	
-	
 
 }
+
+		
+	

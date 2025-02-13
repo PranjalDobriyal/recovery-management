@@ -33,6 +33,12 @@
                 </a><!-- br-menu-link -->
             </li><!-- br-menu-item -->
             <li class="br-menu-item">
+                <a th:href="@{/dashboard/fund-details}" class="br-menu-link">
+                   <i class="fas fa-dollar"></i>
+                    <span class="menu-item-label">Fund Details</span>
+                </a><!-- br-menu-link -->
+            </li><!-- br-menu-item -->
+            <li class="br-menu-item">
                 <a th:href="@{/dashboard/change-password}" class="br-menu-link">
                     <i class="n fa fa-key 	"></i>
                     <span class="menu-item-label">Change Password</span>
@@ -105,9 +111,9 @@
                             <i class="ion ion-earth tx-60 lh-0 tx-white op-7"></i>
                             <div class="mg-l-20">
                                 <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">
-                                    Today's Visits</p>
-                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1">1,975,224</p>
-                                <span class="tx-11 tx-roboto tx-white-8">24% higher yesterday</span>
+                                    Fund Balance</p>
+                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1" th:text="₹ +${session.fundBalance}"></p>
+                               <!--  <span class="tx-11 tx-roboto tx-white-8">24% higher yesterday</span> -->
                             </div>
                         </div>
                         <div id="ch1" class="ht-50 tr-y-1"></div>
@@ -118,11 +124,11 @@
                         <div class="pd-x-20 pd-t-20 d-flex align-items-center">
                             <i class="ion ion-bag tx-60 lh-0 tx-white op-7"></i>
                             <div class="mg-l-20">
-                                <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">Today
-                                    Sales</p>
-                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1">$329,291</p>
-                                <span class="tx-11 tx-roboto tx-white-8">$390,212 before tax</span>
-                            </div>
+                                <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">Total
+                                   Credit</p>
+                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1" th:text="₹ +${session.totalCredit}" th:if="${session.totalCredit}==null?0 :${session.totalCredit}"></p>
+<!--                                 <span class="tx-11 tx-roboto tx-white-8">$390,212 before tax</span>
+ -->                            </div>
                         </div>
                         <div id="ch3" class="ht-50 tr-y-1"></div>
                     </div>
@@ -132,11 +138,10 @@
                         <div class="pd-x-20 pd-t-20 d-flex align-items-center">
                             <i class="ion ion-monitor tx-60 lh-0 tx-white op-7"></i>
                             <div class="mg-l-20">
-                                <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">%
-                                    Unique Visits</p>
-                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1">54.45%</p>
-                                <span class="tx-11 tx-roboto tx-white-8">23% average duration</span>
-                            </div>
+                                <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">Total Debit
+                                    </p>
+                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1" th:text="₹ +${session.totalCredit}" th:if="${session.totalDebit}==null?0 :${session.totalDebit}"></p>
+                           </div>
                         </div>
                         <div id="ch2" class="ht-50 tr-y-1"></div>
                     </div>
@@ -149,7 +154,7 @@
                                 <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">Bounce
                                     Rate</p>
                                 <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1">32.16%</p>
-                                <span class="tx-11 tx-roboto tx-white-8">65.45% on average time</span>
+                               <!--  <span class="tx-11 tx-roboto tx-white-8">65.45% on average time</span> -->
                             </div>
                         </div>
                         <div id="ch4" class="ht-50 tr-y-1"></div>

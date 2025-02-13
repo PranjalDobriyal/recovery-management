@@ -5,9 +5,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.MediaTypeFactory;
 
 import com.recovery.managementsystem.model.Allowance.AllowanceType;
-import com.recovery.managementsystem.model.FundManage.FundType;
 import com.recovery.managementsystem.security.CustomUserDetails;
 import com.recovery.managementsystem.service.*;
+
+import org.apache.logging.log4j.core.util.PasswordDecryptor;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -18,6 +19,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,6 +51,8 @@ public class AdminController {
 	private RecoveryService recoveryService;
 	private FileUploadService fileUploadService;
 	private FundService fundService;
+	private PasswordEncoder PasswordEncoder;
+
 
 	public AdminController(EmployeeService employeeService, AllowanceService allowanceService,
 			EmployeeAllowanceService employeeAllowanceService, ExpenseService expenseService,
@@ -62,6 +66,7 @@ public class AdminController {
 		this.recoveryService = recoveryService;
 		this.fileUploadService = fileUploadService;
 		this.fundService = fundService;
+
 	}
 
 	@GetMapping("/dashboard")
@@ -74,6 +79,7 @@ public class AdminController {
 		BigDecimal expenseTotal = expenseService.getTotal();
 		Integer officeCount = employeeService.findbyOffice().size();
 		Integer fosCount = employeeService.findbyFOS().size();
+		BigDecimal totalFund=fundService.getTotalFund();
 		model.addAttribute("employees", employees);
 		session.setAttribute("countEmployee", countEmployee);
 		session.setAttribute("id", id);
@@ -81,6 +87,7 @@ public class AdminController {
 		session.setAttribute("admin", employee);
 		session.setAttribute("officeCount", officeCount);
 		session.setAttribute("fosCount", fosCount);
+		session.setAttribute("totalFund", totalFund);
 		return "admin/admin-dashboard";
 	}
 
@@ -95,6 +102,7 @@ public class AdminController {
 	@GetMapping("/edit/{id}")
 	public String editUser(@PathVariable Integer id, Model model) {
 		Employee employee = employeeService.getById(id);
+	
 		model.addAttribute(employee);
 		model.addAttribute("employeeTypes", employee.getEmployeeType().values());
 		model.addAttribute("fosTypes", employee.getFosType().values());
@@ -459,10 +467,18 @@ public class AdminController {
 			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
 			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
 			Model model) {
+		 Expense.PaymentType selectedPaymentType = null;
+		    if (paymentType != null && !paymentType.isEmpty()) {
+		        try {
+		        	selectedPaymentType = Expense.PaymentType.valueOf(paymentType);
+		        } catch (IllegalArgumentException e) {
+		        	selectedPaymentType = null;
+		        }
+		    }
 
 		List<ExpenseCategory> categoryList = expenseService.getAll();
 		Set<String> names = expenseService.findAllByName();
-		Expense expense = new Expense();
+		
 
 		Page<Expense> expensePage = expenseService.getFilteredExpenses(page, size, category, name, fromDate, toDate,
 				paymentType);
@@ -471,7 +487,7 @@ public class AdminController {
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("expenses", expensePage.getContent());
 		model.addAttribute("currentPage", page);
-		model.addAttribute("paymentTypes", expense.getPaymentType().values());
+		model.addAttribute("paymentTypes", Expense.PaymentType.values());
 		model.addAttribute("totalPages", expensePage.getTotalPages());
 		model.addAttribute("names", names);
 		model.addAttribute("size", size);
@@ -479,7 +495,7 @@ public class AdminController {
 		model.addAttribute("selectedName", name);
 		model.addAttribute("selectedFromDate", fromDate);
 		model.addAttribute("selectedToDate", toDate);
-		model.addAttribute("selectedPaymentType", paymentType);
+		model.addAttribute("selectedPaymentType", selectedPaymentType);
 		model.addAttribute("totalAmount", totalAmount);
 
 		return "admin/expense";
@@ -656,63 +672,6 @@ public class AdminController {
 
 	}
 
-	@GetMapping("/funds")
-	public String getAllFunds(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "100") int size,
-			@RequestParam(required = false) String employeeId, @RequestParam(required = false) String fundType,
-			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
-			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
-			Model model) {
-		List<Employee> allEmployees = employeeService.getAllUsers();
-		List<FundManage> funds = fundService.findAll();
-		Page<FundManage> fundPage = fundService.getFilteredExpenses(page, size, employeeId, fundType, fromDate, toDate);
-		/*
-		 * BigDecimal totalAmount = fundService.getFilteredTotalAmount(employeeId, name,
-		 * fromDate, toDate);
-		 */
-
-		model.addAttribute("funds", fundPage.getContent());
-		model.addAttribute("currentPage", page);
-		model.addAttribute("totalPages", fundPage.getTotalPages());
-		model.addAttribute("size", size);
-		model.addAttribute("allEmployees", allEmployees);
-		model.addAttribute("fundTypes", FundType.values());
-		model.addAttribute("selectedEmployee", employeeId);
-		model.addAttribute("selectedfundType", fundType);
-		model.addAttribute("selectedFromDate", fromDate);
-		model.addAttribute("selectedToDate", toDate);
-
-		/* model.addAttribute("totalAmount", totalAmount); */
-		return "admin/funds";
-
-	}
-
-	@GetMapping("/add-fund")
-	public String addFund(Model model) {
-		FundManage fund = new FundManage();
-		List<Employee> allEmployees = employeeService.getAllUsers();
-		model.addAttribute("fundTypes", FundType.values());
-		model.addAttribute("paymentTypes", com.recovery.managementsystem.model.Expense.PaymentType.values());
-		model.addAttribute("fund", fund);
-		model.addAttribute("allEmployees", allEmployees);
-		return "admin/addfund";
-
-	}
-
-	@PostMapping("/add-fund")
-	public String addFund(@ModelAttribute FundManage fund, HttpSession session, @RequestParam String employeeId,
-			RedirectAttributes redirectAttributes, Model model) {
-		try {
-			Employee employee = employeeService.findByEmployeeId(employeeId);
-			String approvedBy = (String) session.getAttribute("id");
-			fundService.addFund(employee, fund, approvedBy);
-			redirectAttributes.addFlashAttribute("success", "Fund Added !");
-			return "redirect:/admin/funds";
-
-		} catch (Exception e) {
-			redirectAttributes.addFlashAttribute("error", e.getMessage());
-			return "redirect:/admin/funds";
-		}
-
-	}
+	
 
 }

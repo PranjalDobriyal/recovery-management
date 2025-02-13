@@ -9,7 +9,7 @@
 <body>
 
 	<th:block th:insert="admin/admin-dashboard :: logo"></th:block>
-	<th:block th:insert="admin/admin-dashboard :: sidebar"></th:block>
+	<th:block th:insert="user/dashboard :: sidebar"></th:block>
 	<div class="br-header">
 		<div class="br-header-left">
 			<div class="navicon-left hidden-md-down">
@@ -39,7 +39,7 @@
 		<div class="br-pagebody mt-0">
 
 
-			<!-- Filter Form -->
+			<!-- 
 			<form th:action="@{/admin/funds}" method="get" class="mb-4"
 				id="filterForm">
 			   <div class="row" style="margin-top: 4rem;">
@@ -47,7 +47,7 @@
 
 
 
-					<!-- Category Filter -->
+					Category Filter
 					<div class="col-md-2">
 						<label>All Employees:</label> <select name="employeeId"
 							class="form-control">
@@ -71,9 +71,9 @@
 				</div>
 
 
-			</form>
+			</form> -->
 			
-			<div class="br-section-wrapper pd-20">
+			<div class="br-section-wrapper pd-20" style="margin-top: 4.5rem;">
 				
 
 				<!-- Expense Table -->
@@ -125,7 +125,7 @@
 								<td th:text="${fund.status}"></td>-->
 
 								<td class="d-flex justify-content-center"><a
-									th:href="@{/admin/emp-fund(id=${fund.employeeId})}"
+									th:href="@{/dashboard/emp-fund(id=${id})}"
 									class="btn btn-primary btn-sm"> <i
 										class="fas fa-eye"></i>
 								</a>
@@ -186,7 +186,7 @@
 				</nav> -->
 			</div>
 		</div>
-		<th:block th:insert="admin/admin-dashboard :: footer"></th:block>
+		<th:block th:insert="user/dashboard :: footer"></th:block>
 	</div>
 	
 

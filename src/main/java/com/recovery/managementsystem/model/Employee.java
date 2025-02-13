@@ -53,6 +53,9 @@ public class Employee implements Serializable{
 	private String ifscCode;
 	
 	@Column
+	private BigDecimal walletBalance=BigDecimal.ZERO;
+	
+	@Column
 	private String accountNumber;
 	
 	@Column
@@ -70,6 +73,8 @@ public class Employee implements Serializable{
 	private String status;
 	
 	private String role;
+	
+	
 	
 	@Column
 	private LocalDate entryDate=LocalDate.now();
@@ -421,6 +426,28 @@ public class Employee implements Serializable{
 
 	public void setRecoveries(List<Recovery> recoveries) {
 		this.recoveries = recoveries;
+	}
+
+
+	
+
+	public List<FundManage> getFunds() {
+		return funds;
+	}
+
+
+	public void setFunds(List<FundManage> funds) {
+		this.funds = funds;
+	}
+
+
+	public BigDecimal getWalletBalance() {
+		return walletBalance;
+	}
+
+
+	public void setWalletBalance(BigDecimal walletBalance) {
+		this.walletBalance = walletBalance;
 	}
 	
 
