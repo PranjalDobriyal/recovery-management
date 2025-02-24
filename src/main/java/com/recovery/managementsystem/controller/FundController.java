@@ -1,5 +1,6 @@
 package com.recovery.managementsystem.controller;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -38,8 +39,25 @@ public class FundController {
 	@GetMapping("/funds")
 	public String getAllFunds(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "100") int size,
 			@RequestParam(required = false) String employeeId,
+			@RequestParam(required = false) String amountType,
+			@RequestParam(required = false) String paymentMode, 
+			@RequestParam(required = false) String category,
+			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
 
 			Model model) {
+		 Expense.PaymentType selectedPaymentMode = null;
+		    if (paymentMode != null && !paymentMode.isEmpty()) {
+		        try {
+		            selectedPaymentMode = Expense.PaymentType.valueOf(paymentMode);
+		        } catch (IllegalArgumentException e) {
+		            selectedPaymentMode = null;
+		        }
+		    }
+		amountType = (amountType != null && amountType.isEmpty()) ? null : amountType;
+	    paymentMode = (paymentMode != null && paymentMode.isEmpty()) ? null : paymentMode;
+	    category = (category != null && category.isEmpty()) ? null : category;
+		BigDecimal totalFunds = fundService.getTotalFunds(employeeId,fromDate,toDate);
 		List<Employee> allEmployees = employeeService.getAllUsersExceptAdmin();
 
 		Page<FundSummary> fundPage = fundService.getFilteredExpenses(page, size, employeeId);
@@ -48,7 +66,15 @@ public class FundController {
 		model.addAttribute("currentPage", page);
 		model.addAttribute("size", size);
 		model.addAttribute("allEmployees", allEmployees);
+		model.addAttribute("totalFunds", totalFunds);
 		/* model.addAttribute("selectedEmployee", employeeId); */
+		model.addAttribute("selectedamountType", amountType);
+	    model.addAttribute("selectedpaymentMode", selectedPaymentMode);
+	    model.addAttribute("selectedcategory", category);
+	    model.addAttribute("selectedfromDate", fromDate);
+		model.addAttribute("selectedtoDate", toDate);
+	    model.addAttribute("employee", employeeService.findByEmployeeId(employeeId));
+		model.addAttribute("paymentTypes", com.recovery.managementsystem.model.Expense.PaymentType.values());
 
 		/* model.addAttribute("totalAmount", totalAmount); */
 		return "admin/funds";

@@ -1,68 +1,85 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>All Allowances</title>
-    <th:block th:replace="admin/fragments :: css"></th:block>
-    <th:block th:replace="admin/fragments :: scripts"></th:block>
+<meta charset="UTF-8">
+<title>All Allowances</title>
+<th:block th:replace="admin/fragments :: css"></th:block>
+<th:block th:replace="admin/fragments :: scripts"></th:block>
 </head>
 <body>
-  
-    <th:block th:insert="admin/admin-dashboard :: logo"></th:block>
-    <th:block th:insert="admin/admin-dashboard :: sidebar"></th:block>
- <div class="br-header" >
-        <div class="br-header-left">
-            <div class="navicon-left hidden-md-down"><a id="btnLeftMenu" href="#"><i
-                        class="icon ion-navicon-round"></i></a></div>
-            <div class="navicon-left hidden-lg-up"><a id="btnLeftMenuMobile" href="#"><i
-                        class="icon ion-navicon-round"></i></a></div>
-                   <div class="br-pagetitle pt-0 justify-content-space-around">
-           
-                            <div class="signin-logo tx-center tx-28 tx-bold tx-inverse"><span class="tx-normal"></span> All <span class="tx-info">Allowances</span> <span class="tx-normal"></span></div>
-            
-            
-            
-        </div>
 
-        </div>
-          <th:block th:insert="admin/admin-dashboard :: header"></th:block>
-        </div>
-    <div class="br-mainpanel">
-    <div class="mt-10 my-2 mx-5 d-flex justify-content-end">
-                    <a th:href="@{/admin/add-allowance}" class="btn btn-teal mt-2">Add Allowance</a>
-                </div>
-       
-        <div class="br-pagebody mt-0">
-            <div class="br-section-wrapper pd-20">
-            
+	<th:block th:insert="admin/admin-dashboard :: logo"></th:block>
+	<th:block th:insert="admin/admin-dashboard :: sidebar"></th:block>
+	<div class="br-header">
+		<div class="br-header-left">
+			<div class="navicon-left hidden-md-down">
+				<a id="btnLeftMenu" href="#"><i class="icon ion-navicon-round"></i></a>
+			</div>
+			<div class="navicon-left hidden-lg-up">
+				<a id="btnLeftMenuMobile" href="#"><i
+					class="icon ion-navicon-round"></i></a>
+			</div>
+			<div class="br-pagetitle pt-0 justify-content-space-around">
 
-                <div class="table-wrapper">
-                    <table id="datatable1" class="display table responsive nowrap">
-                        <thead>
-                            <tr>
-                                <th class="wd-10p">#</th>
-                                <th class="wd-20p">Allowance Name</th>
-                                <th class="wd-10p">Abbr</th>
-                                <th class="wd-15p">Type</th>
-                                <th class="wd-15p">Status</th>
-                                <th class="wd-15p">Created On</th>
-                                 <th class="wd-35p">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="allowance, iterStat : ${allowances}">
-                                <td th:text="${iterStat.index + 1}"></td>
-                                <td th:text="${allowance.allowanceName}"></td>
-                                <td th:text="${allowance.allowanceShort}"></td>
-                                <td th:text="${allowance.allowanceType}"></td>
-                                <td th:text="${allowance.status}"></td>
-                                <td th:text="${allowance.createdAt}"></td>
-                               <td class="d-flex">
-                                    <a th:href="@{/admin/edit-allowance/{id}(id=${allowance.allowanceId})}"
-                                       class="btn btn-primary btn-teal  ht-28 wd-30 pd-3 mx-1" >
-                                       <i class="fas fa-edit"></i>
-                                    </a>
-                                  	<form
+				<div class="signin-logo tx-center tx-28 tx-bold tx-inverse">
+					<span class="tx-normal"></span> All <span class="tx-info">Allowances</span>
+					<span class="tx-normal"></span>
+				</div>
+
+
+
+			</div>
+
+		</div>
+		<th:block th:insert="admin/admin-dashboard :: header"></th:block>
+	</div>
+	<div class="br-mainpanel">
+	<div class="br-pageheader bg-0 mb-0">
+        <nav class="breadcrumb pd-0 mg-0 tx-12">
+          <a class="breadcrumb-item" th:href="@{/admin/dashboard}">Dashboard</a>
+          <a class="breadcrumb-item" th:href="@{/admin/allowances}">All Allowances</a>
+          
+          
+        </nav>
+         
+      </div>
+		<div class=" my-2 mx-5 d-flex justify-content-end">
+			<a th:href="@{/admin/add-allowance}" class="btn btn-teal ">Add
+				Allowance</a>
+		</div>
+
+		<div class="br-pagebody mt-0">
+			<div class="br-section-wrapper pd-20">
+
+
+				<div class="table-wrapper">
+					<table id="datatable1" class="display table table-bordered responsive nowrap">
+						<thead>
+							<tr>
+								<th class="wd-10p">#</th>
+								<th class="wd-20p">Allowance Name</th>
+								<th class="wd-10p">Abbr</th>
+								<th class="wd-15p">Type</th>
+								<th class="wd-15p">Status</th>
+								<th class="wd-15p">Created On</th>
+								<th class="wd-35p">Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="allowance, iterStat : ${allowances}">
+								<td th:text="${iterStat.index + 1}"></td>
+								<td th:text="${allowance.allowanceName}"></td>
+								<td th:text="${allowance.allowanceShort}"></td>
+								<td th:text="${allowance.allowanceType}"></td>
+								<td th:text="${allowance.status}"></td>
+								<td
+									th:text="${#temporals.format(allowance.createdAt, 'dd-MM-yyyy')}"></td>
+								<td class="d-flex"><a
+									th:href="@{/admin/edit-allowance/{id}(id=${allowance.allowanceId})}"
+									class="btn btn-primary btn-teal  ht-28 wd-30 pd-3 mx-1"> <i
+										class="fas fa-edit"></i>
+								</a>
+									<form
 										th:action="@{/admin/delete-allowance/{id}(id=${allowance.allowanceId})}"
 										method="post" th:id="'deleteForm-' + ${allowance.allowanceId}">
 										<input type="hidden" name="_method" value="delete">
@@ -70,36 +87,34 @@
 											th:attr="data-id=${allowance.allowanceId}">
 											<i class="fas fa-trash"></i>
 										</button>
-									</form>
-
-                                     </td> 
-                            </tr>
-                        </tbody>
-                    </table>
-                    </div>
-                    </div>
-                     <th:block th:insert="admin/admin-dashboard :: footer"></th:block>
-                    </div>
-                       <div th:if="${success}">
-                              <script th:inline="javascript">
+									</form></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<th:block th:insert="admin/admin-dashboard :: footer"></th:block>
+		</div>
+		<div th:if="${success}">
+			<script th:inline="javascript">
                               document.addEventListener("DOMContentLoaded", function () {
                                $.SweetAlert.showSuccess(/*[[${success}]]*/);
                                });
                               </script>
-                              </div> 
-                               <div th:if="${error}">
-                              <script th:inline="javascript">
+		</div>
+		<div th:if="${error}">
+			<script th:inline="javascript">
                               document.addEventListener("DOMContentLoaded", function () {
                                $.SweetAlert.showError(/*[[${error}]]*/);
                                });
                               </script>
-                              </div>
-                              
-                    </div>
-                       
-                    
-                     
-<script>
+		</div>
+
+	</div>
+
+
+
+	<script>
 		$(function() {
 			'use strict';
 
@@ -149,7 +164,6 @@
 	});
 
 </script>
-       
-                    </body>
-                    </html>
-                    
+
+</body>
+</html>

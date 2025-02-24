@@ -59,6 +59,11 @@ public class SecurityConfig {
             session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
             session.maximumSessions(1);
         });
+        http.headers(headers -> headers
+                .frameOptions(frameOptions -> frameOptions
+                    .sameOrigin()
+                    )
+                );
 
         return http.build();
     }
@@ -75,4 +80,5 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    
 }

@@ -1,13 +1,17 @@
 package com.recovery.managementsystem.controller;
 
 
+import com.recovery.managementsystem.model.Deductions;
 import com.recovery.managementsystem.model.Employee;
 import com.recovery.managementsystem.model.Expense;
 import com.recovery.managementsystem.model.FundManage;
 import com.recovery.managementsystem.model.FundSummary;
+import com.recovery.managementsystem.model.Payroll;
+import com.recovery.managementsystem.model.PayrollSummary;
 import com.recovery.managementsystem.security.CustomUserDetails;
 import com.recovery.managementsystem.service.EmployeeService;
 import com.recovery.managementsystem.service.FundService;
+import com.recovery.managementsystem.service.PayrollService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,6 +29,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Month;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -38,6 +44,9 @@ public class UserDashboardController {
 	
 	@Autowired
 	private FundService fundService;
+	
+	@Autowired
+	private PayrollService payrollService;
 	
 	@GetMapping
     public String dashboard(@AuthenticationPrincipal CustomUserDetails userDetails, Model model,HttpSession session) {
@@ -140,6 +149,40 @@ public class UserDashboardController {
 		
 		return "user/emp-fund";
 
+	}
+	@GetMapping("/salary-details")
+	public String salaryDetails(Model model,HttpSession session,@RequestParam(required = false) Month month, @RequestParam(required = false) Integer year)
+	{
+		 String id=(String) session.getAttribute("employeeId");
+		 if(month==null)
+		 {
+			 month=LocalDate.now().getMonth();
+		 }
+		 if(year==null)
+		 {
+			 year=LocalDate.now().getYear();
+		 }
+		 PayrollSummary summary=payrollService.getPayrollSummaryByEmployeeId(id, month, year);
+		model.addAttribute("summary", summary);
+		return "user/salary-details";
+		
+	}
+	@GetMapping("/generate/payslip")
+	public String generatePayslip(@RequestParam String id,Model model,@RequestParam Month month,@RequestParam Integer year)
+	{
+		List<Payroll> payrolls=payrollService.getAllPayrollsByEmployeeId(id,month,year);
+		Deductions deduction=payrollService.getAllDeductionByEmployeeId(id,month,year);
+		Employee employee=employeeService.findByEmployeeId(id);
+		PayrollSummary payrollSummary=payrollService.getPayrollSummaryByEmployeeId(id, month, year);
+		model.addAttribute("employee", employee);
+		model.addAttribute("payrolls", payrolls);
+		model.addAttribute("month", month);
+		model.addAttribute("year",year);
+		model.addAttribute("year",year);
+		model.addAttribute("summary",payrollSummary);
+		model.addAttribute("deduction", deduction);
+		return "admin/pay-slip";
+		
 	}
 
 }

@@ -94,4 +94,8 @@ public class EmployeeAllowanceService {
 	public Double findPercent(String employeeId,Integer allowanceId) {
 		return employeeAllowanceRepository.findPercentage(employeeId,allowanceId);
 	}
+
+	public List<EmployeeAllowance> getEmployeeAllowancesByEmployee_Id(String employeeId) {
+		return employeeAllowanceRepository.findAllByEmployee_EmployeeId(employeeId);
+	}
 }

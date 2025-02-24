@@ -38,6 +38,12 @@
                     <span class="menu-item-label">Fund Details</span>
                 </a><!-- br-menu-link -->
             </li><!-- br-menu-item -->
+             <li class="br-menu-item">
+                <a th:href="@{/dashboard/salary-details}" class="br-menu-link">
+                   <i class="fas fa-money-bill"></i>
+                    <span class="menu-item-label">Salary</span>
+                </a><!-- br-menu-link -->
+            </li><!-- br-menu-item -->
             <li class="br-menu-item">
                 <a th:href="@{/dashboard/change-password}" class="br-menu-link">
                     <i class="n fa fa-key 	"></i>
@@ -140,7 +146,7 @@
                             <div class="mg-l-20">
                                 <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">Total Debit
                                     </p>
-                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1" th:text="₹ +${session.totalCredit}" th:if="${session.totalDebit}==null?0 :${session.totalDebit}"></p>
+                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1" th:text="₹ +${session.totalDebit}" th:if="${session.totalDebit}==null?0 :${session.totalDebit}"></p>
                            </div>
                         </div>
                         <div id="ch2" class="ht-50 tr-y-1"></div>

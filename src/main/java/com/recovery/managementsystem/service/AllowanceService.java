@@ -7,7 +7,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class AllowanceService {
 	
 	@Autowired
@@ -28,6 +31,7 @@ public class AllowanceService {
             throw new IllegalArgumentException("Allowance abbreviation already exist.");
         }
 
+        allowance.setStatus("ACTIVE");
         allowanceRepository.save(allowance);
     }
 

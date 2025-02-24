@@ -2,14 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>All Funds</title>
+<title>All Payroll</title>
 <th:block th:replace="admin/fragments :: css"></th:block>
 <th:block th:replace="admin/fragments :: scripts"></th:block>
 </head>
 <body>
 
 	<th:block th:insert="admin/admin-dashboard :: logo"></th:block>
-	<th:block th:insert="admin/admin-dashboard :: sidebar"></th:block>
+	<th:block th:insert="user/dashboard :: sidebar"></th:block>
 	<div class="br-header">
 		<div class="br-header-left">
 			<div class="navicon-left hidden-md-down">
@@ -22,7 +22,7 @@
 			<div class="br-pagetitle pt-0 justify-content-space-around">
 
 				<div class="signin-logo tx-center tx-28 tx-bold tx-inverse">
-					<span class="tx-normal"></span> Fund <span class="tx-info">Summary</span>
+					<span class="tx-normal"></span> All <span class="tx-info">Payrolls</span>
 					<span class="tx-normal"></span>
 				</div>
 
@@ -36,78 +36,49 @@
 	<div class="br-mainpanel">
 	<div class="br-pageheader bg-0 mb-0">
         <nav class="breadcrumb pd-0 mg-0 tx-12">
-          <a class="breadcrumb-item" th:href="@{/admin/dashboard}">Dashboard</a>
-          <a class="breadcrumb-item" th:href="@{/admin/funds}">All Funds</a>
-          <a class="breadcrumb-item" href="">Funds Summary</a>
+          <a class="breadcrumb-item" th:href="@{/dashboard}">Dashboard</a>
+          <a class="breadcrumb-item" th:href="@{/dashboard/salary-details}">Salary Details</a>
+     
           
         </nav>
          
       </div>
 
+
 		<div class="br-pagebody mt-0">
 
-<!-- Filter Form -->
-<form th:action="@{/admin/emp-fund}" method="get" class="mb-4" id="filterForm">
-   <div class="row">
-        <input type="hidden" name="id" class="form-control" th:value="${id}">
 
-        <!-- Amount Type Filter -->
-        <div class="col-md-2">
-            <label class="form-control-label">Amount Type<span class="tx-danger">*</span></label>
-            <select class="form-control select2" name="amountType">
-                <option value="">Choose one</option>
-                <option value="CREDIT" th:selected="${selectedamountType == 'CREDIT'}">CREDIT</option>
-                <option value="DEBIT" th:selected="${selectedamountType == 'DEBIT'}">DEBIT</option>
-            </select>
-        </div>
-<div class="col-md-2">
-    <label>Payment Mode</label>
-    <select name="paymentMode" class="form-control">
-        <option value="">All</option>
-        <option th:each="cat : ${paymentTypes}" 
-                th:value="${cat}" 
-                th:text="${cat}" 
-                th:selected="${cat == selectedpaymentMode}">
-        </option>
-    </select>
-</div>
+			<!-- Filter Form -->
+			<!-- <form th:action="@{/admin/funds}" method="get" class="mb-4"
+				id="filterForm">
+			   <div class="row" >
 
-        <!-- From Date Filter -->
-      <div class="col-md-2">
-						<label>From Date:</label> <input type="date" name="fromDate"
-							class="form-control" id="fromDate" th:value="${selectedfromDate}">
-					</div>
 
-					<!-- To Date -->
+
+
+					
 					<div class="col-md-2">
-						<label>To Date:</label> <input type="date" name="toDate"
-							class="form-control" id="toDate" th:value="${selectedtoDate}">
+						<label>All :</label> <select name="employeeId"
+							class="form-control">
+							<option value="">All</option>
+							<option th:each="cat : ${allEmployees}"  th:value="${cat.employeeId}"
+								th:text="${cat.employeeId}+ '-' +${cat.employeeName}"
+								th:selected="${selectedEmployee == cat.employeeId}"></option>
+						</select>
 					</div>
 
-        <!-- Category Filter -->
-        <div class="col-md-2">
-            <label class="form-control-label">Category<span class="tx-danger">*</span></label>
-            <select class="form-control select2" name="category">
-                <option value="">Choose One</option>
-                <option value="GENERAL" th:selected="${selectedcategory == 'GENERAL'}">GENERAL</option>
-                <option value="MAINTENANCE" th:selected="${selectedcategory == 'MAINTENANCE'}">MAINTENANCE</option>
-                <option value="EMERGENCY" th:selected="${selectedcategory == 'EMERGENCY'}">EMERGENCY</option>
-            </select>
-        </div>
+					
+					<div class="col-md-8 mt-4">
+						<button type="submit" class="btn btn-primary  ">Search</button>
+					
+						
+						
+					</div>
 
-        <!-- Filter & Reset Buttons -->
-        <div class="col-md-2 d-flex flex-row justify-content-center align-items-center mt-4">
-            <button type="submit" class="btn btn-primary mx-2">Search</button>
-            
-            <a th:href="@{/admin/add-fund}" class="btn btn-teal ">Add
-					Fund</a>
-				<!-- 	<a th:href="@{/admin/funds}" class="btn btn-info ">Go Back</a> -->
-        </div>
-      
-        
-    </div>
-</form>
+				</div>
 
+
+			</form>  -->
 
 			<div class="br-section-wrapper pd-20">
 
@@ -115,24 +86,19 @@
 				<!-- Expense Table -->
 				<div class="table-wrapper">
 					<table id="datatable1"
-						class="table display table-bordered responsive nowrap">
+						class="table display responsive table-bordered nowrap">
 						<thead>
 							<tr>
-								<th>#</th>
-								<th>Employee Id</th>
-								<th>Employee Name</th>
-								<th>Fund Amount</th>
-								<th>Payment Mode</th>
-								<!-- <th>Amount Type</th> -->
-								<th>Category</th>
-								<th>Purpose</th>
-								<th>Credit</th>
-								<th>Debit</th>
-								<th>Balance</th>
-								<th>Entry Date</th>
+								<th class="col-1">#</th>
+								<th class="col-2">Employee Id</th>
+								<th class="col-2" >Employee Name</th>
+								<th class="col-2">Total Allowances</th>
+								<th class="col-2">Total Deductions</th>
+								<th class="col-2">Net Salary</th>
+								<th class="col-2">Month</th>
+								<th class="col-2">Year</th>
+								<th class="wd-2">Generate Payslip</th>
 
-
-								<!-- <th>Actions</th> -->
 								<!-- <th>Date</th> -->
 								<!-- <th>Credit Amount</th>
 								<th>Debit Amount</th>
@@ -147,27 +113,30 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="fund, stat : ${funds}">
+							<tr th:each="fund, stat : ${summary}">
 								<td
 									th:text="${stat.index + 1 + ((currentPage != null ? currentPage : 0) * (size != null ? size : 10))}"></td>
-								<td th:text="${employee.employeeId}"></td>
-								<td th:text="${employee.employeeName}"></td>
-								<td th:text="${fund.fundAmount}"></td>
-								<td th:text="${fund.paymentMode}"></td>
-								<!-- <td th:text="${fund.amountType}"></td> -->
-								<td th:text="${fund.category}"></td>
-								<td th:text="${fund.fundPurpose}"></td>
+								<td th:text="${fund.employeeId}"></td>
+								<td th:text="${fund.employeeName}"></td>
+								<td th:text="${fund.totalAllowance}"></td>
+								<td>
+									<span th:text="${fund.totalDeduction}"></span>
+								</td>
 
-								<td th:text="${fund.amountType == 'CREDIT'} ? ${fund.fundAmount} : 0"></td>
+								<td th:text="${fund.netSalary}"></td>
+								<td th:text="${fund.month}"></td>
+								<td th:text="${fund.year}"></td>
+								<td>
+    <a th:href="@{/dashboard/generate/payslip(id=${fund.employeeId}, month=${fund.month}, year=${fund.year})}"
+									class="btn btn-primary btn-sm"  target="_blank"> <i class="fa-solid fa-money-bill-wave" ></i></td>
 
+								<!-- <td th:text="${fund.creditAmount}"></td>
+								<td th:text="${fund.debitAmount}"></td>
+								<td th:text="${fund.balance}"></td> -->
+								<!-- 
+								<td th:text="${#temporals.format(fund.requested, 'dd-MM-yyyy')}"></td>
 
-								<td th:text="${fund.amountType == 'DEBIT'} ? ${fund.fundAmount} : 0"></td>
-								
-								<td th:text="${fund.newBalance}"></td>
-
-								<td th:text="${#temporals.format(fund.entryDate, 'dd-MM-yyyy')}"></td>
-
-								<!-- <td th:text="${fund.approvedBy}"></td>
+								<td th:text="${fund.approvedBy}"></td>
 								<td
 									th:text="${#temporals.format(fund.approvalDate, 'dd-MM-yyyy')}"></td>
 								<td th:text="${#temporals.format(fund.entryDate, 'dd-MM-yyyy')}"></td>
@@ -175,16 +144,19 @@
 								<td th:text="${fund.status}"></td>-->
 
 								<!-- <td class="d-flex justify-content-center"><a
-									th:href="@{/admin/emp-fund(id=${employee.employeeId})}"
-									class="btn btn-primary btn-sm"> <i class="fas fa-eye"></i>
-								</a> <form th:action="@{/admin/delete-fund/{id}(id=${fund.fundId})}"
+									th:href="@{/admin/emp-fund(id=${fund.employeeId})}"
+									class="btn btn-primary btn-sm"> <i
+										class="fas fa-eye"></i>
+								</a>
+									<form th:action="@{/admin/delete-fund/{id}(id=${fund.fundId})}"
 										method="post">
 										<input type="hidden" name="_method" value="delete" />
 										<button type="button" class="btn btn-danger"
 											onclick="confirmDelete(event)">
 											<i class="fas fa-trash "></i>
 										</button>
-									</form></td> -->
+									</form>
+									</td>  -->
 							</tr>
 						</tbody>
 					</table>
@@ -240,17 +212,17 @@
 
 	<div th:if="${success}">
 		<script th:inline="javascript">
-                              document.addEventListener("DOMContentLoaded", function () {
-                               $.SweetAlert.showSuccess(/*[[${success}]]*/);
-                               });
-                              </script>
+			document.addEventListener("DOMContentLoaded", function() {
+				$.SweetAlert.showSuccess(/*[[${success}]]*/);
+			});
+		</script>
 	</div>
 	<div th:if="${error}">
 		<script th:inline="javascript">
-                              document.addEventListener("DOMContentLoaded", function () {
-                               $.SweetAlert.showError(/*[[${error}]]*/);
-                               });
-                              </script>
+			document.addEventListener("DOMContentLoaded", function() {
+				$.SweetAlert.showError(/*[[${error}]]*/);
+			});
+		</script>
 
 	</div>
 
@@ -258,8 +230,8 @@
 
 
 	<!-- Delete Confirmation -->
-	<script>
-        function confirmDelete(event) {
+	<!-- 	<script>
+        function addDeduction(event) {
             event.preventDefault();
             Swal.fire({
                 title: "Are you sure?",
@@ -276,12 +248,12 @@
             });
         }
 
-        document.addEventListener("DOMContentLoaded", function () {
+        /* document.addEventListener("DOMContentLoaded", function () {
             let today = new Date().toISOString().split("T")[0];
             document.getElementById("fromDate").setAttribute("max", today);
             document.getElementById("toDate").setAttribute("max", today);
-        }); 
-    </script>
+        }); */
+    </script> -->
 	<script>
 		$(function() {
 			'use strict';

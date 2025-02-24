@@ -110,6 +110,13 @@ public class Employee implements Serializable{
 	    
 	    @OneToMany(mappedBy = "employee",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	    private List<FundManage> funds;
+	    
+	    @OneToMany(mappedBy = "employee",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	    private List<Payroll> payrolls;
+	    
+	    @OneToMany(mappedBy = "employee",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	    private List<Deductions>deductions;
+	    
   
 	  public enum FOSType {
 	        Permanent, Contract
@@ -448,6 +455,26 @@ public class Employee implements Serializable{
 
 	public void setWalletBalance(BigDecimal walletBalance) {
 		this.walletBalance = walletBalance;
+	}
+
+
+	public List<Payroll> getPayrolls() {
+		return payrolls;
+	}
+
+
+	public void setPayrolls(List<Payroll> payrolls) {
+		this.payrolls = payrolls;
+	}
+
+
+	public List<Deductions> getDeductions() {
+		return deductions;
+	}
+
+
+	public void setDeductions(List<Deductions> deductions) {
+		this.deductions = deductions;
 	}
 	
 

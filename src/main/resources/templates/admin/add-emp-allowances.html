@@ -1,76 +1,71 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Add Allowance</title>
-<th:block th:replace="admin/fragments :: css"></th:block>
-<th:block th:replace="admin/fragments :: scripts"></th:block>
+    <meta charset="UTF-8">
+    <title>Add Allowance</title>
+    <th:block th:replace="admin/fragments :: css"></th:block>
+    <th:block th:replace="admin/fragments :: scripts"></th:block>
 </head>
 <body>
 
-	<th:block th:insert="admin/admin-dashboard :: logo"></th:block>
-	<th:block th:insert="admin/admin-dashboard :: sidebar"></th:block>
-	<div class="br-header">
-		<div class="br-header-left">
-			<div class="navicon-left hidden-md-down">
-				<a id="btnLeftMenu" href="#"><i class="icon ion-navicon-round"></i></a>
-			</div>
-			<div class="navicon-left hidden-lg-up">
-				<a id="btnLeftMenuMobile" href="#"><i
-					class="icon ion-navicon-round"></i></a>
-			</div>
-			<div class="br-pagetitle pt-0 justify-content-space-around">
+    <th:block th:insert="admin/admin-dashboard :: logo"></th:block>
+    <th:block th:insert="admin/admin-dashboard :: sidebar"></th:block>
+    
+    <div class="br-header">
+        <div class="br-header-left">
+            <div class="navicon-left hidden-md-down">
+                <a id="btnLeftMenu" href="#"><i class="icon ion-navicon-round"></i></a>
+            </div>
+            <div class="navicon-left hidden-lg-up">
+                <a id="btnLeftMenuMobile" href="#"><i class="icon ion-navicon-round"></i></a>
+            </div>
+            <div class="br-pagetitle pt-0 justify-content-space-around">
+                <h2>ADD ALLOWANCE</h2>
+            </div>
+        </div>
+        <th:block th:insert="admin/admin-dashboard :: header"></th:block>
+    </div>
+    
+    <div class="br-mainpanel">
+        <div class="mt-10px my-2 mg-l-40 d-flex justify-content-end">
+            <a th:href="@{/admin/users}" class="btn btn-primary indigo mx-5">Go Back</a>
+        </div>
 
-				<h2>ADD ALLOWANCE</h2>
+        <div class="br-pagebody mt-0">
+            <div class="br-section-wrapper pd-20">
+                
+                <th:block th:if="${not #lists.isEmpty(allowances)}">
+                    <form th:action="@{/admin/add-emp-allowances/{id}(id=${employee.employeeId})}" th:method="post">
+                        <div class="mx-6" th:each="allowance : ${allowances}">
+                            <!-- Checkbox for selecting the allowance -->
+                            <input type="checkbox" th:name="allowanceIds"
+                                   th:value="${allowance.allowanceId}"
+                                   th:checked="${#sets.contains(employeeAllowanceIds, allowance.allowanceId)}" />
+                            <label th:text="${allowance.allowanceName + ' - ' + allowance.allowanceShort}"></label>
+                            
+                            <!-- Input Field for Amount or Percentage -->
+                            <div class="d-flex flex-column mb-4">
+                                <label th:text="${allowance.allowanceType.name() + ' :'}"></label>
+                                <input class="form-control col-2" type="number" step="any"
+                                       th:name="'allowanceValue_' + ${allowance.allowanceId}"
+                                       th:value="${allowance.allowanceType.name() == 'AMOUNT'
+                                            ? (amounts != null and amounts[allowance.allowanceId] != null ? amounts[allowance.allowanceId].toString() : '')
+                                            : (percents != null and percents[allowance.allowanceId] != null ? percents[allowance.allowanceId] : '')}"
+                                       th:placeholder="${allowance.allowanceType.name() == 'AMOUNT' ? 'Enter amount' : 'Enter percentage'}" />
+                            </div>
+                        </div>
 
+                        <!-- Submit Button -->
+                        <button class="btn btn-primary btn-value btn-teal mt-2" type="submit">Save Allowances</button>
+                    </form>
+                </th:block>
 
+                <th:block th:if="${#lists.isEmpty(allowances)}">
+                    <p class="text-danger">No allowances available to assign.</p>
+                </th:block>
 
-			</div>
-
-		</div>
-		<th:block th:insert="admin/admin-dashboard :: header"></th:block>
-	</div>
-	<div class="br-mainpanel">
-		<div class="mt-10px my-2 mg-l-40 d-flex justify-content-end">
-			<a th:href="@{/admin/users}" class="btn btn-primary indigo mx-5">Go
-				Back</a>
-		</div>
-
-		<div class="br-pagebody mt-0">
-			<div class="br-section-wrapper pd-20">
-
-
-				<form
-					th:action="@{/admin/add-emp-allowances/{id}(id=${employee.employeeId})}"
-					th:method="post">
-					<div class="mx-6" th:each="allowance : ${allowances}">
-						<!-- Checkbox for selecting the allowance -->
-						<input type="checkbox" th:name="allowanceIds"
-							th:value="${allowance.allowanceId}"
-							th:checked="${#sets.contains(employeeAllowanceIds, allowance.allowanceId)}" />
-						<label
-							th:text="${allowance.allowanceName + ' - ' + allowance.allowanceShort}"></label>
-						<div class="d-flex flex-column mb-4">
-							<label th:text="${allowance.allowanceType}+ ' :' "></label><input class="form-control col-2" type="number" step="any"
-    th:name="'allowanceValue_' + ${allowance.allowanceId}"
-    th:value="${allowance.allowanceType == T(com.recovery.managementsystem.model.Allowance.AllowanceType).AMOUNT
-        ? (amounts != null and amounts[allowance.allowanceId] != null ? amounts[allowance.allowanceId].toString() : '')
-        : (percents != null and percents[allowance.allowanceId] != null ? percents[allowance.allowanceId] : '')}"
-    th:placeholder="${allowance.allowanceType != null and allowance.allowanceType == T(com.recovery.managementsystem.model.Allowance.AllowanceType).AMOUNT ? 'Enter amount' : 'Enter percentage'}" />
-
-						</div>
-
-
-					</div>
-					<!-- Numeric input field with dynamic placeholder based on enum type -->
-
-
-					<!-- Submit Button -->
-					<button class="btn btn-primary btn-value btn-teal mt-2"
-						type="submit">Save Allowances</button>
-				</form>
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -44,6 +44,9 @@ public class Allowance {
 	  public enum AllowanceType {
 	        AMOUNT, PERCENTAGE
 	    }
+	  public String getAllowanceTypeString() {
+		    return this.allowanceType != null ? this.allowanceType.name() : null;
+		}
 
 	public Integer getAllowanceId() {
 		return allowanceId;

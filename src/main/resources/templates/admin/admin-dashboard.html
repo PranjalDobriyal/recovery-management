@@ -76,6 +76,12 @@
                 </a><!-- br-menu-link -->
             </li>
             <li class="br-menu-item">
+                <a th:href="@{/admin/payroll}" class="br-menu-link">
+                 <i class="fas fa-money-bill"></i>
+                    <span class="menu-item-label">Payroll</span>
+                </a><!-- br-menu-link -->
+            </li>
+            <li class="br-menu-item">
                 <a th:href="@{/admin/change-password}" class="br-menu-link">
                     <i class="n fa fa-key 	"></i>
                     <span class="menu-item-label">Change Password</span>
@@ -177,7 +183,8 @@
                             <div class="mg-l-20">
                                 <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">Total 
                                    Expense</p>
-                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1" th:text="₹+${session.totalexpense}"></p>
+<p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1" 
+   th:text="${session.totalexpense == null ? '₹0' : '₹' + session.totalexpense}"></p>
                                 <span class="tx-11 tx-roboto tx-white-8"></span>
                             </div>
                         </div>
@@ -191,7 +198,9 @@
                             <div class="mg-l-20">
                                 <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">
                                     Total Funds</p>
-                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1" th:text="₹+${session.totalFund}"></p>
+                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1" 
+   th:text="${session.totalFund == null ? '₹0' : '₹' + session.totalFund}"></p>
+
                                 <span class="tx-11 tx-roboto tx-white-8"></span>
                             </div>
                         </div>
@@ -470,7 +479,7 @@
         </div><!-- br-pagebody -->
         <footer class="br-footer"th:fragment="footer">
             <div class="footer-left">
-                <div class="mg-b-2">Copyright &copy; 2025. AONE RECOVERY. All Rights Reserved.</div>
+                <div class="mg-b-2">Copyright &copy; <span th:text="${session.year}"></span>. AONE RECOVERY. All Rights Reserved.</div>
                 <div></div>
             </div>
 

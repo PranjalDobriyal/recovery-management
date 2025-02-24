@@ -28,10 +28,20 @@
           <th:block th:insert="admin/admin-dashboard :: header"></th:block>
         </div>
     <div class="br-mainpanel">
-
-         <div class="mt-10 my-2 mx-5 d-flex justify-content-end">
-                  <a th:href="@{/admin/add-category}" class="btn btn-teal  mt-2">Add Category</a>
+       <div class="br-pageheader bg-0 mb-0">
+        <nav class="breadcrumb pd-0 mg-0 tx-12">
+          <a class="breadcrumb-item" th:href="@{/admin/dashboard}">Dashboard</a>
+          <a class="breadcrumb-item" th:href="@{/admin/category}">All Category</a>
+        
+          
+        </nav>
+         
+      </div>
+       <div class=" my-2 mx-5 d-flex justify-content-end">
+                  <a th:href="@{/admin/add-category}" class="btn btn-teal">Add Category</a>
                 </div>
+
+       
         <div class="br-pagebody mt-0">
             <div class="br-section-wrapper pd-20">
                

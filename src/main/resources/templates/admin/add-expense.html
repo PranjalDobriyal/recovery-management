@@ -28,10 +28,17 @@
           <th:block th:insert="admin/admin-dashboard :: header"></th:block>
         </div>
     <div class="br-mainpanel">
-    <div class="mt-10px my-2 mg-l-40 d-flex justify-content-end">
+    <div class="br-pageheader bg-0 ">
+        <nav class="breadcrumb pd-0 mg-0 tx-12">
+          <a class="breadcrumb-item" th:href="@{/admin/dashboard}">Dashboard</a>
+          <a class="breadcrumb-item" th:href="@{/admin/expense}">Manage Expense</a>
+          <a class="breadcrumb-item" href="">Add Expense</a>
+        </nav>
+      </div>
+    <!-- <div class="mt-10px my-2 mg-l-40 d-flex justify-content-end">
 			                      <a th:href="@{/admin/expense}"
 									class="btn btn-primary indigo mx-5 mt-2 " >Go Back</a>
-		</div>
+		</div> -->
        
         <div class="br-pagebody mt-0">
             <div class="br-section-wrapper pd-20">

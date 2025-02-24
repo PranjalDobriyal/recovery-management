@@ -80,6 +80,7 @@ public class AdminController {
 		Integer officeCount = employeeService.findbyOffice().size();
 		Integer fosCount = employeeService.findbyFOS().size();
 		BigDecimal totalFund=fundService.getTotalFund();
+		int year=LocalDate.now().getYear();
 		model.addAttribute("employees", employees);
 		session.setAttribute("countEmployee", countEmployee);
 		session.setAttribute("id", id);
@@ -88,6 +89,7 @@ public class AdminController {
 		session.setAttribute("officeCount", officeCount);
 		session.setAttribute("fosCount", fosCount);
 		session.setAttribute("totalFund", totalFund);
+		session.setAttribute("year", year);
 		return "admin/admin-dashboard";
 	}
 
@@ -174,6 +176,25 @@ public class AdminController {
 	public String changePasswordView(HttpSession session) {
 		return "admin/change-password";
 	}
+@GetMapping("/user-change-password/{id}")
+public String userChangePasswordView(@PathVariable String id, Model model) {
+	model.addAttribute("id", id);
+	return "admin/change-user-password";
+}
+@PostMapping("/user-change-password/{id}")
+public String userChangePassword(@PathVariable String id, @RequestParam String newPassword,
+        @RequestParam String confirmPassword, RedirectAttributes redirectAttributes) {
+	    try {	
+	    	Employee employee = employeeService.findByEmployeeId(id);
+	    	employeeService.changeUserPassword(employee, newPassword, confirmPassword);
+	    	redirectAttributes.addFlashAttribute("success", "Password Changed Successfully");
+	    	return "redirect:/admin/users";
+	    }
+	    catch (RuntimeException e) {
+        	redirectAttributes.addFlashAttribute("error", e.getMessage());
+        	return "redirect:/admin/users";
+}
+}
 
 	@PostMapping("/change-password")
 	public String changePassword(@RequestParam String oldPassword, @RequestParam String newPassword,
@@ -671,7 +692,7 @@ public class AdminController {
 		}
 
 	}
-
+	
 	
 
 }

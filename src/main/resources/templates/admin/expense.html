@@ -34,6 +34,13 @@
 		<th:block th:insert="admin/admin-dashboard :: header"></th:block>
 	</div>
 	<div class="br-mainpanel">
+	<div class="br-pageheader bg-0 ">
+        <nav class="breadcrumb pd-0 mg-0 tx-12">
+          <a class="breadcrumb-item" th:href="@{/admin/dashboard}">Dashboard</a>
+          <a class="breadcrumb-item" href="">Manage Expense</a>
+         
+        </nav>
+      </div>
 
 
 		<div class="br-pagebody mt-0">
@@ -42,7 +49,7 @@
 			<!-- Filter Form -->
 			<form th:action="@{/admin/expense}" method="get" class="mb-4"
 				id="filterForm">
-				<div class="row" style="margin-top: 4rem;">
+				<div class="row" style="margin-top: 0rem;">
 
 
 
@@ -92,9 +99,11 @@
 
 					</div>
 					
-					<div class="col-md-2 mt-4">
-						<button type="submit" class="btn btn-primary  ">Filter</button>
-						<a th:href="@{/admin/expense}" class="btn btn-secondary">Reset</a>
+					<div class="col-2 mt-4 d-flex pd-4 ">
+						<button type="submit" class="btn btn-primary btn-sm mg-4">Search</button>
+						<a th:href="@{/admin/add-expense}" class="btn btn-teal btn mg-4">Add
+					Expense</a>
+						
 					</div>
 
 				</div>
@@ -109,16 +118,69 @@
 					Total Amount: <span
 						th:text="${#numbers.formatDecimal(totalAmount, 1, 2)}"></span>
 				</h5>
-				<a th:href="@{/admin/add-expense}" class="btn btn-teal ">Add
-					Expense</a>
+				<nav aria-label="navigation " class="mb-0 table d-flex justify-content-end">
+					<ul class="pagination d-flex flex-wrap">
+						<!-- Previous Page -->
+						<li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+    <a class=" btn btn-info btn-primary "  th:if="${currentPage > 0}"
+       th:href="@{/admin/expense(page=${currentPage - 1}, size=${size}, 
+                                  category=${selectedCategory}, name=${selectedName}, 
+                                  fromDate=${selectedFromDate}, toDate=${selectedToDate}, 
+                                  paymentType=${selectedPaymentType})}">
+        <span class="d-flex align-items-center">
+            <i class="fa-solid fa-arrow-left"></i>&nbsp; Back
+        </span>
+    </a>
+</li>
+
+
+						<!-- Page Numbers -->
+						<!-- <li class="page-item"
+							th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+							th:classappend="${currentPage == i} ? 'active'"><a
+							class="page-link"
+							th:href="@{/admin/expense(page=${i}, size=${size}, 
+                                  category=${selectedCategory}, 
+                                  name=${selectedName}, 
+                                  fromDate=${selectedFromDate}, 
+                                  toDate=${selectedToDate}, 
+                                  paymentType=${selectedPaymentType})}"
+							th:text="${i + 1}"></a></li> -->
+
+						<!-- Next Page -->
+						<li class="page-item "
+							th:classappend="${currentPage + 1 == totalPages} ? 'disabled'">
+							<a class="btn btn-info btn-primary mg-l-10" th:if="${currentPage !=totalPages-1}"
+							th:href="@{/admin/expense(page=${currentPage + 1}, size=${size}, 
+                                  category=${selectedCategory}, 
+                                  name=${selectedName}, 
+                                  fromDate=${selectedFromDate}, 
+                                  toDate=${selectedToDate}, 
+                                  paymentType=${selectedPaymentType})}">
+                                  <span>
+                                  Next&nbsp<i class="fa-solid fa-arrow-right"></i>
+                                  </span>
+                                  </a>
+                                  
+						</li>
+					</ul>
+				</nav>
+				
+				
 
 			</div>
+	
+	<!-- Pagination -->
+				
+
+
+
 			<div class="br-section-wrapper pd-20">
 
 
 				<!-- Expense Table -->
 				<div class="table-wrapper">
-					<table id="datatable1" class="table display responsive nowrap">
+					<table id="datatable1" class="table display table-bordered table-striped responsive nowrap">
 						<thead>
 							<tr>
 								<th>#</th>
@@ -163,22 +225,25 @@
 
 
 				<!-- Pagination -->
-				<nav aria-label="navigation" class="table">
-					<ul class="pagination d-flex mx-2 flex-wrap">
+				<!-- Pagination -->
+				<nav aria-label="navigation " class="mb-0 table d-flex justify-content-end">
+					<ul class="pagination d-flex flex-wrap">
 						<!-- Previous Page -->
-						<li class="page-item"
-							th:classappend="${currentPage == 0} ? 'disabled'"><a
-							class="page-link"
-							th:href="@{/admin/expense(page=${currentPage - 1}, size=${size}, 
-                                  category=${selectedCategory}, 
-                                  name=${selectedName}, 
-                                  fromDate=${selectedFromDate}, 
-                                  toDate=${selectedToDate}, 
-                                  paymentType=${selectedPaymentType})}">&laquo;</a>
-						</li>
+						<li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+    <a class=" btn btn-info btn-primary "  th:if="${currentPage > 0}"
+       th:href="@{/admin/expense(page=${currentPage - 1}, size=${size}, 
+                                  category=${selectedCategory}, name=${selectedName}, 
+                                  fromDate=${selectedFromDate}, toDate=${selectedToDate}, 
+                                  paymentType=${selectedPaymentType})}">
+        <span class="d-flex align-items-center">
+            <i class="fa-solid fa-arrow-left"></i>&nbsp; Back
+        </span>
+    </a>
+</li>
+
 
 						<!-- Page Numbers -->
-						<li class="page-item"
+						<!-- <li class="page-item"
 							th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
 							th:classappend="${currentPage == i} ? 'active'"><a
 							class="page-link"
@@ -188,21 +253,27 @@
                                   fromDate=${selectedFromDate}, 
                                   toDate=${selectedToDate}, 
                                   paymentType=${selectedPaymentType})}"
-							th:text="${i + 1}"></a></li>
+							th:text="${i + 1}"></a></li> -->
 
 						<!-- Next Page -->
-						<li class="page-item"
+						<li class="page-item "
 							th:classappend="${currentPage + 1 == totalPages} ? 'disabled'">
-							<a class="page-link"
+							<a class="btn btn-info btn-primary mg-l-10" th:if="${currentPage !=totalPages-1}"
 							th:href="@{/admin/expense(page=${currentPage + 1}, size=${size}, 
                                   category=${selectedCategory}, 
                                   name=${selectedName}, 
                                   fromDate=${selectedFromDate}, 
                                   toDate=${selectedToDate}, 
-                                  paymentType=${selectedPaymentType})}">&raquo;</a>
+                                  paymentType=${selectedPaymentType})}">
+                                  <span>
+                                  Next&nbsp<i class="fa-solid fa-arrow-right"></i>
+                                  </span>
+                                  </a>
+                                  
 						</li>
 					</ul>
 				</nav>
+
 			</div>
 		</div>
 		<th:block th:insert="admin/admin-dashboard :: footer"></th:block>

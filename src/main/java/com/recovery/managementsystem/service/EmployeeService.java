@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @Service
+@Transactional
 public class EmployeeService {
 
 	@Autowired
@@ -85,7 +87,7 @@ public class EmployeeService {
 		employee.setIncentiveAmount(employee.getIncentiveAmount());
 		employee.setEmail(employee.getEmail());
 		employee.setPanCard(panFilePath);
-		employee.setStatus(employee.getStatus());
+		employee.setStatus("ACTIVE");
 		employeeRepository.save(employee);
 		return employeeID;
 	}
@@ -185,4 +187,14 @@ public class EmployeeService {
 		employeeRepository.save(employee);
 		return employeeID;
 	}
-}
+
+	public void changeUserPassword(Employee employee, String newPassword, String confirmPassword) {
+		if (newPassword.equals(confirmPassword)) {
+            employee.setPassword(passwordEncoder.encode(newPassword));
+            updateEmployee(employee);
+        } else {
+            throw new RuntimeException("New Password and Old Password Doesn't Match");
+        }
+    }
+		
+	}

@@ -30,7 +30,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	@Query("SELECT e FROM Employee e WHERE e.employeeType = 'FOS'")
 	List<Employee> findByFOS();
 
-	@Query("SELECT e FROM Employee e WHERE e.role != 'ADMIN'")
+	@Query("SELECT e FROM Employee e WHERE e.role != 'ADMIN' AND e.role != 'SUPERADMIN'")
 	public List<Employee> findAllExcept();
 
 }

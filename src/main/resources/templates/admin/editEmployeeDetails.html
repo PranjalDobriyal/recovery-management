@@ -29,8 +29,11 @@
         </div>
     <div class="br-mainpanel">
     <div class="mt-10px my-2 mg-l-40 d-flex justify-content-end">
+    <a th:href="@{/admin/user-change-password/{id}(id=${employee.employeeId})}" class="btn btn-danger  mt-2" type="submit">Change Password</a>
+    
 			                      <a th:href="@{/admin/users}"
-									class="btn btn-primary indigo mx-5" >Go Back</a>
+									class="btn btn-primary indigo  mt-2 mx-5" >Go Back</a>
+									
 		</div>
        
         <div class="br-pagebody mt-0">
@@ -54,6 +57,7 @@
 								</div>
 							</div>
 	
+							
 							<div class="col-lg-3">
 								<div class="form-group">
 									<label class="form-control-label">Name: <span
@@ -232,8 +236,10 @@
 
 						</div>
 						<!-- row -->
-						<div class="form-layout-footer">
+						<div class="form-layout-footer d-flex justify-content-between">
 							<button class="btn btn-info" type="submit">Update Details</button>
+						
+						
 						</div>
 						<!-- form-layout-footer -->
 					</div>

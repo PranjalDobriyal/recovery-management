@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add Allowance</title>
+    <title>Add Category</title>
     <th:block th:replace="admin/fragments :: css"></th:block>
     <th:block th:replace="admin/fragments :: scripts"></th:block>
 </head>
@@ -18,7 +18,8 @@
                         class="icon ion-navicon-round"></i></a></div>
                    <div class="br-pagetitle pt-0 justify-content-space-around">
            
-                            <div class="signin-logo tx-center tx-28 tx-bold tx-inverse"><span class="tx-normal"></span> Add <span class="tx-info">Allowance</span> <span class="tx-normal"></span></div>
+                                       <div class="signin-logo tx-center tx-28 tx-bold tx-inverse"><span class="tx-normal"></span> Add <span class="tx-info">Category</span> <span class="tx-normal"></span></div>
+
             
             
             
@@ -31,79 +32,57 @@
     <div class="br-pageheader bg-0 mb-0">
         <nav class="breadcrumb pd-0 mg-0 tx-12">
           <a class="breadcrumb-item" th:href="@{/admin/dashboard}">Dashboard</a>
-          <a class="breadcrumb-item" th:href="@{/admin/allowances}">All Allowances</a>
-          <a class="breadcrumb-item" href="">Add Allowance</a>
+          <a class="breadcrumb-item" th:href="@{/admin/payroll}">Payroll</a>
+           <a class="breadcrumb-item" href="">Add-Deduction</a>
+     
           
         </nav>
          
       </div>
         <div class="br-pagebody mt-0">
             <div class="br-section-wrapper pd-20">
-				<form th:action="@{/admin/add-allowance}" method="post" th:object="${allowance}" data-parsley-validate>
+			
+				<form th:action="@{/admin/add-deduction(year=${year},month=${month})}" method="post"  data-parsley-validate>
 					<div class="form-layout form-layout-1">
 						<div class="row mg-b-25">
-							<!-- <div class="col-lg-4">
-								<div class="form-group mg-b-10-force">
-									<label class="form-control-label">Status<span
-										class="tx-danger">*</span></label> 
-										<select class="form-control select2" th:field="*{status}">
-										<option value=""
-											th:selected="${employee.status== null}">Choose
-											one</option>
-										<option value="ACTIVE"
-											th:selected="${employee.status == 'ACTIVE'}">ACTIVE</option>
-										<option value="INACTIVE"
-											th:selected="${employee.status == 'INACTIVE'}">INACTIVE</option>
-									</select>
-								</div>
-							</div> -->
+				
 	
-							<div class="col-lg-3">
+							<div class="col-lg-4">
 								<div class="form-group">
-									<label class="form-control-label">Allowance Name <span
+									<label class="form-control-label">Name <span
 										class="tx-danger">*</span></label> <input class="form-control"
-										type="text" name="allowanceName" th:field="*{allowanceName}"
-										 placeholder="Enter Allowance Name" required>
-										 <span th:if="${#fields.hasErrors('allowanceName')}" th:errors="*{allowanceName}"></span>
+										type="text" name="name" th:value="${deduction?.deductionName}"
+										 placeholder="Enter Deduction" required>
+										
 								</div>
 							</div>
-							<div class="col-lg-3">
+									<div class="col-lg-4">
 								<div class="form-group">
-									<label class="form-control-label">Allowance Abbr <span
+									<label class="form-control-label">Amount <span
 										class="tx-danger">*</span></label> <input class="form-control"
-										type="text" name="allowanceShort" th:field="*{allowanceShort}"
-										 placeholder="Enter Allowance Abbr" required>
-										 <span th:if="${#fields.hasErrors('allowanceShort')}" th:errors="*{allowanceShort}"></span>
+										type="number" name="amount" th:value="${deduction?.deductionAmount}"
+										 placeholder="Enter Amount" required>
+										
 								</div>
 							</div>
-														<div class="col-lg-3">
-								<div class="form-group mg-b-10-force">
-									<label class="form-control-label">Allowance Type <span
-										class="tx-danger">*</span></label> <select
-										class="form-control select2" name="allowanceType" th:field="*{allowanceType}">
-									
-										<option value=""
-											th:selected="${allowance.allowanceType == null}">Choose
-											one</option>
-										<option th:each="type : ${session.allowanceTypes}" th:value="${type}"
-											th:text="${type}"
-											th:selected="${type == allowance.allowanceType}"></option>
-									</select>
-								</div>
-							</div>
-
-							<!-- col-8 -->
 							
-						</div>
+									<input class="form-control"
+										type="hidden" name="employeeId"
+										th:value="${id}" >
+										
+								</div>
+						
 						<!-- row -->
 						<div class="form-layout-footer">
-							<button class="btn btn-info" type="submit">Add Allowance</button>
+							<button class="btn btn-info" type="submit">Add Deduction</button>
 						</div>
 						<!-- form-layout-footer -->
-					</div>
 					
-				
+					<!-- form-layout -->
+				</div>
 				</form>
+					</div>
+	<th:block th:insert="admin/admin-dashboard :: footer"></th:block>
 			</div>
 			 <div th:if="${errorMessage}">
                               <script th:inline="javascript">
@@ -120,8 +99,8 @@
                               </script>
                               </div> 
 		</div>
-		<th:block th:insert="admin/admin-dashboard :: footer"></th:block>
-	</div>
+		
+
 	
 </body>
 </html>

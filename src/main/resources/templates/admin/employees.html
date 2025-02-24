@@ -35,6 +35,13 @@
 		<th:block th:insert="admin/admin-dashboard :: header"></th:block>
 	</div>
 	<div class="br-mainpanel">
+	<div class="br-pageheader bg-0 ">
+        <nav class="breadcrumb pd-0 mg-0 tx-12">
+          <a class="breadcrumb-item" th:href="@{/admin/dashboard}">Dashboard</a>
+          <a class="breadcrumb-item" href="">Employees</a>
+         
+        </nav>
+      </div>
 		<div class="mt-10 my-2 mx-5 d-flex justify-content-end">
 			<a th:href="@{/admin/add-member}" class="btn btn-teal mt-2">Add
 				Member</a>
@@ -44,7 +51,7 @@
 			<div class="br-section-wrapper pd-20">
 
 				<div class="table-wrapper">
-				<table id="datatable1" class="display table table-bordered wrap responsive">
+					<table id="datatable1" class="display table table-bordered responsive nowrap">
 
 						<thead>
 							<tr>
@@ -295,67 +302,89 @@
 
 	<!-- Employee Details Modal -->
 	<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const viewButtons = document.querySelectorAll('.view-btn');
-    const modal = new bootstrap.Modal(document.getElementById('employeeModal'));
+	document.addEventListener('DOMContentLoaded', function () {
+	    const viewButtons = document.querySelectorAll('.view-btn');
+	    const modal = new bootstrap.Modal(document.getElementById('employeeModal'));
 
-    viewButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            // Get employee details from data attributes
-            const id = this.getAttribute('data-id');
-            const name = this.getAttribute('data-name');
-            const email = this.getAttribute('data-email');
-            const role = this.getAttribute('data-role');
-            const contact = this.getAttribute('data-contact');
-            const status = this.getAttribute('data-status');
-            const bankName = this.getAttribute('data-bankname');
-            const accountNumber = this.getAttribute('data-acno');
-            const ifscCode = this.getAttribute('data-ifsc');
-            const panCard = this.getAttribute('data-pan');
-            const adhaarCard = this.getAttribute('data-adhaar');
-            const city = this.getAttribute('data-city');
+	    viewButtons.forEach(button => {
+	        button.addEventListener('click', function () {
+	            // Get employee details from data attributes
+	            const id = this.getAttribute('data-id');
+	            const name = this.getAttribute('data-name');
+	            const email = this.getAttribute('data-email');
+	            const role = this.getAttribute('data-role');
+	            const contact = this.getAttribute('data-contact');
+	            const status = this.getAttribute('data-status');
+	            const bankName = this.getAttribute('data-bankname');
+	            const accountNumber = this.getAttribute('data-acno');
+	            const ifscCode = this.getAttribute('data-ifsc');
+	            const panCard = this.getAttribute('data-pan');
+	            const adhaarCard = this.getAttribute('data-adhaar');
+	            const city = this.getAttribute('data-city');
+	            const address = this.getAttribute('data-address');
+	            const dob = this.getAttribute('data-dob');
+	            const designation = this.getAttribute('data-des');
+	            const salary = this.getAttribute('data-salary');
+	            const employeeType = this.getAttribute('data-emp');
+	            const fosType = this.getAttribute('data-fos');
+	            const paymentType = this.getAttribute('data-pay');
+	            const hasIncentive = this.getAttribute('data-incent');
+	            const incentiveAmount = this.getAttribute('data-incentamount');
+	            const totalSales = this.getAttribute('data-sales');
+	            const commissionPercentage = this.getAttribute('data-commission');
 
-            // Populate modal with employee details
-            document.getElementById('modal-id').textContent = id;
-            document.getElementById('modal-name').textContent = name;
-            document.getElementById('modal-email').textContent = email;
-            document.getElementById('modal-role').textContent = role;
-            document.getElementById('modal-contact').textContent = contact;
-            document.getElementById('modal-status').textContent = status;
-            document.getElementById('modal-bankName').textContent = bankName;
-            document.getElementById('modal-acno').textContent = accountNumber;
-            document.getElementById('modal-ifsc').textContent = ifscCode;
-            document.getElementById('modal-city').textContent = city;
+	            // Populate modal with employee details
+	            document.getElementById('modal-id').textContent = id;
+	            document.getElementById('modal-name').textContent = name;
+	            document.getElementById('modal-email').textContent = email;
+	            document.getElementById('modal-role').textContent = role;
+	            document.getElementById('modal-contact').textContent = contact;
+	            document.getElementById('modal-status').textContent = status;
+	            document.getElementById('modal-bankName').textContent = bankName;
+	            document.getElementById('modal-acno').textContent = accountNumber;
+	            document.getElementById('modal-ifsc').textContent = ifscCode;
+	            document.getElementById('modal-city').textContent = city;
+	            document.getElementById('modal-address').textContent = address;
+	            document.getElementById('modal-dob').textContent = dob;
+	            document.getElementById('modal-des').textContent = designation;
+	            document.getElementById('modal-salary').textContent = salary;
+	            document.getElementById('modal-emp').textContent = employeeType;
+	            document.getElementById('modal-fos').textContent = fosType;
+	            document.getElementById('modal-pay').textContent = paymentType;
+	            document.getElementById('modal-incent').textContent = hasIncentive;
+	            document.getElementById('modal-incentamount').textContent = incentiveAmount;
+	            document.getElementById('modal-sales').textContent = totalSales;
+	            document.getElementById('modal-commission').textContent = commissionPercentage;
 
-            // Update Aadhaar & Pan Card Preview Buttons
-            document.getElementById('modal-pan-btn').setAttribute('data-doc-url', '/files/' + panCard);
-            document.getElementById('modal-adhaar-btn').setAttribute('data-doc-url', '/files/' + adhaarCard);
+	            // Update Aadhaar & Pan Card Preview Buttons
+	            document.getElementById('modal-pan-btn').setAttribute('data-doc-url', '/files/' + panCard);
+	            document.getElementById('modal-adhaar-btn').setAttribute('data-doc-url', '/files/' + adhaarCard);
 
-            // Show the modal
-            modal.show();
-        });
-    });
+	            // Show the modal
+	            modal.show();
+	        });
+	    });
 
-    // Show document preview when button is clicked
-    document.querySelectorAll('.view-doc').forEach(btn => {
-        btn.addEventListener('click', function () {
-            const docUrl = this.getAttribute('data-doc-url');
+	    // Show document preview when button is clicked
+	    document.querySelectorAll('.view-doc').forEach(btn => {
+	        btn.addEventListener('click', function () {
+	            const docUrl = this.getAttribute('data-doc-url');
 
-            if (docUrl && docUrl !== "/files/null") {
-                window.open(docUrl, '_blank');
-            } else {
-                alert("No document available!");
-            }
-        });
-    });
-});
+	            if (docUrl && docUrl !== "/files/null") {
+	                window.open(docUrl, '_blank');
+	            } else {
+	                alert("No document available!");
+	            }
+	        });
+	    });
+	});
 </script>
 <script>
 		$(function() {
 			'use strict';
 
 			$('#datatable1').DataTable({
-				responsive : true,
+				responsive : false,
 				language : {
 					searchPlaceholder : 'Search...',
 					sSearch : '',
