@@ -1,37 +1,60 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<title>Add Member</title>
+<meta charset="UTF-8">
+<title>All Allowances</title>
 <th:block th:replace="admin/fragments :: css"></th:block>
 <th:block th:replace="admin/fragments :: scripts"></th:block>
 </head>
 <body>
-	<th:block th:insert="admin/admin-dashboard :: header"></th:block>
+
 	<th:block th:insert="admin/admin-dashboard :: logo"></th:block>
 	<th:block th:insert="admin/admin-dashboard :: sidebar"></th:block>
-	<div class="br-mainpanel">
-		<div class="br-pagetitle pt-2 ">
-			<i class="icon ion-ios-person-outline"></i>
-			<div>
-				<h4>Add Expense</h4>
-				<p class="mg-b-0">Add all expenses here</p>
+	<div class="br-header">
+		<div class="br-header-left">
+			<div class="navicon-left hidden-md-down">
+				<a id="btnLeftMenu" href="#"><i class="icon ion-navicon-round"></i></a>
+			</div>
+			<div class="navicon-left hidden-lg-up">
+				<a id="btnLeftMenuMobile" href="#"><i
+					class="icon ion-navicon-round"></i></a>
+			</div>
+			<div class="br-pagetitle pt-0 justify-content-space-around">
+
+				<div class="signin-logo tx-center tx-28 tx-bold tx-inverse">
+					<span class="tx-normal"></span> Allot <span class="tx-info">Employee</span>
+					<span class="tx-normal"></span>
+				</div>
+
+
+
 			</div>
 
 		</div>
+		<th:block th:insert="admin/admin-dashboard :: header"></th:block>
+	</div>
+	<div class="br-mainpanel">
+	<div class="br-pageheader bg-0 mb-0">
+       	<nav class="breadcrumb pd-0 mg-0 tx-12">
+				<a class="breadcrumb-item" th:href="@{/admin/dashboard}">Dashboard</a>
+
+				<a class="breadcrumb-item" th:href="@{/admin/recovery}">Recovery</a>
+				<a class="breadcrumb-item" href="">Allot</a>
+
+
+			</nav>
+       
+         
+      </div>
+		<div class="mt-0 my-1 mx-5 d-flex justify-content-end">
+					<a th:href="@{/admin/recovery}" class="btn btn-primary indigo mt-0">Go
+						Back</a>
+				</div>																																																																							
 		<!-- d-flex -->
 		<div class="br-pagebody mt-1">
 
 			<div class="br-section-wrapper pd-20">
-				<div class="mt-0 my-1 mx-0 d-flex justify-content-end">
-					<a th:href="@{/admin/recovery}" class="btn btn-primary indigo mt-0">Go
-						Back</a>
-				</div>
+				
 				<form
 					th:action="@{/admin/alot/recovery/{id}(id=${recovery.recoveryId})}"
 					method="post" data-parsley-validate>

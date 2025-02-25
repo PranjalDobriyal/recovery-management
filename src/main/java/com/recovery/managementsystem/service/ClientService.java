@@ -23,4 +23,8 @@ public class ClientService {
 		
 	}
 
+	public long getTotalClients() {
+		return clientRepository.count();
+	}
+
 }

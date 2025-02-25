@@ -132,6 +132,8 @@ public class FundController {
 	    paymentMode = (paymentMode != null && paymentMode.isEmpty()) ? null : paymentMode;
 	    category = (category != null && category.isEmpty()) ? null : category;
 		Page<FundManage> fundPage = fundService.getFilteredFunds(page, size,id, amountType, paymentMode, category,fromDate,toDate);
+		BigDecimal totalcredit=fundService.getTotalCredit(id);
+		BigDecimal totaldebit=fundService.getTotalDebit(id);
 		model.addAttribute("paymentTypes", com.recovery.managementsystem.model.Expense.PaymentType.values());
 		model.addAttribute("funds", fundPage.getContent());
 		model.addAttribute("currentPage", page);
@@ -142,6 +144,8 @@ public class FundController {
 	    model.addAttribute("selectedcategory", category);
 	    model.addAttribute("selectedfromDate", fromDate);
 		model.addAttribute("selectedtoDate", toDate);
+		model.addAttribute("totalcredit",totalcredit);
+		model.addAttribute("totaldebit", totaldebit);
 	    model.addAttribute("employee", employeeService.findByEmployeeId(id));
 		model.addAttribute("paymentTypes", com.recovery.managementsystem.model.Expense.PaymentType.values());
 		

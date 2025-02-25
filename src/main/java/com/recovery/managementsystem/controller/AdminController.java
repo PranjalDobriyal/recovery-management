@@ -77,11 +77,13 @@ public class AdminController {
 		Long countEmployee = employeeService.countEmployee() - 1;
 		List<Employee> employees = employeeService.getAllUsers();
 		BigDecimal expenseTotal = expenseService.getTotal();
+		Long totalClients=clientService.getTotalClients();
 		Integer officeCount = employeeService.findbyOffice().size();
 		Integer fosCount = employeeService.findbyFOS().size();
 		BigDecimal totalFund=fundService.getTotalFund();
 		int year=LocalDate.now().getYear();
 		model.addAttribute("employees", employees);
+		session.setAttribute("totalClient",totalClients);
 		session.setAttribute("countEmployee", countEmployee);
 		session.setAttribute("id", id);
 		session.setAttribute("totalexpense", expenseTotal);

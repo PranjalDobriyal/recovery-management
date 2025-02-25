@@ -1,47 +1,60 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Clients</title>
-    <th:block th:replace="admin/fragments :: css"></th:block>
-    <th:block th:replace="admin/fragments :: scripts"></th:block>
+<meta charset="UTF-8">
+<title>All Allowances</title>
+<th:block th:replace="admin/fragments :: css"></th:block>
+<th:block th:replace="admin/fragments :: scripts"></th:block>
 </head>
 <body>
-  
-    <th:block th:insert="admin/admin-dashboard :: logo"></th:block>
-    <th:block th:insert="admin/admin-dashboard :: sidebar"></th:block>
- <div class="br-header" >
-        <div class="br-header-left">
-            <div class="navicon-left hidden-md-down"><a id="btnLeftMenu" href="#"><i
-                        class="icon ion-navicon-round"></i></a></div>
-            <div class="navicon-left hidden-lg-up"><a id="btnLeftMenuMobile" href="#"><i
-                        class="icon ion-navicon-round"></i></a></div>
-                   <div class="br-pagetitle pt-0 justify-content-space-around">
-           
-                                       <div class="signin-logo tx-center tx-28 tx-bold tx-inverse"><span class="tx-normal"></span>All <span class="tx-info">Clients</span> <span class="tx-normal"></span></div>
 
-            
-            
-            
-        </div>
+	<th:block th:insert="admin/admin-dashboard :: logo"></th:block>
+	<th:block th:insert="admin/admin-dashboard :: sidebar"></th:block>
+	<div class="br-header">
+		<div class="br-header-left">
+			<div class="navicon-left hidden-md-down">
+				<a id="btnLeftMenu" href="#"><i class="icon ion-navicon-round"></i></a>
+			</div>
+			<div class="navicon-left hidden-lg-up">
+				<a id="btnLeftMenuMobile" href="#"><i
+					class="icon ion-navicon-round"></i></a>
+			</div>
+			<div class="br-pagetitle pt-0 justify-content-space-around">
 
-        </div>
-          <th:block th:insert="admin/admin-dashboard :: header"></th:block>
-        </div>
-    <div class="br-mainpanel">
+				<div class="signin-logo tx-center tx-28 tx-bold tx-inverse">
+					<span class="tx-normal"></span> All <span class="tx-info">Clients</span>
+					<span class="tx-normal"></span>
+				</div>
 
-         <div class="mt-10 my-2 mx-5 d-flex justify-content-end">
-                 <a th:href="@{/admin/add-client}"
-									class="btn btn-primary indigo mt-0" >Add Client</a>
-                </div>
-        <div class="br-pagebody mt-0">
-            <div class="br-section-wrapper pd-20">
-            
-                
 
-                <div class="table-wrapper">
-                    <table id="datatable1" class="table display responsive nowrap">
-                        <thead>
+
+			</div>
+
+		</div>
+		<th:block th:insert="admin/admin-dashboard :: header"></th:block>
+	</div>
+	<div class="br-mainpanel">
+	<div class="br-pageheader bg-0 mb-0">
+        <nav class="breadcrumb pd-0 mg-0 tx-12">
+          <a class="breadcrumb-item" th:href="@{/admin/dashboard}">Dashboard</a>
+          <a class="breadcrumb-item" th:href="@{/admin/client}">All Clients</a>
+          
+          
+        </nav>
+         
+      </div>
+		<div class=" my-2 mx-5 d-flex justify-content-end">
+			<a th:href="@{/admin/add-client}" class="btn btn-teal ">Add
+				Client</a>
+		</div>
+
+		<div class="br-pagebody mt-0">
+			<div class="br-section-wrapper pd-20">
+
+
+				<div class="table-wrapper">
+					<table id="datatable1" class="display table table-bordered responsive nowrap">
+						<thead>
                             <tr>
                                 <th class="wd-10p">#</th>
                                 <th class="wd-20p">Client Id</th>
@@ -104,7 +117,7 @@
 				language : {
 					searchPlaceholder : 'Search...',
 					sSearch : '',
-					lengthMenu : '_MENU_ items/page',
+					lengthMenu : false,
 				}
 			});
 
