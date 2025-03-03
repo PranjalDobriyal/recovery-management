@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.springframework.data.convert.JodaTimeConverters.LocalDateTimeToDateConverter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -139,48 +138,47 @@ public class PayrollService {
 		return payrollSummaryRepository.findAllByYearAndMonth(year,enumMonth,PageRequest.of(page, size));
 		
 	}
+	public void addDeduction(String name, String employeeId, BigDecimal amount, Month month2, int year2) {
+	    
+	    // Fetch deduction only once
+	    Deductions deduction = deductionsRepository.findAllByIdAndMonth(employeeId, month2, year2);
+	    Employee employee = employeeService.findByEmployeeId(employeeId);
 
-	public void addDeduction(String name, String employeeId, BigDecimal amount, Month month, Integer year) {
-		
-		Deductions deduction= deductionsRepository.findAllByIdAndMonth(employeeId,month,year);
-		Employee employee=employeeService.findByEmployeeId(employeeId);
-		if(deduction.getStatus().equalsIgnoreCase("locked"))
-		{
-			throw new RuntimeException("Deduction is locked");
-		}
-		
-		else if(deduction!=null && !deduction.getStatus().equalsIgnoreCase("locked") )
-		{
-			Deductions deductions= deductionsRepository.findAllByIdAndMonth(employeeId, month,year);
-			deductions.setEmployee(employee);
-			deductions.setDeductionAmount(amount);
-			deductions.setDeductionName(name);
-			deductions.setMonth(month);
-			deductions.setYear(year);
-			deductionsRepository.save(deductions);
-		}
-		else {
-			Deductions deductions=new Deductions();
-			deductions.setEmployee(employee);
-			deductions.setDeductionAmount(amount);
-			deductions.setDeductionName(name);
-			deductions.setMonth(month);
-			deductions.setYear(year);
-			deductionsRepository.save(deductions);
-		}
-		}
+	    // Check if deduction exists
+	    if (deduction != null) {
+	        if ("locked".equalsIgnoreCase(deduction.getStatus())) {
+	            throw new RuntimeException("Deduction is locked");
+	        }
+	        
+	        // Update existing deduction
+	        deduction.setEmployee(employee);
+	        deduction.setDeductionAmount(amount);
+	        deduction.setDeductionName(name);
+	        deduction.setMonth(month2);
+	        deduction.setYear(year2);
+	    } else {
+	        // Create new deduction
+	        deduction = new Deductions();
+	        deduction.setEmployee(employee);
+	        deduction.setDeductionAmount(amount);
+	        deduction.setDeductionName(name);
+	        deduction.setMonth(month2);
+	        deduction.setYear(year2);
+	    }
+
+	    // Save the deduction (either updated or new)
+	    deductionsRepository.save(deduction);
+	}
+
 
 	public List<Payroll> getAllPayrollsByEmployeeId(String id, Month month, Integer year) {
 		return payrollRepository.getPayrollByEmployeeId(id,month,year);
 	}
 
-	public Deductions getAllDeductionByEmployeeId(String id, Month month, Integer year) {
-		return deductionsRepository.findAllByIdAndMonth(id,month,year);
+	public Deductions getAllDeductionByEmployeeId(String id, Month month2, int year) {
+		return deductionsRepository.findAllByIdAndMonth(id,month2,year);
 	}
 
-	public Deductions findDeductionById(String id, Month month, Integer year) {
-		return deductionsRepository.findAllByIdAndMonth(id,month,year);
-	}
 
 	public PayrollSummary getPayrollSummaryByEmployeeId(String id,Month month,Integer year) {
 		return payrollSummaryRepository.findByEmployeeId(id, month, year);
@@ -225,7 +223,26 @@ public class PayrollService {
 		return payrollSummaryRepository.getTotalDeduction(enumMonth,year);
 	}
 
+	public void deleteDeduction(String id, String month, String year) {
+		int year2=Integer.parseInt(year);
+		Month month2=Month.valueOf(month);
+		Deductions deductions=getAllDeductionByEmployeeId(id, month2, year2);
+		if(deductions==null)
+		{
+			throw new RuntimeException("Deduction not found");
+		}
+		else
+		{
+		deductionsRepository.delete(deductions);
+	}
+
 		
 	}
+
+	public Page<PayrollSummary> filterPayrollById(int page, int size, String id, Month month, Integer year) {
+		// TODO Auto-generated method stub
+		return payrollSummaryRepository.filterPayrollById(id,month,year,PageRequest.of(page, size));
+	}
+}
 	
 

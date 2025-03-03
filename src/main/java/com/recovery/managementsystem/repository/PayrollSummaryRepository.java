@@ -5,6 +5,7 @@ import java.time.Month;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -36,6 +37,12 @@ public interface PayrollSummaryRepository extends JpaRepository<PayrollSummary, 
 	  	       "(:year IS NULL OR p.year=:year)"
 	  	       )
 	BigDecimal getTotalDeduction(Month enumMonth, Integer year);
+
+	 
+	 @Query("SELECT p FROM PayrollSummary p WHERE p.employeeId = :id "
+		       + "AND (:month IS NULL OR p.month = :month) "
+		       + "AND (:year IS NULL OR p.year = :year)")
+	Page<PayrollSummary> filterPayrollById(String id, Month month, Integer year, Pageable pageable);
 
 	
 }

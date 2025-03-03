@@ -41,8 +41,10 @@
       </div>
         <div class="br-pagebody mt-0">
             <div class="br-section-wrapper pd-20">
+          
 			
-				<form th:action="@{/admin/add-deduction(year=${year},month=${month})}" method="post"  data-parsley-validate>
+			
+				<form th:action="@{/admin/add-deduction(employeeId=${employeeId},year=${year},month=${month})}" method="post" >
 					<div class="form-layout form-layout-1">
 						<div class="row mg-b-25">
 				
@@ -66,9 +68,7 @@
 								</div>
 							</div>
 							
-									<input class="form-control"
-										type="hidden" name="employeeId"
-										th:value="${id}" >
+								
 										
 								</div>
 						

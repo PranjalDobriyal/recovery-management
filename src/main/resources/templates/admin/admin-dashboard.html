@@ -4,20 +4,21 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Aone Recovery</title>
-    
-    
+<title>Aone Recovery</title>
+
+
 <th:block th:replace="~{admin/fragments :: css}"></th:block>
 <th:block th:replace="~{admin/fragments :: dashboard-scripts}"></th:block>
-    
+
 
 </head>
 
 <body>
-<!--     ########## START: LEFT PANEL ##########
+	<!--     ########## START: LEFT PANEL ##########
      <div class="col-md-6 col-xl-4 mg-t-30">
               <div class="d-flex bg-gray-200 ht-300 pos-relative align-items-center">
                 <div class="sk-three-bounce">
@@ -27,84 +28,83 @@
                 </div>
               </div>d-flex
             </div>col-4 -->
-    <div class="br-logo" th:fragment="logo"><a href="#"><span></span>AONE <i>RECOVERY</i><span></span></a></div>
-    <div class="br-sideleft sideleft-scrollbar" th:fragment="sidebar" >
-        <label class="sidebar-label  pd-x-10 mg-t-20 op-3">Navigation</label>
-        <ul class="br-sideleft-menu">
-            <li class="br-menu-item">
-                <a th:href="@{/admin/dashboard}" class="br-menu-link">
-                   <i class="fas fa-tachometer-alt"></i>
-                    <span class="menu-item-label">Dashboard</span>
-                </a><!-- br-menu-link -->
-            </li><!-- br-menu-item -->
-            <li class="br-menu-item">
-                <a th:href="@{/admin/users}" class="br-menu-link">
-                    <i class="fas fa-users"></i>
-                    <span class="menu-item-label">Employees</span>
-                </a><!-- br-menu-link -->
-            </li><!-- br-menu-item -->
-             <li class="br-menu-item">
-                <a th:href="@{/admin/allowances}" class="br-menu-link">
-                 <i class="fas fa-file-invoice-dollar"></i>
-                    <span class="menu-item-label">Allowances</span>
-                </a><!-- br-menu-link -->
-            </li><!-- br-menu-item -->
-             <li class="br-menu-item">
-          <a href="#" class="br-menu-link with-sub">
-                  	<i class="fas fa-money-bill-wave"></i>
-            <span class="menu-item-label">Expenses</span>
-          </a><!-- br-menu-link -->
-          <ul class="br-menu-sub">
-            <li class="sub-item"><a th:href="@{/admin/category}" class="sub-link">Manage Expense Category</a></li>
-            <li class="sub-item"><a th:href="@{/admin/expense}" class="sub-link">Manage Expense</a></li>
-                      </ul>
-        </li><!-- br-menu-item -->
-        <li class="br-menu-item">
-                <a th:href="@{/admin/client}" class="br-menu-link">
-                  <i class="fas fa-user-group"></i>
-                    <span class="menu-item-label">Clients</span>
-                </a><!-- br-menu-link -->
-            </li><!-- br-menu-item -->
-               <li class="br-menu-item">
-                <a th:href="@{/admin/recovery}" class="br-menu-link">
-                 <i class="fas fa-repeat"></i>
-                    <span class="menu-item-label">Recovery</span>
-                </a><!-- br-menu-link -->
-            </li>
-            <li class="br-menu-item">
-                <a th:href="@{/admin/funds	}" class="br-menu-link">
-                 <i class="fas fa-dollar"></i>
-                    <span class="menu-item-label">Fund Manage</span>
-                </a><!-- br-menu-link -->
-            </li>
-            <li class="br-menu-item">
-                <a th:href="@{/admin/payroll}" class="br-menu-link">
-                 <i class="fas fa-money-bill"></i>
-                    <span class="menu-item-label">Payroll</span>
-                </a><!-- br-menu-link -->
-            </li>
-            <li class="br-menu-item">
-                <a th:href="@{/admin/change-password}" class="br-menu-link">
-                    <i class="n fa fa-key 	"></i>
-                    <span class="menu-item-label">Change Password</span>
-                </a><!-- br-menu-link -->
-            </li><!-- br-menu-item -->
-             <li class="br-menu-item">
-                <a th:href="@{/admin/help}" class="br-menu-link">
-                   <i class="fas fa-question-circle"></i>
-                    <span class="menu-item-label">Help</span>
-                </a><!-- br-menu-link -->
-            </li><!-- br-menu-item -->
-         
-             <li class="br-menu-item ">
-                <a th:href="@{/logout}" class="br-menu-link ">
-                 <i class="fas fa-sign-out-alt"></i>
-                    <span class="menu-item-label">Logout</span>
-                </a>
-              </li>
-            
-          
-            <!--
+	<div class="br-logo" th:fragment="logo">
+		<a href="#"><span></span>AONE <i>RECOVERY</i><span></span></a>
+	</div>
+	<div class="br-sideleft sideleft-scrollbar" th:fragment="sidebar">
+		<label class="sidebar-label  pd-x-10 mg-t-20 op-3">Navigation</label>
+		<ul class="br-sideleft-menu">
+			<li class="br-menu-item"><a th:href="@{/admin/dashboard}"
+				class="br-menu-link"> <i class="fas fa-tachometer-alt"></i> <span
+					class="menu-item-label">Dashboard</span>
+			</a>
+			<!-- br-menu-link --></li>
+			<!-- br-menu-item -->
+			<li class="br-menu-item"><a th:href="@{/admin/users}"
+				class="br-menu-link"> <i class="fas fa-users"></i> <span
+					class="menu-item-label">Employees</span>
+			</a>
+			<!-- br-menu-link --></li>
+			<!-- br-menu-item -->
+			<li class="br-menu-item"><a th:href="@{/admin/allowances}"
+				class="br-menu-link"> <i class="fas fa-file-invoice-dollar"></i>
+					<span class="menu-item-label">Allowances</span>
+			</a>
+			<!-- br-menu-link --></li>
+			<!-- br-menu-item -->
+			<li class="br-menu-item"><a href="#"
+				class="br-menu-link with-sub"> <i class="fas fa-money-bill-wave"></i>
+					<span class="menu-item-label">Expenses</span>
+			</a>
+			<!-- br-menu-link -->
+				<ul class="br-menu-sub">
+					<li class="sub-item"><a th:href="@{/admin/category}"
+						class="sub-link">Manage Expense Category</a></li>
+					<li class="sub-item"><a th:href="@{/admin/expense}"
+						class="sub-link">Manage Expense</a></li>
+				</ul></li>
+			<!-- br-menu-item -->
+			<li class="br-menu-item"><a th:href="@{/admin/client}"
+				class="br-menu-link"> <i class="fas fa-user-group"></i> <span
+					class="menu-item-label">Clients</span>
+			</a>
+			<!-- br-menu-link --></li>
+			<!-- br-menu-item -->
+			<li class="br-menu-item"><a th:href="@{/admin/recovery}"
+				class="br-menu-link"> <i class="fas fa-repeat"></i> <span
+					class="menu-item-label">Recovery</span>
+			</a>
+			<!-- br-menu-link --></li>
+			<li class="br-menu-item"><a th:href="@{/admin/funds	}"
+				class="br-menu-link"> <i class="fas fa-dollar"></i> <span
+					class="menu-item-label">Fund Manage</span>
+			</a>
+			<!-- br-menu-link --></li>
+			<li class="br-menu-item"><a th:href="@{/admin/payroll}"
+				class="br-menu-link"> <i class="fas fa-money-bill"></i> <span
+					class="menu-item-label">Payroll</span>
+			</a>
+			<!-- br-menu-link --></li>
+			<li class="br-menu-item"><a th:href="@{/admin/change-password}"
+				class="br-menu-link"> <i class="n fa fa-key 	"></i> <span
+					class="menu-item-label">Change Password</span>
+			</a>
+			<!-- br-menu-link --></li>
+			<!-- br-menu-item -->
+			<li class="br-menu-item"><a th:href="@{/admin/help}"
+				class="br-menu-link"> <i class="fas fa-question-circle"></i> <span
+					class="menu-item-label">Help</span>
+			</a>
+			<!-- br-menu-link --></li>
+			<!-- br-menu-item -->
+
+			<li class="br-menu-item "><a th:href="@{/logout}"
+				class="br-menu-link "> <i class="fas fa-sign-out-alt"></i> <span
+					class="menu-item-label">Logout</span>
+			</a></li>
+
+
+			<!--
       </li>br-menu-item
             <li class="br-menu-item">
                 <a th:href="@{/admin/users}" class="br-menu-link">
@@ -118,115 +118,172 @@
                     <span class="menu-item-label">Employees</span>
                 </a>br-menu-link
             </li>br-menu-item -->
-            </ul>
-    </div><!-- br-sideleft -->
-    <!-- ########## END: LEFT PANEL ########## -->
+		</ul>
+	</div>
+	<!-- br-sideleft -->
+	<!-- ########## END: LEFT PANEL ########## -->
 
-    <!-- ########## START: HEAD PANEL ########## -->
-    <div class="br-header" >
-        <div class="br-header-left">
-            <div class="navicon-left hidden-md-down"><a id="btnLeftMenu" href="#"><i
-                        class="icon ion-navicon-round"></i></a></div>
-            <div class="navicon-left hidden-lg-up"><a id="btnLeftMenuMobile" href="#"><i
-                        class="icon ion-navicon-round"></i></a></div>
-        </div><!-- br-header-left -->
-        <div class="br-header-right" th:fragment="header">
-            <nav class="nav">
-                <div class="dropdown">
-                    <a href="#" class="nav-link nav-link-profile" data-toggle="dropdown">
-                        <span class="logged-name hidden-md-down">Admin</span>
-                        <img src="/images/profile.png" class="wd-32 rounded-circle" alt="">
-                        <span class="square-10 bg-success"></span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-header wd-250">
-                        <div class="tx-center">
-                            <a href="#"><img th:src="@{/images/profile.png}" class="wd-80 rounded-circle" alt=""></a>
-                            <h6 class="logged-fullname">Admin</h6>
-                          <!--   <p th:text="${session.employee.getEmail}"></p> -->
-                        </div>
-                        <ul class="list-unstyled user-profile-nav">
-                            <!-- <li><a th:href="@{/admin/edit/{id}}"><i class="icon ion-ios-person"></i> Edit Profile</a></li> -->
-                            <li><a th:href="@{/logout}"><i class="icon ion-power"></i> Sign Out</a></li>
-                        </ul>
-                    </div>
-                </div>
-                </nav>
-        </div>
-    </div>
-    <!-- br-header -->
-    <!-- ########## END: HEAD PANEL ########## -->
+	<!-- ########## START: HEAD PANEL ########## -->
+	<div class="br-header">
+		<div class="br-header-left">
+			<div class="navicon-left hidden-md-down">
+				<a id="btnLeftMenu" href="#"><i class="icon ion-navicon-round"></i></a>
+			</div>
+			<div class="navicon-left hidden-lg-up">
+				<a id="btnLeftMenuMobile" href="#"><i
+					class="icon ion-navicon-round"></i></a>
+			</div>
+		</div>
+		<!-- br-header-left -->
+		<div class="br-header-right" th:fragment="header">
+			<nav class="nav">
+				<div class="dropdown">
+					<a href="#" class="nav-link nav-link-profile"
+						data-toggle="dropdown"> <span
+						class="logged-name hidden-md-down">Admin</span> <img
+						src="/images/profile.png" class="wd-32 rounded-circle" alt="">
+						<span class="square-10 bg-success"></span>
+					</a>
+					<div class="dropdown-menu dropdown-menu-header wd-250">
+						<div class="tx-center">
+							<a href="#"><img th:src="@{/images/profile.png}"
+								class="wd-80 rounded-circle" alt=""></a>
+							<h6 class="logged-fullname">Admin</h6>
+							<!--   <p th:text="${session.employee.getEmail}"></p> -->
+						</div>
+						<ul class="list-unstyled user-profile-nav">
+							<!-- <li><a th:href="@{/admin/edit/{id}}"><i class="icon ion-ios-person"></i> Edit Profile</a></li> -->
+							<li><a th:href="@{/logout}"><i class="icon ion-power"></i>
+									Sign Out</a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</div>
+	</div>
+	<!-- br-header -->
+	<!-- ########## END: HEAD PANEL ########## -->
 
-    <!-- ########## START: MAIN PANEL ########## -->
-    <div class="br-mainpanel">
-        <div class="br-pagetitle">
-            
-        </div>
+	<!-- ########## START: MAIN PANEL ########## -->
+	<div class="br-mainpanel">
+		<div class="br-pagetitle"></div>
 
-        <div class="br-pagebody">
-            <div class="row row-sm">
-                <div class="col-sm-6 col-xl-3">
-                    <div class="bg-info rounded overflow-hidden">
-                        <div class="pd-x-20 pd-t-20 d-flex align-items-center">
-                            <i class="ion ion-earth tx-60 lh-0 tx-white op-7"></i>
-                            <div class="mg-l-20">
-                                <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">
-                                    Total Employees</p>
-                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1" th:text="${session.countEmployee}"></p>
-                                <span class="tx-11 tx-roboto tx-white-8"></span>
-                            </div>
-                        </div>
-                        <div id="ch1" class="ht-50 tr-y-1"></div>
-                    </div>
-                </div><!-- col-3 -->
-                <div class="col-sm-6 col-xl-3 mg-t-20 mg-sm-t-0">
-                    <div class="bg-purple rounded overflow-hidden">
-                        <div class="pd-x-20 pd-t-20 d-flex align-items-center">
-                            <i class="ion ion-bag tx-60 lh-0 tx-white op-7"></i>
-                            <div class="mg-l-20">
-                                <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">Total 
-                                   Expense</p>
-<p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1" 
-   th:text="${session.totalexpense == null ? '₹0' : '₹' + session.totalexpense}"></p>
-                                <span class="tx-11 tx-roboto tx-white-8"></span>
-                            </div>
-                        </div>
-                        <div id="ch3" class="ht-50 tr-y-1"></div>
-                    </div>
-                </div><!-- col-3 -->
-                <div class="col-sm-6 col-xl-3 mg-t-20 mg-xl-t-0">
-                    <div class="bg-teal rounded overflow-hidden">
-                        <div class="pd-x-20 pd-t-20 d-flex align-items-center">
-                            <i class="ion ion-monitor tx-60 lh-0 tx-white op-7"></i>
-                            <div class="mg-l-20">
-                                <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">
-                                    Total Funds</p>
-                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1" 
-   th:text="${session.totalFund == null ? '₹0' : '₹' + session.totalFund}"></p>
+		<div class="br-pagebody">
+			<div class="row row-sm">
+				<div class="col-sm-6 col-xl-3">
+					<div class="bg-info rounded overflow-hidden">
+						<div class="pd-x-20 pd-t-20 d-flex align-items-center">
+							<i class="ion ion-earth tx-60 lh-0 tx-white op-7"></i>
+							<div class="mg-l-20">
+								<p
+									class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">
+									Total Employees</p>
+								<p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1"
+									th:text="${session.countEmployee}"></p>
+								<span class="tx-11 tx-roboto tx-white-8"></span>
+							</div>
+						</div>
+						<div id="ch1" class="ht-50 tr-y-1"></div>
+					</div>
+				</div>
+				<!-- col-3 -->
+				<div class="col-sm-6 col-xl-3 mg-t-20 mg-sm-t-0">
+					<div class="bg-purple rounded overflow-hidden">
+						<div class="pd-x-20 pd-t-20 d-flex align-items-center">
+							<i class="ion ion-bag tx-60 lh-0 tx-white op-7"></i>
+							<div class="mg-l-20">
+								<p
+									class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">Total
+									Expense</p>
+								<p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1"
+									th:text="${session.totalexpense == null ? '₹0' : '₹' + session.totalexpense}"></p>
+								<span class="tx-11 tx-roboto tx-white-8"></span>
+							</div>
+						</div>
+						<div id="ch3" class="ht-50 tr-y-1"></div>
+					</div>
+				</div>
+				<!-- col-3 -->
+				<div class="col-sm-6 col-xl-3 mg-t-20 mg-xl-t-0">
+					<div class="bg-teal rounded overflow-hidden">
+						<div class="pd-x-20 pd-t-20 d-flex align-items-center">
+							<i class="ion ion-monitor tx-60 lh-0 tx-white op-7"></i>
+							<div class="mg-l-20">
+								<p
+									class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">
+									Total Funds</p>
+								<p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1"
+									th:text="${session.totalFund == null ? '₹0' : '₹' + session.totalFund}"></p>
 
-                                <span class="tx-11 tx-roboto tx-white-8"></span>
-                            </div>
-                        </div>
-                        <div id="ch2" class="ht-50 tr-y-1"></div>
-                    </div>
-                </div><!-- col-3 -->
-                <div class="col-sm-6 col-xl-3 mg-t-20 mg-xl-t-0">
-                    <div class="bg-primary rounded overflow-hidden">
-                        <div class="pd-x-20 pd-t-20 d-flex align-items-center">
-                            <i class="ion ion-clock tx-60 lh-0 tx-white op-7"></i>
-                            <div class="mg-l-20">
-                                <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">Total Clients</p>
-                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1" th:text="${session.totalClient == null ? '₹0' : session.totalClient}"></p>
-                             <!--    <span class="tx-11 tx-roboto tx-white-8"></span> -->
-                            </div>
-                        </div>
-                        <div id="ch4" class="ht-50 tr-y-1"></div>
-                    </div>
-                </div><!-- col-3 -->
-            </div><!-- row -->
+								<span class="tx-11 tx-roboto tx-white-8"></span>
+							</div>
+						</div>
+						<div id="ch2" class="ht-50 tr-y-1"></div>
+					</div>
+				</div>
+				<!-- col-3 -->
+				<div class="col-sm-6 col-xl-3 mg-t-20 mg-xl-t-0">
+					<div class="bg-primary rounded overflow-hidden">
+						<div class="pd-x-20 pd-t-20 d-flex align-items-center">
+							<i class="ion ion-clock tx-60 lh-0 tx-white op-7"></i>
+							<div class="mg-l-20">
+								<p
+									class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">Total
+									Clients</p>
+								<p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1"
+									th:text="${session.totalClient == null ? '₹0' : session.totalClient}"></p>
+								<!--    <span class="tx-11 tx-roboto tx-white-8"></span> -->
+							</div>
+						</div>
+						<div id="ch4" class="ht-50 tr-y-1"></div>
+					</div>
+				</div>
+				<!-- col-3 -->
+			</div>
+			<!-- row -->
 
-            <div class="row row-sm mg-t-20">
-                <div class="col-lg-8">
-                    <div class="card bd-0 shadow-base">
+
+			<div class="row row-sm mg-t-20">
+				<div class="col-lg-4">
+					<div class="card shadow-base bd-0 mg-t-20">
+						<div class="row row-sm mg-t-20">
+							<div>
+
+								<div class="bg-transparent mg-b-10">
+									<h6 class="card-title tx-uppercase mg-l-10">All Employees</h6>
+								</div>
+								<!-- card-header -->
+								<table class="table table-responsive nowrap mg-l-8 ">
+									<thead>
+										<tr class="tx-12">
+											<th class="pd-x-20">Employee Id</th>
+											<th class="pd-x-20">Employee Name</th>
+											<th class="pd-x-20">Dated</th>
+										</tr>
+									</thead>
+									<tbody  style="padding:30px;">
+										<tr th:each="emp,itr : ${employees}"
+											th:if="${emp.role=='USER' and itr.index<5}">
+											<td th:text="${emp.employeeId}"></td>
+											<td th:text="${emp.employeeName}"></td>
+											<td
+												th:text="${#temporals.format(emp.entryDate, 'dd-MM-yyyy')}"></td>
+										</tr>
+									</tbody>
+								</table>
+								<div class="card-footer tx-12 pd-y-15 bg-transparent">
+									<a th:href="@{/admin/users}"><i
+										class="fa fa-angle-down mg-r-5"></i>View All Employees</a>
+								</div>
+								<!-- card-footer -->
+							</div>
+							<!-- card -->
+						</div>
+						<!-- col-6 -->
+					</div>
+					<!-- row -->
+
+					<!--  <div class="card bd-0 shadow-base">
                         <div class="d-md-flex justify-content-between pd-25">
                             <div>
                                 <h6 class="tx-13 tx-uppercase tx-inverse tx-semibold tx-spacing-1">How Engaged Our Users
@@ -249,17 +306,17 @@
                                     <h4 class="tx-lato tx-inverse tx-bold mg-b-0">12:30</h4>
                                     <span class="tx-12 tx-success tx-roboto">1.22% increased</span>
                                 </div>
-                            </div><!-- d-flex -->
-                        </div><!-- d-flex -->
+                            </div>d-flex
+                        </div>d-flex
 
                         <div class="pd-l-25 pd-r-15 pd-b-25">
                             <div id="ch5" class="ht-250 ht-sm-300"></div>
                         </div>
-                    </div><!-- card -->
-                    
+                    </div>card -->
 
 
-<!--                     <div class="card shadow-base bd-0 pd-25 mg-t-20">
+
+					<!--                     <div class="card shadow-base bd-0 pd-25 mg-t-20">
                         <div class="d-md-flex justify-content-between align-items-center">
                             <div>
                                 <h6 class="tx-13 tx-uppercase tx-inverse tx-semibold tx-spacing-1">Delivery Overview
@@ -306,20 +363,8 @@
 
                     </div>card -->
 
- <div class="card card-body bd-0 pd-25 bg-primary mg-t-20">
-                        <div class="d-xs-flex justify-content-between align-items-center tx-white mg-b-20">
-                            <h6 class="tx-13 tx-uppercase tx-semibold tx-spacing-1 mg-b-0">Server Status</h6>
-                            <span class="tx-12 tx-uppercase">Oct 2017</span>
-                        </div>
-                        <p class="tx-sm tx-white tx-medium mg-b-0">Hardware Monitoring</p>
-                        <p class="tx-12 tx-white-7">Intel Dothraki G125H 2.5GHz</p>
-                        <div class="progress bg-white-3 rounded-0 mg-b-0">
-                            <div class="progress-bar bg-success wd-50p lh-3" role="progressbar" aria-valuenow="50"
-                                aria-valuemin="0" aria-valuemax="100">50%</div>
-                        </div><!-- progress -->
-                        <p class="tx-11 mg-b-0 mg-t-15 tx-white-7">Notice: Lorem ipsum dolor sit amet.</p>
-                    </div>
-                     <div class="card bg-danger bd-0 mg-t-20">
+
+					<!--  <div class="card bg-danger bd-0 mg-t-20">
                         <div class="pd-x-25 pd-t-25">
                             <h6 class="tx-13 tx-uppercase tx-white tx-medium tx-spacing-1 mg-b-10">Monthly Statistics
                             </h6>
@@ -329,64 +374,37 @@
                                     <p class="mg-b-5 tx-uppercase tx-10 tx-mont tx-semibold tx-white-6">Bounce Rate</p>
                                     <h4 class="tx-lato tx-white tx-bold tx-normal mg-b-0">23.32%</h4>
                                     <span class="tx-12 tx-white-6 tx-roboto">2.7% increased</span>
-                                </div><!-- col -->
+                                </div>col
                                 <div class="col">
                                     <p class="mg-b-5 tx-uppercase tx-10 tx-mont tx-semibold tx-white-6">Page Views</p>
                                     <h4 class="tx-lato tx-white tx-normal mg-b-0">42.58%</h4>
                                     <span class="tx-12 tx-white-6 tx-roboto">1.5% decreased</span>
-                                </div><!-- col -->
-                            </div><!-- row -->
+                                </div>col
+                            </div>row
                             <div id="ch13" class="ht-160"></div>
-                        </div><!-- pd-x-25 -->
-                    </div><!-- card -->
-                    
-                </div><!-- col-8 -->
-                <div class="col-lg-4 mg-t-20 mg-lg-t-0">
+                        </div>pd-x-25
+                    </div>card -->
 
-             <div class="row tx-center">
-            <div class="col-lg-12">
-              <div class="pd-y-20 bd"><div id="morrisDonut1" class="ht-200 ht-sm-250"></div></div>
-            </div><!-- col-6 -->
-           
-          </div><!-- row -->
-                    <div class="card shadow-base bd-0 mg-t-20">
-                        <div class="row row-sm mg-t-20">
-          <div>
-         
-              <div class="bg-transparent mg-b-10">
-                <h6 class="card-title tx-uppercase tx-12 mx-2">All Employees</h6>
-              </div><!-- card-header -->
-              <table class="table table-responsive nowrap ">
-                <thead>
-                  <tr class="tx-12">
-                    <th class="pd-x-20">Employee Id</th>
-                    <th class="pd-x-20">Employee Name</th>
-                    <th class="pd-x-20">Dated</th>
-                  </tr>
-                </thead>
-                <tbody >
-                  <tr th:each="emp,itr : ${employees}" th:if="${emp.role=='USER' and itr.index<5}" >
-                    <td  th:text="${emp.employeeId}">
-                    </td>
-                    <td  th:text="${emp.employeeName}">
-                     
-                    </td>
-                   <td th:text="${#temporals.format(emp.entryDate, 'dd-MM-yyyy')}"></td>       
-                  </tr>             
-                </tbody>
-              </table>
-              <div class="card-footer tx-12 pd-y-15 bg-transparent">
-                <a th:href="@{/admin/users}"><i class="fa fa-angle-down mg-r-5"></i>View All Employees</a>
-              </div><!-- card-footer -->
-            </div><!-- card -->
-          </div><!-- col-6 -->
-        </div><!-- row -->
+				</div>
+				<!-- col-8 -->
+				<div class="col-lg-4 mg-t-20 mg-lg-t-0">
 
-    
+					<div class="row tx-center">
+						<div class="col-lg-12">
+							<div class="pd-y-20 bd">
+								<div id="morrisDonut1" class="ht-200 ht-sm-250"></div>
+							</div>
+						</div>
+						<!-- col-6 -->
 
-                   <!-- card -->
+					</div>
+					<!-- row -->
 
-                    <div class="card bd-0 mg-t-20">
+
+
+					<!-- card -->
+
+					<!--   <div class="card bd-0 mg-t-20">
                         <div id="carousel12" class="carousel slide" data-ride="carousel">
                             <ol class="carousel-indicators">
                                 <li data-target="#carousel12" data-slide-to="0" class="active"></li>
@@ -418,7 +436,7 @@
                                                 <a href="#" class="tx-white-8 hover-white pd-x-5">43 Comments</a>
                                             </nav>
                                         </div>
-                                    </div><!-- d-flex -->
+                                    </div>d-flex
                                 </div>
                                 <div class="carousel-item">
                                     <div class="bg-info pd-30 ht-300 pos-relative d-flex align-items-center rounded">
@@ -443,7 +461,7 @@
                                                <a href="#" class="tx-white-8 hover-white pd-x-5">Delete</a>
                                             </nav>
                                         </div>
-                                    </div><!-- d-flex -->
+                                    </div>d-flex
                                 </div>
                                 <div class="carousel-item">
                                     <div class="bg-purple pd-30 ht-300 d-flex pos-relative align-items-center rounded">
@@ -468,44 +486,52 @@
                                                 <a href="#" class="tx-white-8 hover-white pd-x-5">Delete</a>
                                             </nav>
                                         </div>
-                                    </div><!-- d-flex -->
+                                    </div>d-flex
                                 </div>
-                            </div><!-- carousel-inner -->
-                        </div><!-- carousel -->
-                    </div><!-- card -->
-
-                   
-
-                </div><!-- col-4 -->
-            </div><!-- row -->
-
-        </div><!-- br-pagebody -->
-        <footer class="br-footer"th:fragment="footer">
-            <div class="footer-left">
-                <div class="mg-b-2">Copyright &copy; <span th:text="${session.year}"></span>. AONE RECOVERY. All Rights Reserved.</div>
-                <div></div>
-            </div>
-
-        </footer>
+                            </div>carousel-inner
+                        </div>carousel
+                    </div>card
+ -->
 
 
-  </div><!-- br-mainpanel -->
-<script th:inline="javascript">
- 
-    var officeCount = /*[[${session.officeCount}]]*/ 0;
-    var fosCount =  /*[[${session.fosCount}]]*/ 0;
+				</div>
+				<!-- col-4 -->
+			</div>
+			<!-- row -->
 
-    new Morris.Donut({
-        element: 'morrisDonut1',
-        data: [
-            { label: "Office", value: officeCount },
-            { label: "FOS", value: fosCount },
-        ],
-        colors: ['#3D449C', '#268FB2'],
-        resize: true
-    });
+		</div>
+		<!-- br-pagebody -->
+		<footer class="br-footer" th:fragment="footer">
+			<div class="footer-left">
+				<div class="mg-b-2">
+					Copyright &copy; <span th:text="${session.year}"></span>. AONE
+					RECOVERY. All Rights Reserved.
+				</div>
+				<div></div>
+			</div>
 
-</script>
+		</footer>
+
+
+	</div>
+	<!-- br-mainpanel -->
+	<script th:inline="javascript">
+		var officeCount = /*[[${session.officeCount}]]*/0;
+		var fosCount = /*[[${session.fosCount}]]*/0;
+
+		new Morris.Donut({
+			element : 'morrisDonut1',
+			data : [ {
+				label : "Office",
+				value : officeCount
+			}, {
+				label : "FOS",
+				value : fosCount
+			}, ],
+			colors : [ '#3D449C', '#268FB2' ],
+			resize : true
+		});
+	</script>
 
 
 

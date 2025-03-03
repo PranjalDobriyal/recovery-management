@@ -1,25 +1,19 @@
 package com.recovery.managementsystem.controller;
 
 import com.recovery.managementsystem.model.*;
-import org.springframework.http.MediaType;
-import org.springframework.http.MediaTypeFactory;
 
 import com.recovery.managementsystem.model.Allowance.AllowanceType;
 import com.recovery.managementsystem.security.CustomUserDetails;
 import com.recovery.managementsystem.service.*;
 
-import org.apache.logging.log4j.core.util.PasswordDecryptor;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,8 +25,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
 import java.time.LocalDate;
 import java.util.*;
 import java.util.function.Function;
@@ -51,8 +44,6 @@ public class AdminController {
 	private RecoveryService recoveryService;
 	private FileUploadService fileUploadService;
 	private FundService fundService;
-	private PasswordEncoder PasswordEncoder;
-
 
 	public AdminController(EmployeeService employeeService, AllowanceService allowanceService,
 			EmployeeAllowanceService employeeAllowanceService, ExpenseService expenseService,
@@ -106,7 +97,6 @@ public class AdminController {
 	@GetMapping("/edit/{id}")
 	public String editUser(@PathVariable Integer id, Model model) {
 		Employee employee = employeeService.getById(id);
-	
 		model.addAttribute(employee);
 		model.addAttribute("employeeTypes", employee.getEmployeeType().values());
 		model.addAttribute("fosTypes", employee.getFosType().values());

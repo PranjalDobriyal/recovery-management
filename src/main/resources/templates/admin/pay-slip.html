@@ -57,20 +57,21 @@
        
         </tbody>
       </table>
-      <table style="width: 50% ; border-collapse: collapse;">
-        <thead>
-          <tr style="border-top: 1px solid black ; border-bottom: 1px solid black;">
+     <table style="width: 50% ; border-collapse: collapse;">
+    <thead>
+        <tr style="border-top: 1px solid black ; border-bottom: 1px solid black;">
             <th colspan="3" style="text-align: start;"><b>Deductions</b></th>
             <th colspan="1" style="text-align: start;"><b>Amount</b></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td colspan="3" th:text="|₹ ${deduction?.deductionName}|"></td>
-            <td colspan="1" th:text="|₹ ${deduction?.deductionAmount}|"></td>
-          </tr>
-        </tbody>
-      </table>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="3" th:text="| ${deduction?.deductionName ?: '-'}|"></td>
+            <td colspan="1" th:text="|₹ ${deduction?.deductionAmount ?: '0'}|"></td>
+        </tr>
+    </tbody>
+</table>
+
     </div>
     <div style="padding: 15px;">
       <table style="width: 100%; border-collapse: collapse;">

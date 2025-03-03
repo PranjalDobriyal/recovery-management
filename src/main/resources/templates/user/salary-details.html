@@ -49,36 +49,61 @@
 
 
 			<!-- Filter Form -->
-			<!-- <form th:action="@{/admin/funds}" method="get" class="mb-4"
-				id="filterForm">
-			   <div class="row" >
+			<div class="col-md-6">
+						<form th:action="@{/dashboard/salary-details}" method="get" class="mb-4"
+							id="filterForm">
+							<div class="row">
+
+								<div class="col-md-4">
+									<label>Month:</label> <select name="month" class="form-control">
+										<!-- Current Month Option -->
+											<option value="ALL" selected>All</option>
+
+										<!-- Static Month Options -->
+										<option value="January">January</option>
+										<option value="February">February</option>
+										<option value="March">March</option>
+										<option value="April">April</option>
+										<option value="May">May</option>
+										<option value="June">June</option>
+										<option value="July">July</option>
+										<option value="August">August</option>
+										<option value="September">September</option>
+										<option value="October">October</option>
+										<option value="November">November</option>
+										<option value="December">December</option>
+									</select>
+								</div>
+
+								<div class="col-md-4">
+									<label>Year :</label> <select name="year" class="form-control">
+										<option
+											th:value="${#dates.format(#dates.createNow(), 'yyyy')}"
+											th:text="${#dates.format(#dates.createNow(), 'yyyy')} "
+											selected></option>
+										<option th:each="y : ${#numbers.sequence(2020, 2030)}"
+											th:value="${y}" th:text="${y}"></option>
+									</select>
+								</div>
 
 
 
 
-					
-					<div class="col-md-2">
-						<label>All :</label> <select name="employeeId"
-							class="form-control">
-							<option value="">All</option>
-							<option th:each="cat : ${allEmployees}"  th:value="${cat.employeeId}"
-								th:text="${cat.employeeId}+ '-' +${cat.employeeName}"
-								th:selected="${selectedEmployee == cat.employeeId}"></option>
-						</select>
+
+
+
+								<div class="col-12  mt-3">
+									<button type="submit" class="btn btn-primary">Search
+										Salary</button>
+
+								</div>
+
+							</div>
+
+
+						</form>
+
 					</div>
-
-					
-					<div class="col-md-8 mt-4">
-						<button type="submit" class="btn btn-primary  ">Search</button>
-					
-						
-						
-					</div>
-
-				</div>
-
-
-			</form>  -->
 
 			<div class="br-section-wrapper pd-20">
 
@@ -99,17 +124,7 @@
 								<th class="col-2">Year</th>
 								<th class="wd-2">Generate Payslip</th>
 
-								<!-- <th>Date</th> -->
-								<!-- <th>Credit Amount</th>
-								<th>Debit Amount</th>
-								<th>Balance</th>
-								<th>Requested Date</th>
-								<th>Approved By</th>
-								<th>Approval Date</th>
-								<th>Entry Date</th>
-								<th>Remarks</th>
-								<th>Status</th>
-								 -->
+					
 							</tr>
 						</thead>
 						<tbody>
@@ -130,79 +145,14 @@
     <a th:href="@{/dashboard/generate/payslip(id=${fund.employeeId}, month=${fund.month}, year=${fund.year})}"
 									class="btn btn-primary btn-sm"  target="_blank"> <i class="fa-solid fa-money-bill-wave" ></i></td>
 
-								<!-- <td th:text="${fund.creditAmount}"></td>
-								<td th:text="${fund.debitAmount}"></td>
-								<td th:text="${fund.balance}"></td> -->
-								<!-- 
-								<td th:text="${#temporals.format(fund.requested, 'dd-MM-yyyy')}"></td>
 
-								<td th:text="${fund.approvedBy}"></td>
-								<td
-									th:text="${#temporals.format(fund.approvalDate, 'dd-MM-yyyy')}"></td>
-								<td th:text="${#temporals.format(fund.entryDate, 'dd-MM-yyyy')}"></td>
-								<td th:text="${fund.remarks}"></td>
-								<td th:text="${fund.status}"></td>-->
-
-								<!-- <td class="d-flex justify-content-center"><a
-									th:href="@{/admin/emp-fund(id=${fund.employeeId})}"
-									class="btn btn-primary btn-sm"> <i
-										class="fas fa-eye"></i>
-								</a>
-									<form th:action="@{/admin/delete-fund/{id}(id=${fund.fundId})}"
-										method="post">
-										<input type="hidden" name="_method" value="delete" />
-										<button type="button" class="btn btn-danger"
-											onclick="confirmDelete(event)">
-											<i class="fas fa-trash "></i>
-										</button>
-									</form>
-									</td>  -->
 							</tr>
 						</tbody>
 					</table>
 				</div>
 
 
-				<!-- Pagination -->
-				<!-- 	<nav aria-label="navigation" class="table">
-					<ul class="pagination d-flex mx-2 flex-wrap">
 
-						<li class="page-item"
-							th:classappend="${currentPage == 0} ? 'disabled'"><a
-							class="page-link"
-							th:href="@{/admin/funds(page=${currentPage - 1}, size=${size}, 
-                                  category=${selectedCategory}, 
-                                  name=${selectedName}, 
-                                  fromDate=${selectedFromDate}, 
-                                  toDate=${selectedToDate}, 
-                                  paymentType=${selectedPaymentType})}">&laquo;</a>
-						</li>
-
-						<li class="page-item"
-							th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
-							th:classappend="${currentPage == i} ? 'active'"><a
-							class="page-link"
-							th:href="@{/admin/funds(page=${i}, size=${size}, 
-                                  category=${selectedCategory}, 
-                                  name=${selectedName}, 
-                                  fromDate=${selectedFromDate}, 
-                                  toDate=${selectedToDate}, 
-                                  paymentType=${selectedPaymentType})}"
-							th:text="${i + 1}"></a></li>
-
-
-						<li class="page-item"
-							th:classappend="${currentPage + 1 == totalPages} ? 'disabled'">
-							<a class="page-link"
-							th:href="@{/admin/funds(page=${currentPage + 1}, size=${size}, 
-                                  category=${selectedCategory}, 
-                                  name=${selectedName}, 
-                                  fromDate=${selectedFromDate}, 
-                                  toDate=${selectedToDate}, 
-                                  paymentType=${selectedPaymentType})}">&raquo;</a>
-						</li>
-					</ul>
-				</nav> -->
 			</div>
 		</div>
 		<th:block th:insert="admin/admin-dashboard :: footer"></th:block>

@@ -151,7 +151,12 @@ public class UserDashboardController {
 
 	}
 	@GetMapping("/salary-details")
-	public String salaryDetails(Model model,HttpSession session,@RequestParam(required = false) Month month, @RequestParam(required = false) Integer year)
+	public String salaryDetails(Model model,HttpSession session,
+			
+			@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "50") int size, 
+			@RequestParam(required = false) Month month, 
+			@RequestParam(required = false) Integer year)
 	{
 		 String id=(String) session.getAttribute("employeeId");
 		 if(month==null)
@@ -162,8 +167,11 @@ public class UserDashboardController {
 		 {
 			 year=LocalDate.now().getYear();
 		 }
-		 PayrollSummary summary=payrollService.getPayrollSummaryByEmployeeId(id, month, year);
+		Page<PayrollSummary> summary=payrollService.filterPayrollById(page,size,id, month, year);
 		model.addAttribute("summary", summary);
+		model.addAttribute("selectedMonth", month);
+		model.addAttribute("selectedYear", year);
+		
 		return "user/salary-details";
 		
 	}

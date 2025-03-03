@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -109,23 +110,40 @@ public class PayrollController {
 	}
 
 	@GetMapping("/add-deduction")
-	public String addDedution(@RequestParam String id,@RequestParam Integer year,@RequestParam Month month,Model model)
+	public String addDedution(@RequestParam String id,@RequestParam String year,@RequestParam String month,Model model)
 	{
-		model.addAttribute("id", id);
+		int year2=Integer.parseInt(year);
+		model.addAttribute("employeeId", id);
+		Month month2=Month.valueOf(month.toUpperCase());	
 		
-	Deductions deduction=payrollService.findDeductionById(id,month,year);
+	Deductions deduction=payrollService.getAllDeductionByEmployeeId(id,month2,year2);
 	model.addAttribute("deduction", deduction);
 	model.addAttribute("year", year);
 	model.addAttribute("month", month);
 	
 		return "admin/add-deduction";
 	}
-	
-	@PostMapping("/add-deduction")
-	public String addDeduction(@RequestParam String employeeId,@RequestParam Integer year,@RequestParam Month month, @RequestParam BigDecimal amount,@RequestParam String name,RedirectAttributes redirectAttributes)
+	@DeleteMapping("/delete-deduction")
+	public String deleteDeduction(@RequestParam String id,@RequestParam String year,@RequestParam String month,Model model,RedirectAttributes redirectAttributes)
 	{
 		try {
-			payrollService.addDeduction(name,employeeId,amount,month,year);
+			payrollService.deleteDeduction(id,month,year);
+			redirectAttributes.addFlashAttribute("success", "Deleted Successfully");
+			return "redirect:/admin/payroll";
+			
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("error", e.getMessage());
+			return "redirect:/admin/payroll";
+		}
+	}
+	
+	@PostMapping("/add-deduction")
+	public String addDeduction(@RequestParam String employeeId,@RequestParam String year,@RequestParam String month, @RequestParam BigDecimal amount,@RequestParam String name,RedirectAttributes redirectAttributes)
+	{
+		try {
+			int year2=Integer.parseInt(year);
+			Month month2=Month.valueOf(month);	
+			payrollService.addDeduction(name,employeeId,amount,month2,year2);
 			redirectAttributes.addFlashAttribute("success", "Deduction Added");
 			return "redirect:/admin/payroll";
 			

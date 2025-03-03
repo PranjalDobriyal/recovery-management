@@ -333,12 +333,21 @@
                 <td th:text="${fund.employeeId}"></td>
                 <td th:text="${fund.employeeName}"></td>
                 <td th:text="${fund.totalAllowance}"></td>
-                <td>
+                <td class="d-flex ">
                     <a th:href="@{/admin/add-deduction(id=${fund.employeeId} ,month=${fund.month},year=${fund.year})}"
-                        class="btn btn-primary btn-sm">
+                        class="btn btn-primary btn-sm mg-x-4 ">
                         <i class="fas fa-minus"></i> <span th:text="${fund.totalDeduction}"></span>
                     </a>
-                </td>
+                    <form  th:action="@{/admin/delete-deduction(id=${fund.employeeId}, month=${fund.month}, year=${fund.year})}"
+      method="post" th:id="'delete-deduction-' + ${fund.employeeId} + '-' + ${fund.month} + '-' + ${fund.year}">
+    <input type="hidden" name="_method" value="delete">
+    <button type="button" class="btn btn-danger delete-btn btn-sm"
+            th:attr="data-id=${fund.employeeId}, data-month=${fund.month}, data-year=${fund.year}">
+        <i class="fas fa-trash"></i>
+    </button>
+</form>
+
+                                    </td>
                 <td th:text="${fund.netSalary}"></td>
                 <td th:text="${fund.month}"></td>
                 <td th:text="${fund.year}"></td>
@@ -446,6 +455,35 @@
             document.getElementById("toDate").setAttribute("max", today);
         }); */
     </script> -->
+    	<script>
+    	document.addEventListener("DOMContentLoaded", function () {
+    	    document.querySelectorAll(".delete-btn").forEach(button => {
+    	        button.addEventListener("click", function (event) {
+    	            event.preventDefault();
+    	            
+    	            let employeeId = this.getAttribute("data-id");
+    	            let month = this.getAttribute("data-month");
+    	            let year = this.getAttribute("data-year");
+
+    	            Swal.fire({
+    	                title: "Are you sure?",
+    	                text: "You won't be able to revert this!",
+    	                icon: "warning",
+    	                showCancelButton: true,
+    	                confirmButtonColor: "#3085d6",
+    	                cancelButtonColor: "#d33",
+    	                confirmButtonText: "Yes, delete it!"
+    	            }).then((result) => {
+    	                if (result.isConfirmed) {
+    	                    let formId = `delete-deduction-${employeeId}-${month}-${year}`; // ✅ Match form ID
+    	                    document.getElementById(formId).submit(); // ✅ Submit correct form
+    	                }
+    	            });
+    	        });
+    	    });
+    	});
+
+</script>
 	<script>
 		$(function() {
 			'use strict';
