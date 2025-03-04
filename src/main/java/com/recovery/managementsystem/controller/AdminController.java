@@ -107,7 +107,10 @@ public class AdminController {
 	@PostMapping("/edit/{id}")
 	public String updateUserProfile(@PathVariable("id") Integer id, @ModelAttribute Employee employee,
 			@RequestParam(required = false) MultipartFile panCardFile,
-			@RequestParam(required = false) MultipartFile adhaarCardFile, RedirectAttributes redirectAttributes) {
+			@RequestParam(required = false) MultipartFile adhaarCardFile, 
+			@RequestParam(required = false) MultipartFile profileFile,
+			
+			RedirectAttributes redirectAttributes) {
 
 		Employee employeeUpdate = employeeService.getById(id);
 		if (employeeUpdate == null) {
@@ -119,11 +122,13 @@ public class AdminController {
 			return "redirect:/admin/users";
 		}
 		try {
-			if(!panCardFile.isEmpty() && !adhaarCardFile.isEmpty()) {
+			if(!panCardFile.isEmpty() && !adhaarCardFile.isEmpty() && !profileFile.isEmpty()) {
 			String panFilePath = fileUploadService.saveDocument(panCardFile, employeeUpdate.getPanCard());
 			String aadhaarFilePath = fileUploadService.saveDocument(adhaarCardFile, employeeUpdate.getAdhaarCard());
+			String profilePath = fileUploadService.saveProfile(profileFile, employeeUpdate.getProfileImage());
 			employeeUpdate.setAdhaarCard(aadhaarFilePath);
 			employeeUpdate.setPanCard(panFilePath);
+			employeeUpdate.setProfileImage(profilePath);
 			}
 			if(!panCardFile.isEmpty()) {
 				String panFilePath = fileUploadService.saveDocument(panCardFile, employeeUpdate.getPanCard());
@@ -133,6 +138,12 @@ public class AdminController {
 				
 				String aadhaarFilePath = fileUploadService.saveDocument(adhaarCardFile,	employeeUpdate.getAdhaarCard());
 				employeeUpdate.setAdhaarCard(aadhaarFilePath);
+				
+				}
+              if(!profileFile.isEmpty()) {
+				
+				String profilePath = fileUploadService.saveProfile(profileFile,employeeUpdate.getProfileImage());
+				employeeUpdate.setProfileImage(profilePath);
 				
 				}
 			employeeUpdate.setEmployeeName(employee.getEmployeeName());
@@ -149,7 +160,6 @@ public class AdminController {
 			employeeUpdate.setTotalSales(employee.getTotalSales());
 			employeeUpdate.setIncentiveAmount(employee.getIncentiveAmount());
 			employeeUpdate.setEmail(employee.getEmail());
-			
 			employeeUpdate.setStatus(employee.getStatus());
 			employeeService.updateEmployee(employeeUpdate);
 
@@ -238,7 +248,9 @@ public String userChangePassword(@PathVariable String id, @RequestParam String n
 	@PostMapping("/add-member")
 	public String register(@Valid @ModelAttribute("employee") Employee employee, BindingResult result,
 			@RequestParam("panCardFile") MultipartFile panCardFile,
-			@RequestParam("adhaarCardFile") MultipartFile adhaarCardFile, Model model,
+			@RequestParam("adhaarCardFile") MultipartFile adhaarCardFile, 
+			@RequestParam("profileFile") MultipartFile profileFile,
+			Model model,
 			RedirectAttributes redirectAttributes) throws IOException {
 
 		if (result.hasErrors()) {
@@ -247,14 +259,15 @@ public String userChangePassword(@PathVariable String id, @RequestParam String n
 			return "admin/add-member";
 		}
 		try {
-			if (panCardFile.isEmpty() || adhaarCardFile.isEmpty()) {
-				model.addAttribute("errorMessage", "File upload failed! Please select both PAN and Aadhaar files.");
+			if (panCardFile.isEmpty() || adhaarCardFile.isEmpty() || profileFile.isEmpty()) {
+				model.addAttribute("errorMessage", "File upload failed! Please select  PAN , Aadhaar and Profile.");
 				return "admin/add-member";
 			}
 			String panFilePath = fileUploadService.saveDocument(panCardFile,null);
 			String aadhaarFilePath = fileUploadService.saveDocument(adhaarCardFile,null);
+			String profileFilePath=fileUploadService.saveProfile(profileFile,null);
 			String pass = employee.getPassword();
-			String id = employeeService.registerUser(employee, panFilePath, aadhaarFilePath);
+			String id = employeeService.registerUser(employee, panFilePath, aadhaarFilePath,profileFilePath);
 			redirectAttributes.addFlashAttribute("message", "Registration Successful");
 			redirectAttributes.addFlashAttribute("id", id);
 			redirectAttributes.addFlashAttribute("password", pass);
@@ -444,16 +457,14 @@ public String userChangePassword(@PathVariable String id, @RequestParam String n
 									// Handle error appropriately (e.g., set default, skip, or return an error
 									// response)
 								}
-							} else if (allowance.getAllowanceType() == AllowanceType.PERCENTAGE) {
-								try {
-									Double percentageValue = Double.valueOf(valueStr);
-									allowancePercentages.put(allowanceId, percentageValue);
-								} catch (NumberFormatException ex) {
-									logger.error("Invalid percentage value for allowance ID {}: {}", allowanceId,
-											valueStr);
-									// Handle error appropriately
-								}
-							}
+							} /*
+								 * else if (allowance.getAllowanceType() == AllowanceType.PERCENTAGE) { try {
+								 * Double percentageValue = Double.valueOf(valueStr);
+								 * allowancePercentages.put(allowanceId, percentageValue); } catch
+								 * (NumberFormatException ex) {
+								 * logger.error("Invalid percentage value for allowance ID {}: {}", allowanceId,
+								 * valueStr); // Handle error appropriately } }
+								 */
 						}
 					}
 				}

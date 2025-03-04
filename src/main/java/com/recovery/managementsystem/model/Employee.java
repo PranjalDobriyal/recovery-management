@@ -47,6 +47,9 @@ public class Employee implements Serializable{
 	private String adhaarCard;
 	
 	@Column
+	private String profileImage;
+	
+	@Column
 	private String bankName;
 	
 	@Column
@@ -475,6 +478,16 @@ public class Employee implements Serializable{
 
 	public void setDeductions(List<Deductions> deductions) {
 		this.deductions = deductions;
+	}
+
+
+	public String getProfileImage() {
+		return profileImage;
+	}
+
+
+	public void setProfileImage(String profileImage) {
+		this.profileImage = profileImage;
 	}
 	
 

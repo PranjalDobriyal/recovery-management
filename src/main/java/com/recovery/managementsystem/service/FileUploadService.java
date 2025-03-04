@@ -12,11 +12,13 @@ public class FileUploadService {
 
     private final Path uploadPath;
     private final Path documentsPath;
+    private final Path profilePath;
 
     public FileUploadService(
             @Value("${file.upload-dir}") String uploadDir,
-            @Value("${file.documents-dir}") String documentsDir) {
-        
+            @Value("${file.documents-dir}") String documentsDir,
+            @Value("${file.profile-dir}")String profileDir) {
+        this.profilePath=Paths.get(profileDir).toAbsolutePath().normalize();
         this.uploadPath = Paths.get(uploadDir).toAbsolutePath().normalize();
         this.documentsPath = Paths.get(documentsDir).toAbsolutePath().normalize();
         
@@ -27,12 +29,16 @@ public class FileUploadService {
         try {
             if (!Files.exists(uploadPath)) {
                 Files.createDirectories(uploadPath);
-                System.out.println("✅ Created directory: " + uploadPath);
+                System.out.println("Created directory: " + uploadPath);
             }
 
             if (!Files.exists(documentsPath)) {
                 Files.createDirectories(documentsPath);
-                System.out.println("✅ Created directory: " + documentsPath);
+                System.out.println("Created directory: " + documentsPath);
+            }
+            if (!Files.exists(profilePath)) {
+                Files.createDirectories(profilePath);
+                System.out.println("Created directory: " + profilePath);
             }
         } catch (IOException e) {
             throw new RuntimeException("❌ Could not create upload directories! Error: " + e.getMessage(), e);
@@ -53,8 +59,31 @@ public class FileUploadService {
     	 }
         return saveFileToDirectory(file, documentsPath);
     }
+    public String saveProfile(MultipartFile file, String oldFileName) throws IOException {
+    	if (file.isEmpty()) {
+            throw new IllegalStateException("Cannot upload an empty file.");
+        }
+   	 if(oldFileName != null && !oldFileName.isEmpty())
+   	 {
+   	 deleteOldProfile(oldFileName);
+   	 }
+       return saveFileToDirectory(file, profilePath);
+	}
 
-    public void deleteOldFile(String fileName) {
+    private void deleteOldProfile(String fileName) {
+    	if (fileName != null && !fileName.isEmpty()) {
+            Path fileToDelete = profilePath.resolve(fileName).normalize();
+            try {
+                Files.deleteIfExists(fileToDelete);
+                System.out.println(" Deleted old file: " + fileToDelete);
+            } catch (IOException e) {
+                System.err.println(" Could not delete old file: " + fileToDelete);
+            }
+        }
+		
+	}
+
+	public void deleteOldFile(String fileName) {
         if (fileName != null && !fileName.isEmpty()) {
             Path fileToDelete = documentsPath.resolve(fileName).normalize();
             try {
@@ -82,4 +111,6 @@ public class FileUploadService {
 
         return uniqueFileName;
     }
+
+	
 }

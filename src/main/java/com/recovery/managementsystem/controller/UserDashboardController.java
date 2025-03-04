@@ -133,6 +133,8 @@ public class UserDashboardController {
 		amountType = (amountType != null && amountType.isEmpty()) ? null : amountType;
 	    paymentMode = (paymentMode != null && paymentMode.isEmpty()) ? null : paymentMode;
 	    category = (category != null && category.isEmpty()) ? null : category;
+	    BigDecimal totalcredit=fundService.getTotalCredit(id);
+		BigDecimal totaldebit=fundService.getTotalDebit(id);
 		Page<FundManage> fundPage = fundService.getFilteredFunds(page, size,id, amountType, paymentMode, category,fromDate,toDate);
 		model.addAttribute("paymentTypes", com.recovery.managementsystem.model.Expense.PaymentType.values());
 		model.addAttribute("funds", fundPage.getContent());
@@ -144,6 +146,8 @@ public class UserDashboardController {
 	    model.addAttribute("selectedcategory", category);
 	    model.addAttribute("selectedfromDate", fromDate);
 		model.addAttribute("selectedtoDate", toDate);
+		model.addAttribute("totaldebit", totaldebit);
+		model.addAttribute("totalcredit", totalcredit);
 	    model.addAttribute("employee", employeeService.findByEmployeeId(id));
 		model.addAttribute("paymentTypes", com.recovery.managementsystem.model.Expense.PaymentType.values());
 		

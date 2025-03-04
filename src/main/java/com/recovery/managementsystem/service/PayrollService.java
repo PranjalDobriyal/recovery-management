@@ -231,6 +231,10 @@ public class PayrollService {
 		{
 			throw new RuntimeException("Deduction not found");
 		}
+		else if(deductions!=null && deductions.getStatus().equalsIgnoreCase("locked"))
+		{
+			throw new RuntimeException("Deduction is Locked");
+		}
 		else
 		{
 		deductionsRepository.delete(deductions);

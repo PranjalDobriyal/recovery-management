@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import javax.transaction.Transactional;
-import javax.validation.Valid;
 
 @Service
 @Transactional
@@ -67,7 +66,7 @@ public class EmployeeService {
 		return baseCode + "0004";
 	}
 
-	public String registerUser(Employee employee, String panFilePath, String aadhaarFilePath) {
+	public String registerUser(Employee employee, String panFilePath, String aadhaarFilePath, String profileFilePath) {
 		String employeeID = generateReferralCode();
 		employee.setEmployeeId(employeeID);
 		employee.setPassword(passwordEncoder.encode(employee.getPassword()));
@@ -87,6 +86,7 @@ public class EmployeeService {
 		employee.setIncentiveAmount(employee.getIncentiveAmount());
 		employee.setEmail(employee.getEmail());
 		employee.setPanCard(panFilePath);
+		employee.setProfileImage(profileFilePath);
 		employee.setStatus("ACTIVE");
 		employeeRepository.save(employee);
 		return employeeID;

@@ -15,12 +15,22 @@ import java.nio.file.*;
 @RequestMapping("/files")
 public class FileController {
 
-    private final Path UPLOADS_DIR = Paths.get("uploads/documents").toAbsolutePath().normalize();
+    private final Path DOCUMENTS_DIR = Paths.get("uploads/documents").toAbsolutePath().normalize();
+    private final Path PROFILE_DIR = Paths.get("uploads/profile").toAbsolutePath().normalize();
 
-    @GetMapping("/{filename}")
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+    @GetMapping("/{type}/{filename}")
+    public ResponseEntity<Resource> serveFile(@PathVariable String type, @PathVariable String filename) {
         try {
-            Path filePath = UPLOADS_DIR.resolve(filename).normalize();
+            Path baseDir;
+            if ("documents".equalsIgnoreCase(type)) {
+                baseDir = DOCUMENTS_DIR;
+            } else if ("profile".equalsIgnoreCase(type)) {
+                baseDir = PROFILE_DIR;
+            } else {
+                return ResponseEntity.badRequest().build();
+            }
+
+            Path filePath = baseDir.resolve(filename).normalize();
             Resource resource = new UrlResource(filePath.toUri());
 
             if (!resource.exists() || !resource.isReadable()) {

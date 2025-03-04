@@ -13680,10 +13680,15 @@ table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > td:first-child::
       padding: 60px; } }
   .br-section-wrapper .br-section-label:first-child {
     margin-top: 0; }
+  
+   
 
 .br-footer {
+	position:sticky;
   font-size: 12px;
-  padding: 20px 15px; }
+  padding: 20px 15px; 
+  top:100vh;
+  }
   .br-footer a {
     color: #6c757d; }
     .br-footer a:hover, .br-footer a:focus {
@@ -40084,3 +40089,4 @@ a.hover-white-8:hover, a.hover-white-8:focus {
 .table tbody td{
 	margin:0;
 }
+

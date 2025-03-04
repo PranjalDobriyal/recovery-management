@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>All Payroll</title>
 <th:block th:replace="admin/fragments :: css"></th:block>
 <th:block th:replace="admin/fragments :: scripts"></th:block>
@@ -45,13 +46,13 @@
 		</div>
 
 
-		<div class="br-pagebody mt-0">
-		 <div class="row mb-3">
-		  <div class="col-md-4">
+		<div class="br-pagebody ">	
+		 <div class="row mb-4">
+		  <div class="col-md-4 mb-3">
                     <div class="bg-info rounded overflow-hidden">
-                        <div class="pd-x-20 pd-t-20 d-flex align-items-center">
+                        <div class="pd-x-20 pd-t-20 d-flex align-items-center ">
                             <i class="ion ion-earth tx-60 lh-0 tx-white op-7"></i>
-                            <div class="mg-l-20">
+                            <div class="mg-x-20">
                                 <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">
                                     Total Employee</p>
                                 <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1" th:text="${session.countEmployee}"></p>
@@ -61,7 +62,7 @@
                         <div id="ch1" class="ht-50 tr-y-1"></div>
                     </div>
                 </div>
-                <div class="col-md-4">
+               <div class="col-md-4 mb-3">
                     <div class="bg-info rounded overflow-hidden">
                         <div class="pd-x-20 pd-t-20 d-flex align-items-center">
                             <i class="ion ion-earth tx-60 lh-0 tx-white op-7"></i>
@@ -75,7 +76,7 @@
                         <div id="ch1" class="ht-50 tr-y-1"></div>
                     </div>
                 </div><!-- col-3 -->
-                <div class="col-md-4">
+         <div class="col-md-4 mb-3">
                     <div class="bg-purple rounded overflow-hidden">
                         <div class="pd-x-20 pd-t-20 d-flex align-items-center">
                             <i class="ion ion-bag tx-60 lh-0 tx-white op-7"></i>
@@ -91,37 +92,7 @@
                     </div>
                 </div><!-- col-3 -->
                 </div>
-              <!--   <div class="col-sm-6 col-xl-3 mg-t-20 mg-xl-t-0">
-                    <div class="bg-teal rounded overflow-hidden">
-                        <div class="pd-x-20 pd-t-20 d-flex align-items-center">
-                            <i class="ion ion-monitor tx-60 lh-0 tx-white op-7"></i>
-                            <div class="mg-l-20">
-                                <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">
-                                    Total Funds</p>
-                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1" 
-   th:text="${session.totalFund == null ? '₹0' : '₹' + session.totalFund}"></p>
-
-                                <span class="tx-11 tx-roboto tx-white-8"></span>
-                            </div>
-                        </div>
-                        <div id="ch2" class="ht-50 tr-y-1"></div>
-                    </div>
-                </div>col-3
-                <div class="col-sm-6 col-xl-3 mg-t-20 mg-xl-t-0">
-                    <div class="bg-primary rounded overflow-hidden">
-                        <div class="pd-x-20 pd-t-20 d-flex align-items-center">
-                            <i class="ion ion-clock tx-60 lh-0 tx-white op-7"></i>
-                            <div class="mg-l-20">
-                                <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">Total Clients</p>
-                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1" th:text="${session.totalClient == null ? '₹0' : session.totalClient}"></p>
-                                <span class="tx-11 tx-roboto tx-white-8"></span>
-                            </div>
-                        </div>
-                        <div id="ch4" class="ht-50 tr-y-1"></div>
-                    </div>
-                </div>col-3
-            </div>row
-		 -->
+           
 
 			<!-- Filter Form -->
 			<div class="container">
@@ -172,7 +143,7 @@
 					</div>
 
 					<!-- Lock Salary Form -->
-					<div class="col-md-5 mg-l-80">
+					<div class="col-md-5 ">
 						<form th:action="@{/admin/payroll/lock}" method="get" class="mb-4"
 							id="filterForm">
 							<div class="row g-3">
@@ -312,8 +283,8 @@
 
 
 				<!-- Expense Table -->
-				<div class="table-wrapper">
-    <table id="datatable1" class="table display responsive table-bordered nowrap">
+				<div class="table-responsive">
+    <table id="datatable1" class="table display responsive table-striped nowrap">
         <thead>
             <tr>
                 <th class="col-1">#</th>

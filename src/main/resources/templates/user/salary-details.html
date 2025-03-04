@@ -57,7 +57,10 @@
 								<div class="col-md-4">
 									<label>Month:</label> <select name="month" class="form-control">
 										<!-- Current Month Option -->
-											<option value="ALL" selected>All</option>
+										<option
+											th:value="${#dates.format(#dates.createNow(), 'MMMM')}"
+											th:text="'Current (' + ${#dates.format(#dates.createNow(), 'MMMM')} + ')'"
+											selected></option>
 
 										<!-- Static Month Options -->
 										<option value="January">January</option>

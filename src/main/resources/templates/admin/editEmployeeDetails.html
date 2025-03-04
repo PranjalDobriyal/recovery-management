@@ -2,6 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Edit Details</title>
     <th:block th:replace="admin/fragments :: css"></th:block>
     <th:block th:replace="admin/fragments :: scripts"></th:block>
@@ -85,6 +87,13 @@
 								</div>
 							</div>
 							<!-- col-8 -->
+							<div class="col-lg-3">
+								<div class="form-group">
+									<label class="form-control-label">Profile Picture<span
+										class="tx-danger">*</span></label> 
+										<input class="form-control" type="file" name="profileFile" accept=".jpg,.jpeg,.png" >
+								</div>
+							</div>
 							
 							<div class="col-lg-3">
 								<div class="form-group">
@@ -178,14 +187,14 @@
 							</div>
 							<!-- col-4 -->
 							<!-- FOS Type field, initially hidden -->
-							<div class="col-lg-3">
+							<!-- <div class="col-lg-3">
 								<div class="form-group">
 									<label class="form-control-label">Salary<span
 										class="tx-danger">*</span></label> <input class="form-control"
 										type="number" name="salary" th:value="${employee.salary}"
 										placeholder="Enter salary">
 								</div>
-							</div>
+							</div> -->
 							<div class="col-lg-3">
 								<div class="form-group mg-b-10-force">
 									<label class="form-control-label">Has Incentive <span
@@ -202,7 +211,7 @@
 									</select>
 								</div>
 							</div>
-							<div class="col-lg-3" id="incentiveAmountdiv"
+							<!-- <div class="col-lg-3" id="incentiveAmountdiv"
 								th:style="${employee.hasIncentive == true ? 'display:block;' : 'display:none;'}">
 
 								<div class="form-group">
@@ -221,7 +230,7 @@
 										th:value="${employee.totalSales}"
 										placeholder="Enter total sales">
 								</div>
-							</div>
+							</div> -->
 							<div class="col-lg-3" id="commissionfielddiv"
 								th:style="${employee.paymentType == 'Commission' ? 'display:block;' : 'display:none;'}">
 								<div class="form-group">

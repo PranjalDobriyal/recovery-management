@@ -73,12 +73,14 @@ public class EmployeeAllowanceService {
                 employeeAllowance.setAmount(amountValue);
                 // Optionally clear any existing percentage value
                 employeeAllowance.setPercentage(null);
-            } else if (allowance.getAllowanceType() == com.recovery.managementsystem.model.Allowance.AllowanceType.PERCENTAGE) {
-                Double percentageValue = allowancePercentages.get(allowance.getAllowanceId());
-                employeeAllowance.setPercentage(percentageValue);
-                // Optionally clear any existing amount value
-                employeeAllowance.setAmount(null);
-            }
+			} /*
+				 * else if (allowance.getAllowanceType() ==
+				 * com.recovery.managementsystem.model.Allowance.AllowanceType.PERCENTAGE) {
+				 * Double percentageValue =
+				 * allowancePercentages.get(allowance.getAllowanceId());
+				 * employeeAllowance.setPercentage(percentageValue); // Optionally clear any
+				 * existing amount value employeeAllowance.setAmount(null); }
+				 */
             toAddOrUpdate.add(employeeAllowance);
         }
 

@@ -42,7 +42,7 @@ public class Allowance {
     private Set<EmployeeAllowance> employeeAllowances = new HashSet<>();
 
 	  public enum AllowanceType {
-	        AMOUNT, PERCENTAGE
+	        AMOUNT
 	    }
 	  public String getAllowanceTypeString() {
 		    return this.allowanceType != null ? this.allowanceType.name() : null;

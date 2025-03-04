@@ -2,6 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Add Fund</title>
 <th:block th:replace="admin/fragments :: css"></th:block>
 <th:block th:replace="admin/fragments :: scripts"></th:block>
@@ -56,7 +58,7 @@
 								<div class="form-group mg-b-10-force">
 									<label class="form-control-label">Employee<span
 										class="tx-danger">*</span></label> <select
-										class="form-control select2" name="employeeId">
+										class="form-control select2" name="employeeId" required>
 										<option value="" th:selected="${fund.employee == null}">Choose
 											one</option>
 										<option th:each="type : ${allEmployees}"
@@ -71,7 +73,7 @@
 								<div class="form-group mg-b-10-force">
 									<label class="form-control-label">Amount Type<span
 										class="tx-danger">*</span></label> 
-										<select class="form-control select2" th:field="*{amountType}">
+										<select class="form-control select2" th:field="*{amountType}" required>
 										<option value=""
 											th:selected="${fund.amountType== null}">Choose
 											one</option>
@@ -109,7 +111,7 @@
 								<div class="form-group mg-b-10-force">
 									<label class="form-control-label">Payment Mode<span
 										class="tx-danger">*</span></label> <select
-										class="form-control select2" name="paymentMode" th:field="*{paymentMode}">
+										class="form-control select2" name="paymentMode" th:field="*{paymentMode}" required>
 										
 										<option value=""
 											th:selected="${fund.paymentMode == null}">Choose

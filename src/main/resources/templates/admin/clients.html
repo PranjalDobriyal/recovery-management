@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>All Allowances</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Clients</title>
 <th:block th:replace="admin/fragments :: css"></th:block>
 <th:block th:replace="admin/fragments :: scripts"></th:block>
 </head>
@@ -52,8 +53,8 @@
 			<div class="br-section-wrapper pd-20">
 
 
-				<div class="table-wrapper">
-					<table id="datatable1" class="display table table-bordered responsive nowrap">
+				<div class="table-responsive">
+					<table id="datatable1" class="display table table-striped responsive nowrap">
 						<thead>
                             <tr>
                                 <th class="wd-10p">#</th>
@@ -113,7 +114,7 @@
 			'use strict';
 
 			$('#datatable1').DataTable({
-				responsive : false,
+				responsive : true,
 				language : {
 					searchPlaceholder : 'Search...',
 					sSearch : '',
