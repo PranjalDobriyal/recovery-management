@@ -29,6 +29,8 @@ import javax.persistence.Id;
 	
 	private BigDecimal netSalary;
 	
+	private String status;
+	
 	@Column
 	@Enumerated(EnumType.STRING)
 	private Month month;	
@@ -124,6 +126,14 @@ import javax.persistence.Id;
 
 	public void setYear(int year) {
 		this.year = year;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	

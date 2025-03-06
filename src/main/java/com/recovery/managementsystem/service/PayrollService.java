@@ -65,7 +65,6 @@ public class PayrollService {
 	    
 	    for (Employee employee : employees) { 
 	        List<EmployeeAllowance> employeeAllowances = employeeAllowanceService.getEmployeeAllowancesByEmployee_Id(employee.getEmployeeId());
-	        
 	        for (EmployeeAllowance ea : employeeAllowances) {
 	            Payroll payroll = new Payroll();
 	            payroll.setAllowanceAmount(ea.getAmount());
@@ -84,15 +83,15 @@ public class PayrollService {
 	    Integer year = LocalDate.now().getYear();
 	    List<Employee> employees = employeeService.getAllUsersExceptAdmin();
 
-	    // Loop through all months from January to the current month
-	    for (int monthValue = 1; monthValue <= 12; monthValue++) {
-	        Month month = Month.of(monthValue); // Convert int to Month enum
+	    for (Employee employee : employees) {
+	        // Get distinct months where payroll is generated for this employee
+	        List<Month> monthsWithPayroll = payrollRepository.findDistinctMonthsByEmployeeId(employee.getEmployeeId(), year);
 
-	        for (Employee employee : employees) {
+	        for (Month month : monthsWithPayroll) {
 	            BigDecimal totalAllowance = BigDecimal.ZERO;
 	            BigDecimal totalDeduction = BigDecimal.ZERO;
 
-	            // Fetch payroll records for this employee for this month
+	            // Fetch payroll records for this employee for the given month
 	            List<Payroll> payrolls = payrollRepository.getPayrollByEmployeeId(employee.getEmployeeId(), month, year);
 	            for (Payroll payroll : payrolls) {
 	                if (payroll.getAllowanceAmount() != null) {
@@ -100,7 +99,7 @@ public class PayrollService {
 	                }
 	            }
 
-	            // Fetch deductions for this employee for this month
+	            // Fetch deductions for this employee for the given month
 	            Deductions deduction = deductionsRepository.findAllByIdAndMonth(employee.getEmployeeId(), month, year);
 	            if (deduction != null && deduction.getDeductionAmount() != null) {
 	                totalDeduction = totalDeduction.add(deduction.getDeductionAmount());
@@ -108,7 +107,7 @@ public class PayrollService {
 
 	            // Check if payroll summary already exists
 	            PayrollSummary payrollSummary = payrollSummaryRepository.findByEmployeeId(employee.getEmployeeId(), month, year);
-	            if (payrollSummary != null) {
+	            if (payrollSummary != null && employee.getStatus().equalsIgnoreCase("ACTIVE")) {
 	                // Update existing payroll summary
 	                payrollSummary.setTotalAllowance(totalAllowance);
 	                payrollSummary.setTotalDeduction(totalDeduction);
@@ -121,7 +120,7 @@ public class PayrollService {
 	                payrollSummary.setTotalAllowance(totalAllowance);
 	                payrollSummary.setTotalDeduction(totalDeduction);
 	                payrollSummary.setNetSalary(totalAllowance.subtract(totalDeduction));
-	                payrollSummary.setMonth(month); // Store month as string (e.g., "JANUARY")
+	                payrollSummary.setMonth(month);
 	                payrollSummary.setYear(year);
 	            }
 

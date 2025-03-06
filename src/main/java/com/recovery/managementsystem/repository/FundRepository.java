@@ -35,6 +35,38 @@ public interface FundRepository extends JpaRepository<FundManage, Integer> {
             @Param("toDate") LocalDate toDate,
             Pageable pageable);
 
+
+	@Query("SELECT f FROM FundManage f WHERE "
+			+ " (:id IS NULL OR f.employee.employeeId = :id )" +
+		       "AND (:amountType IS NULL OR f.amountType = :amountType) " +
+		       "AND (:paymentMode IS NULL OR f.paymentMode = :paymentMode) " +
+		       "AND (:category IS NULL OR f.category = :category) " +
+		       "AND (:fromDate IS NULL OR f.entryDate >= :fromDate) " +
+		       "AND (:toDate IS NULL OR f.entryDate <= :toDate)")
+	Page<FundManage> viewAllFunds(String id, String amountType, String paymentMode, String category, LocalDate fromDate,
+			LocalDate toDate,   Pageable pageable);
+
 	
+	@Query("SELECT COALESCE(SUM(f.fundAmount), 0) FROM FundManage f WHERE "
+			+"(f.amountType='CREDIT')"+
+			   "AND (:id IS NULL OR f.employee.employeeId = :id )" +
+		       "AND (:amountType IS NULL OR f.amountType = :amountType) " +
+		       "AND (:paymentMode IS NULL OR f.paymentMode = :paymentMode) " +
+		       "AND (:category IS NULL OR f.category = :category) " +
+		       "AND (:fromDate IS NULL OR f.entryDate >= :fromDate) " +
+		       "AND (:toDate IS NULL OR f.entryDate <= :toDate)")
+	BigDecimal totalCreditAllFunds(String id, String amountType, String paymentMode, String category, LocalDate fromDate,
+			LocalDate toDate);
+
+	@Query("SELECT COALESCE(SUM(f.fundAmount), 0) FROM FundManage f WHERE "
+			+"(f.amountType='DEBIT')"+
+			   "AND (:id IS NULL OR f.employee.employeeId = :id )" +
+		       "AND (:amountType IS NULL OR f.amountType = :amountType) " +
+		       "AND (:paymentMode IS NULL OR f.paymentMode = :paymentMode) " +
+		       "AND (:category IS NULL OR f.category = :category) " +
+		       "AND (:fromDate IS NULL OR f.entryDate >= :fromDate) " +
+		       "AND (:toDate IS NULL OR f.entryDate <= :toDate)")
+	BigDecimal totalDebitAllFunds(String id, String amountType, String paymentMode, String category, LocalDate fromDate,
+			LocalDate toDate);
 	
 }

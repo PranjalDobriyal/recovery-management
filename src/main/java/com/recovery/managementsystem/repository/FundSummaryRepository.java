@@ -23,16 +23,21 @@ public interface FundSummaryRepository extends JpaRepository<FundSummary, Intege
 	@Query("Select f from FundSummary f where f.employeeId = :employeeId")
 	void deleteByEmployeeId(String employeeId);
 
-	@Query("SELECT f FROM FundSummary f WHERE " + "(:employeeId IS NULL OR f.employeeId = :employeeId)")
+	@Query("SELECT f FROM FundSummary f WHERE " + "(:employeeId IS NULL OR f.employeeId = :employeeId)"+
+	"ORDER BY f.id DESC"
+	
+			)
 	Page<FundSummary> getFilteredExpense(String employeeId, Pageable pageable);
 
 	@Query("Select SUM(f.totalCredit) from FundSummary f")
 	BigDecimal totalFund();
 
-	@Query("Select SUM(f.totalCredit) from FundSummary f where f.employeeId = :employeeId")
+	@Query("Select SUM(f.totalCredit) from FundSummary f where "
+			+ "(:employeeId IS NULL OR f.employeeId = :employeeId)")
 	BigDecimal totalCredit(String employeeId);
 
-	@Query("Select SUM(f.totalDebit) from FundSummary f where f.employeeId = :employeeId")
+	@Query("Select SUM(f.totalDebit) from FundSummary f where"
+			+ "(:employeeId IS NULL OR f.employeeId = :employeeId)")
 	BigDecimal totalDebit(String employeeId);
 
 	@Query("SELECT COALESCE(SUM(f.totalCredit), 0) FROM FundSummary f WHERE "
@@ -40,5 +45,8 @@ public interface FundSummaryRepository extends JpaRepository<FundSummary, Intege
 			+ "AND (:fromDate IS NULL OR f.entryDate >= :fromDate) "
 			+ "AND (:toDate IS NULL OR f.entryDate <= :toDate)")
 	BigDecimal getTotalFunds(String employeeId, LocalDate fromDate, LocalDate toDate);
+
+	
+	List<FundSummary>  findAllByOrderByIdDesc();
 
 }

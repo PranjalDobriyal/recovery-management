@@ -54,10 +54,9 @@ public class FundController {
 		            selectedPaymentMode = null;
 		        }
 		    }
-		amountType = (amountType != null && amountType.isEmpty()) ? null : amountType;
-	    paymentMode = (paymentMode != null && paymentMode.isEmpty()) ? null : paymentMode;
-	    category = (category != null && category.isEmpty()) ? null : category;
-		BigDecimal totalFunds = fundService.getTotalFunds(employeeId,fromDate,toDate);
+		employeeId = (employeeId != null && employeeId.isEmpty()) ? null : employeeId;
+		
+		
 		List<Employee> allEmployees = employeeService.getAllUsersExceptAdmin();
 
 		Page<FundSummary> fundPage = fundService.getFilteredExpenses(page, size, employeeId);
@@ -66,13 +65,9 @@ public class FundController {
 		model.addAttribute("currentPage", page);
 		model.addAttribute("size", size);
 		model.addAttribute("allEmployees", allEmployees);
-		model.addAttribute("totalFunds", totalFunds);
+		
 		/* model.addAttribute("selectedEmployee", employeeId); */
-		model.addAttribute("selectedamountType", amountType);
-	    model.addAttribute("selectedpaymentMode", selectedPaymentMode);
-	    model.addAttribute("selectedcategory", category);
-	    model.addAttribute("selectedfromDate", fromDate);
-		model.addAttribute("selectedtoDate", toDate);
+		
 	    model.addAttribute("employee", employeeService.findByEmployeeId(employeeId));
 		model.addAttribute("paymentTypes", com.recovery.managementsystem.model.Expense.PaymentType.values());
 
@@ -150,6 +145,57 @@ public class FundController {
 		model.addAttribute("paymentTypes", com.recovery.managementsystem.model.Expense.PaymentType.values());
 		
 		return "admin/emp-fund";
+
+	}
+	@GetMapping("/view-all-funds")
+	public String viewAllFunds(
+			@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "50") int size, 
+			@RequestParam(required = false) String id,
+			@RequestParam(required = false) String amountType,
+			@RequestParam(required = false) String paymentMode, 
+			@RequestParam(required = false) String category,
+			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
+			Model model) {
+		   Expense.PaymentType selectedPaymentMode = null;
+		    if (paymentMode != null && !paymentMode.isEmpty()) {
+		        try {
+		            selectedPaymentMode = Expense.PaymentType.valueOf(paymentMode);
+		        } catch (IllegalArgumentException e) {
+		            selectedPaymentMode = null;
+		        }
+		    }
+		id = (id != null && id.isEmpty()) ? null : id;
+		if(id!=null)
+		{
+			Employee employee=employeeService.findByEmployeeId(id);
+			 model.addAttribute("employee", employee);
+		}
+		
+		amountType = (amountType != null && amountType.isEmpty()) ? null : amountType;
+	    paymentMode = (paymentMode != null && paymentMode.isEmpty()) ? null : paymentMode;
+	    category = (category != null && category.isEmpty()) ? null : category;
+		List<Employee> allEmployees = employeeService.getAllUsersExceptAdmin();
+		Page<FundManage> fundPage = fundService.viewAllFunds(page, size,id, amountType, paymentMode, category,fromDate,toDate);
+		BigDecimal totalcredit=fundService.getTotalAllCredit(id, amountType, paymentMode, category,fromDate,toDate);
+		BigDecimal totaldebit=fundService.getTotalAllDebit(id, amountType, paymentMode, category,fromDate,toDate);
+		model.addAttribute("paymentTypes", com.recovery.managementsystem.model.Expense.PaymentType.values());
+		model.addAttribute("funds", fundPage.getContent());
+		model.addAttribute("currentPage", page);
+	    model.addAttribute("size", size);
+	    model.addAttribute("allEmployees", allEmployees);
+	    model.addAttribute("selectedamountType", amountType);
+	    model.addAttribute("selectedpaymentMode", selectedPaymentMode);
+	    model.addAttribute("selectedcategory", category);
+	    model.addAttribute("selectedfromDate", fromDate);
+		model.addAttribute("selectedtoDate", toDate);
+		model.addAttribute("totalcredit",totalcredit);
+		model.addAttribute("totaldebit", totaldebit);
+	  
+		model.addAttribute("paymentTypes", com.recovery.managementsystem.model.Expense.PaymentType.values());
+		
+		return "admin/view-all-funds";
 
 	}
 }

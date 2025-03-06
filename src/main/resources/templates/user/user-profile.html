@@ -7,6 +7,7 @@
     <title>User Profile</title>
     
     <style>
+        /* General styles */
         .profile-card {
             max-width: 800px;
             margin: auto;
@@ -49,15 +50,116 @@
             height: 300px;
             border: 1px solid #ccc;
         }
+      
+        
+
+        /* Print-specific styles */
+        @media print {
+            body {
+                font-size: 12pt;
+                font-family: Arial, sans-serif;
+            }
+
+            .print-only {
+                display: block;
+            }
+
+            .no-print {
+                display: none;
+            }
+
+            .profile-card {
+                position: relative;
+            }
+
+            .profile-card::before {
+                content: "AONE RECOVERY";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 60pt;
+                color: #ddd;
+                z-index: -1;
+            }
+    body {
+        font-size: 12pt;
+        font-family: Arial, sans-serif;
+        position: relative;
+    }
+
+    /* Hide unnecessary elements */
+   .br-header {
+        display: none !important;
+    }
+
+    /* Watermark Effect */
+    @page {
+        size: A4; /* Ensures consistency across different printers */
+    }
+.print-btn 
+{
+display: none !important;
+}
+.no-print
+{
+display: none !important;
+}
+
+.footer{
+display: none !important;
+
+
+}
+    html::before {
+        content: "AONE RECOVERY";
+        position: fixed;
+        top: 20%;
+        left: 35%;
+        transform: translate(-50%, -50%) rotate(-30deg);
+        font-size: 100px;
+        font-weight: bold;
+      color: rgba(0, 0, 0, 0.05); /* Lighter and more transparent */
+        z-index: 1;
+        white-space: nowrap;
+        pointer-events: none;
+    }
+  
+}
+@media (max-width: 768px) {
+    .document-container img {
+        max-width: 100%;
+        height: auto;
+    }
+/* Mobile Responsive */
+@media (min-width: 768px) {
+    .container {
+        flex-direction: row; /* Side-by-side for bigger screens */
+        justify-content: space-between;
+    }
+    .profile-card
+     {
+        width: 60%;
+    }
+    .document-container {
+        width: 35%;
+    }
+}
+ 
+
+}
+   
+            
+     
     </style>
     <th:block th:replace="admin/fragments :: css"></th:block>
     <th:block th:replace="admin/fragments :: scripts"></th:block>
 </head>
 
 <body>
-    <th:block th:insert="admin/admin-dashboard :: logo"></th:block>
-    <th:block th:insert="user/dashboard :: sidebar"></th:block>
-    <div class="br-header">
+    <th:block th:insert="admin/admin-dashboard :: logo" class="no-print"></th:block>
+    <th:block th:insert="user/dashboard :: sidebar" class="no-print"></th:block>
+    <div class="br-header no-print">
         <div class="br-header-left">
             <div class="navicon-left hidden-md-down">
                 <a id="btnLeftMenu" href="#"><i class="icon ion-navicon-round"></i></a>
@@ -71,10 +173,10 @@
                 </div>
             </div>
         </div>
-        <th:block th:insert="user/dashboard :: header"></th:block>
+        <th:block th:insert="user/dashboard :: header" class="no-print"></th:block>
     </div>
     <div class="br-mainpanel">
-        <div class="mt-10px my-2 mg-l-40 d-flex justify-content-end">
+        <div class="mt-10px my-2 mg-l-40 d-flex justify-content-end no-print">
             <a th:href="@{/admin/allowances}"></a>
         </div>
         <div class="br-pagebody mt-0">
@@ -97,14 +199,15 @@
                                 <li class="list-group-item"><strong>Employee Type:</strong> <span th:text="${session.employee.employeeType}"></span></li>
                                 <li class="list-group-item"><strong>Status:</strong> <span th:text="${session.employee.status}"></span></li>
                                 <li class="list-group-item"><strong>Role:</strong> <span th:text="${session.employee.role}"></span></li>
-                                <li class="list-group-item"><strong>Salary:</strong> <span th:text="${session.employee.salary}"></span></li>
-                            </ul>
+<!--                                 <li class="list-group-item"><strong>Salary:</strong> <span th:text="${session.employee.salary}"></span></li>
+ -->                            </ul>
                         </div>
                     </div>
                 </div>
-                <div class="container document-container">
-                    <h4>Documents</h4>
+               <div class="container document-container"> 
+                     <h3>Documents:</h3>
                     <div class="row">
+                   
                         <div class="col-md-8">
                             <h5>Aadhaar Card:</h5>
                            <img th:src="@{/files/documents/{filename}(filename=${session.employee.adhaarCard})}" alt="Aadhaar Card" width="300px" height="250px" />
@@ -114,13 +217,13 @@
                            <img th:src="@{/files/documents/{filename}(filename=${session.employee.panCard})}" alt="Pan Card" width="300px" height="300px" />
                         </div>
                     </div>
-                </div>
+               </div>
             </div>
         </div>
         <div class="print-btn mg-l-5">
             <button onclick="window.print()" class="btn btn-primary">Print Profile</button>
         </div>
-        <th:block th:insert="user/dashboard :: footer"></th:block>
+        <th:block th:insert="user/dashboard :: footer" class="no-print"></th:block>
     </div>
 </body>
 </html>

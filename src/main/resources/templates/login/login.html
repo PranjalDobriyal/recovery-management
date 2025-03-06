@@ -16,14 +16,18 @@
 
     <!-- Bracket CSS -->
     <link th:href="@{/css/bracket.css}" rel="stylesheet">
+    <style type="text/css">
+    body {
+	    background: rgb(106,223,242);
+background: linear-gradient(90deg, rgba(106,223,242,1) 11%, rgba(22,162,185,1) 50%, rgba(0,212,255,1) 100%);
+}
+    </style>
   </head>
 
   <body>
 
     <div class="d-flex align-items-center justify-content-center ht-100v">
-	      <video id="headVideo" class="pos-absolute a-0 wd-100p ht-100p object-fit-cover" autoplay muted loop>
-	        <source src="/images/login.mp4" type="video/mp4">
-	      </video>
+	    
       <div class="overlay-body bg-black-7 d-flex align-items-center justify-content-center">
         <div class="login-wrapper wd-300 wd-xs-350 pd-25 pd-xs-40 rounded bg-black-6">
           <div class="signin-logo tx-center tx-28 tx-bold tx-white"><span class="tx-normal"></span>AONE <span class="tx-info">RECOVERY</span> <span class="tx-normal"></span></div>

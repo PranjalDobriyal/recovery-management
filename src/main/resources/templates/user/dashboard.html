@@ -118,8 +118,9 @@
                             <div class="mg-l-20">
                                 <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">
                                     Fund Balance</p>
-                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1" th:text="₹ +${session.fundBalance}"></p>
-                               <!--  <span class="tx-11 tx-roboto tx-white-8">24% higher yesterday</span> -->
+                               <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1" 
+   th:text="${session.fundBalance != null ? '₹' + session.fundBalance : '₹0'}">
+</p>
                             </div>
                         </div>
                         <div id="ch1" class="ht-50 tr-y-1"></div>
@@ -132,9 +133,10 @@
                             <div class="mg-l-20">
                                 <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">Total
                                    Credit</p>
-                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1" th:text="₹ +${session.totalCredit}" th:if="${session.totalCredit}==null?0 :${session.totalCredit}"></p>
-<!--                                 <span class="tx-11 tx-roboto tx-white-8">$390,212 before tax</span>
- -->                            </div>
+                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1" 
+   th:text="${session.totalCredit != null ? '₹' + session.totalCredit : '₹0'}">
+</p>
+                          </div>
                         </div>
                         <div id="ch3" class="ht-50 tr-y-1"></div>
                     </div>
@@ -146,7 +148,10 @@
                             <div class="mg-l-20">
                                 <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">Total Debit
                                     </p>
-                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1" th:text="₹ +${session.totalDebit}" th:if="${session.totalDebit}==null?0 :${session.totalDebit}"></p>
+                               <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1" 
+   th:text="${session.totalDebit != null ? '₹' + session.totalDebit : '₹0'}">
+</p>
+
                            </div>
                         </div>
                         <div id="ch2" class="ht-50 tr-y-1"></div>

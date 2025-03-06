@@ -73,7 +73,7 @@ public class FundService {
 
 	public List<FundSummary> getFundSummary() {
 		generateFundSummary();
-		return fundSummaryRepository.findAll();
+		return fundSummaryRepository.findAllByOrderByIdDesc();
 	}
 
 	public Page<FundSummary> getFilteredExpenses(int page, int size, String employeeId) {
@@ -122,6 +122,15 @@ public class FundService {
 	public BigDecimal getTotalCredit(String employeeId) {
 		return fundSummaryRepository.totalCredit(employeeId);
 	}
+	public BigDecimal getTotalAllCredit(String id, String amountType, String paymentMode, String category, LocalDate fromDate, LocalDate toDate) {
+		return fundRepository.totalCreditAllFunds(id, amountType, paymentMode, category, fromDate, toDate);
+	}
+
+	public BigDecimal getTotalAllDebit(String id, String amountType, String paymentMode, String category,
+			LocalDate fromDate, LocalDate toDate) {
+		return fundRepository.totalDebitAllFunds(id, amountType, paymentMode, category, fromDate, toDate);
+
+	}
 
 	public BigDecimal getTotalDebit(String employeeId) {
 		// TODO Auto-generated method stub
@@ -135,4 +144,11 @@ public class FundService {
 	public BigDecimal getTotalFunds(String employeeId, LocalDate fromDate, LocalDate toDate) {
 		return fundSummaryRepository.getTotalFunds(employeeId, fromDate, toDate);
 	}
+
+	public Page<FundManage> viewAllFunds(int page, int size, String id, String amountType, String paymentMode,
+			String category, LocalDate fromDate, LocalDate toDate) {
+		return fundRepository.viewAllFunds(id, amountType, paymentMode, category, fromDate, toDate,
+				PageRequest.of(page, size));
+	}
+
 }

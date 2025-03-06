@@ -35,6 +35,12 @@ public interface PayrollRepository extends JpaRepository<Payroll, Integer> {
 	List<Payroll> findByEmployeeId(String employeeId);
 
 
+
+	
+
+	@Query("SELECT DISTINCT p.month FROM Payroll p WHERE p.employee.employeeId = :employeeId AND p.year = :year")
+	List<Month> findDistinctMonthsByEmployeeId(@Param("employeeId") String employeeId, @Param("year") Integer year);
+
     
 
 	
